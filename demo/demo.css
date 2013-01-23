@@ -1,0 +1,69 @@
+/* Demo
+-------------------------- */
+
+.btn {
+	background-color: #fefefe;
+	background-image: -webkit-linear-gradient( top, rgba( 255,255,255,.1 ) 0%, rgba( 255,255,255,.1 ) 50%, rgba( 170,170,170,.1 ) 55%, rgba( 120,120,120,.15 ) 100% );
+	background-image: -moz-linear-gradient( top, rgba( 255,255,255,.1 ) 0%, rgba( 255,255,255,.1 ) 50%, rgba( 170,170,170,.1 ) 55%, rgba( 120,120,120,.15 ) 100% );
+	background-image: linear-gradient( top, rgba( 255,255,255,.1 ) 0%, rgba( 255,255,255,.1 ) 50%, rgba( 170,170,170,.1 ) 55%, rgba( 120,120,120,.15 ) 100% );
+	border: 1px solid #ccc;
+	border-radius: .4em;
+	box-shadow: 0 1px 0 rgba(255,255,255,1);
+	color: #308bd3;
+	cursor: pointer;
+	display: block;
+	font: bold 14px/1 sans-serif;
+	padding: .6em 0 .5em 0;
+	position: relative;
+	text-align: center;
+	text-decoration: none;
+	text-transform: capitalize;
+	text-shadow: 0 1px 0 #fff;
+	width: 100%;
+
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-ms-box-sizing: border-box;
+	box-sizing: border-box;
+}
+.btn-small {
+	display: inline-block;
+	font-size: .8em;
+	padding: .4em 2% .35em 2%;
+	width: auto;
+}
+.source {
+	background: #aaa;
+	border: 6px solid rgba(0,0,0,.25);
+	border-radius: 7px;
+	margin: .5em 0 2.5em 0;
+}
+aside {
+	padding: .5em;
+}
+blockquote {
+	font-size: 1.6em;
+	margin: 0;
+	position: relative;
+}
+blockquote:before {
+	color: #ccc;
+	content: "“";
+	font-size: 4em;
+	left: 0;
+	line-height: .25;
+	position: absolute;
+	top: 0;
+	z-index: 1;
+}
+blockquote p {
+	position: relative;
+	margin: 1em;
+	z-index: 2;
+}
+address {
+	font-size: 1.2em;
+}
+cite {
+	font-size: 1.1em;
+}

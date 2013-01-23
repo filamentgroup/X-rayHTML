@@ -1,0 +1,76 @@
+
+
+/* Code Viewer */
+
+.source {
+	position: relative;
+
+	-webkit-perspective: 2500px;
+	-moz-perspective: 2500px;
+	perspective: 2500px;
+}
+.snippet,
+.source-panel {
+	border: 1px solid #555;
+	background: #eee;
+}
+.snippet {
+	padding: 0;
+	margin: 0;
+	position: relative;
+	top: 0;
+	left: 0;
+	z-index: 2;
+	min-height: 100%;
+}
+.source-panel {
+	position: absolute;
+	top: 0;
+	left: 0;
+	tab-size: 3;
+	width: 100%;
+	height: 100%;
+	overflow-x: scroll;
+}
+.source-panel code,
+.source-panel pre {
+	margin: 0;
+	white-space: pre-wrap;
+}
+.btn-copy {
+	border-width: 0 0 1px 0;
+	border-radius: 0;
+}
+
+/* Flip Animation */
+
+.snippet {
+	-webkit-transform: rotateY(0deg);
+	-webkit-transform-style: preserve-3d;
+	-webkit-backface-visibility: hidden;
+
+	-moz-transform: rotateY(0deg);
+	-moz-transform-style: preserve-3d;
+	-moz-backface-visibility: hidden;
+
+	-webkit-transition: -webkit-transform .4s ease-in-out;
+	-moz-transition: -moz-transform .4s ease-in-out;
+}
+.view-source .snippet {
+	-webkit-transform: rotateY(180deg);
+	-moz-transform: rotateY(180deg);
+}
+.source-panel {
+	-webkit-transform: rotateY(-180deg);
+	-webkit-backface-visibility: hidden;
+
+	-moz-transform: rotateY(-180deg);
+	-moz-backface-visibility: hidden;
+	
+	-moz-transition: all .4s ease-in-out;
+	-webkit-transition: all .4s ease-in-out;
+}
+.view-source .source-panel {
+	-webkit-transform: rotateY(0deg);
+	-moz-transform: rotateY(0deg);
+}

@@ -1,0 +1,49 @@
+<!doctype html>
+<!--[if lte IE 8]> <html lang="en" class="ie-lte8"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--> <html lang="en"> <!--<![endif]-->
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+	<title>Demo</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+	<link href="demo.css" rel="stylesheet">
+	<link href="../dist/X-rayHTML.css" rel="stylesheet">
+	<link href="../libs/prism.css" rel="stylesheet">
+
+</head>
+<body>
+	<div class="source">
+		<div class="snippet"><aside>
+	<blockquote>
+		<p>It is the unofficial force—the Baker Street irregulars.</p>
+	</blockquote>
+	<address>Sherlock Holmes</address>
+	<cite>Sign of Four</cite>
+</aside></div>
+	</div>
+
+	<div class="source">
+		<div class="snippet prism"><aside>
+	<blockquote>
+		<p>It is the unofficial force—the Baker Street irregulars.</p>
+	</blockquote>
+	<address>Sherlock Holmes</address>
+	<cite>Sign of Four</cite>
+</aside></div>
+	</div>
+
+	<script src="../libs/jquery/jquery.js"></script>
+	<script src="../libs/prism.min.js"></script>
+	<script src="../src/X-rayHTML.js"></script>
+
+	<script type="text/javascript">
+	$( window ).bind( "create.view-source", function() {
+		if( "Prism" in window ) {
+			$( ".prism" ).next().find( "code" ).addClass( "language-markup" );
+			Prism.highlightAll();
+		}
+	});
+	</script>
+</body>
+</html>

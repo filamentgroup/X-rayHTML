@@ -1,0 +1,28 @@
+{
+  "name": "X-rayHTML",
+  "title": "X-rayHTML",
+  "description": "A little something to help build documentation pages.",
+  "version": "0.1.0",
+  "homepage": "https://github.com/filamentgroup/X-rayHTML",
+  "author": {
+    "name": "Mat Marquis",
+    "email": "mat@matmarquis.com"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/filamentgroup/X-rayHTML.git"
+  },
+  "bugs": {
+    "url": "https://github.com/filamentgroup/X-rayHTML/issues"
+  },
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "https://github.com/filamentgroup/X-rayHTML/blob/master/LICENSE-MIT"
+    }
+  ],
+  "dependencies": {
+    "jquery": "*"
+  },
+  "keywords": []
+}
