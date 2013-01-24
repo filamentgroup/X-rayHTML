@@ -38,6 +38,16 @@
 	border-radius: 7px;
 	margin: .5em 0 2.5em 0;
 }
+.source pre {
+	margin: 0 !important; /* Prism style override. */
+}
+.source code {
+	white-space: pre-wrap !important; /* Prism style override. */
+}
+.snippet,
+.source-panel {
+	background: #eee;
+}
 aside {
 	padding: .5em;
 }

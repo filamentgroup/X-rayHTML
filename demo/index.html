@@ -23,8 +23,28 @@
 </aside></div>
 	</div>
 
-	<div class="source">
-		<div class="snippet prism"><aside>
+	<div class="source prism">
+		<div class="snippet"><aside>
+	<blockquote>
+		<p>It is the unofficial force—the Baker Street irregulars.</p>
+	</blockquote>
+	<address>Sherlock Holmes</address>
+	<cite>Sign of Four</cite>
+</aside></div>
+	</div>
+
+	<div class="source zeroclip">
+		<div class="snippet"><aside>
+	<blockquote>
+		<p>It is the unofficial force—the Baker Street irregulars.</p>
+	</blockquote>
+	<address>Sherlock Holmes</address>
+	<cite>Sign of Four</cite>
+</aside></div>
+	</div>
+
+	<div class="source prism zeroclip">
+		<div class="snippet"><aside>
 	<blockquote>
 		<p>It is the unofficial force—the Baker Street irregulars.</p>
 	</blockquote>
@@ -34,16 +54,41 @@
 	</div>
 
 	<script src="../libs/jquery/jquery.js"></script>
-	<script src="../libs/prism.min.js"></script>
 	<script src="../src/X-rayHTML.js"></script>
 
+	<!-- Demo Extras! -->
+	<script src="../libs/prism.min.js"></script>
+	<script src="../libs/ZeroClipboard.min.js"></script>
+
 	<script type="text/javascript">
-	$( window ).bind( "create.view-source", function() {
-		if( "Prism" in window ) {
-			$( ".prism" ).next().find( "code" ).addClass( "language-markup" );
-			Prism.highlightAll();
-		}
-	});
+		$( window ).bind( "create.view-source", function( e ) {
+			var prism = !!~e.target.getAttribute( "class" ).indexOf( "prism" ),
+				zeroclip = !!~e.target.getAttribute( "class" ).indexOf( "zeroclip" ),
+				flash = !!( navigator.mimeTypes[ "application/x-shockwave-flash" ] || "ActiveXObject" in window );
+
+			if( prism && "Prism" in window ) {
+				$( ".prism" ).find( "code" ).addClass( "language-markup" );
+				Prism.highlightAll();
+			}
+
+			if( zeroclip && "ZeroClipboard" in window && flash ) {
+				$( e.target ).each(function() {
+					var copy = $( "<a/>", {
+							"class" : "btn btn-copy",
+							"href" : "#",
+							"text" : "Copy to Clipboard"
+						}),
+						code = $( this ).find( "code" ).text(),
+						clip = new ZeroClipboard( copy, { 
+							moviePath: "../libs/ZeroClipboard.swf",
+							text: code
+						});
+
+					$( this ).find( ".source-panel" ).prepend( copy );
+				});
+			}
+		});
+
 	</script>
 </body>
 </html>

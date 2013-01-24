@@ -50,7 +50,7 @@ By default, it’s hooked to the class `source`:
 </div>
 ```
 
+The second demo uses the plugin’s “create” event to bolt on the [Prism.js](http://prismjs.com) syntax highlighter, the third demo uses [ZeroClipboard](https://github.com/jonrohan/ZeroClipboard) for a quick “copy” button, and the last demo uses both. 
+
 ## TODO:
 * Shouldn’t require that second “snippet” wrapper.
-
-The second demo uses the plugin’s “create” event to bolt on the [Prism.js](http://prismjs.com) syntax highlighter. A little clunky at the moment.

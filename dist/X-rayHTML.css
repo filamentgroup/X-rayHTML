@@ -9,11 +9,6 @@
 	-moz-perspective: 2500px;
 	perspective: 2500px;
 }
-.snippet,
-.source-panel {
-	border: 1px solid #555;
-	background: #eee;
-}
 .snippet {
 	padding: 0;
 	margin: 0;
@@ -32,9 +27,10 @@
 	height: 100%;
 	overflow-x: scroll;
 }
-.source-panel code,
 .source-panel pre {
 	margin: 0;
+}
+.source-panel code {
 	white-space: pre-wrap;
 }
 .btn-copy {
