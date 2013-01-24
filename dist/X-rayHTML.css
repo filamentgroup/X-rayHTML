@@ -53,6 +53,7 @@
 	-moz-transition: -moz-transform .4s ease-in-out;
 }
 .view-source .snippet {
+	z-index: 1;
 	-webkit-transform: rotateY(180deg);
 	-moz-transform: rotateY(180deg);
 }
@@ -67,6 +68,7 @@
 	-webkit-transition: all .4s ease-in-out;
 }
 .view-source .source-panel {
+	z-index: 2;
 	-webkit-transform: rotateY(0deg);
 	-moz-transform: rotateY(0deg);
 }
