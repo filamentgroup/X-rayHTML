@@ -68,11 +68,14 @@
         codeel = document.createElement( "code" ),
         wrap = document.createElement( "div" ),
         sourcepanel = document.createElement( "div" ),
-        code = $( el ).find( ".snippet" )[ 0 ].innerHTML, // TODO: Gross.
+        code = el.innerHTML,
         source = document.createTextNode( code );
 
-      codeel.appendChild( source );
+      wrap.setAttribute( "class", "snippet" );
 
+      $( el ).wrapInner( wrap );
+
+      codeel.appendChild( source );
       preel.appendChild( codeel );
 
       sourcepanel.setAttribute( "class", o.classes.sourcepanel );
@@ -111,4 +114,3 @@
   });
 
 }( jQuery ));
-
