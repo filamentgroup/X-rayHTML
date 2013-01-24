@@ -7,9 +7,9 @@
 	<title>Demo</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 
-	<link href="demo.css" rel="stylesheet">
-	<link href="../dist/X-rayHTML.css" rel="stylesheet">
-	<link href="../libs/prism.css" rel="stylesheet">
+	<link href="demo/demo.css" rel="stylesheet">
+	<link href="dist/X-rayHTML.css" rel="stylesheet">
+	<link href="libs/prism.css" rel="stylesheet">
 
 </head>
 <body>
@@ -28,7 +28,6 @@
 	<address>Sherlock Holmes</address>
 	<cite>Sign of Four</cite>
 </aside></div>
-	</div>
 
 	<div class="source zeroclip"><aside>
 	<blockquote>
@@ -46,12 +45,12 @@
 	<cite>Sign of Four</cite>
 </aside></div>
 
-	<script src="../libs/jquery/jquery.js"></script>
-	<script src="../src/X-rayHTML.js"></script>
+	<script src="libs/jquery/jquery.js"></script>
+	<script src="src/X-rayHTML.js"></script>
 
 	<!-- Demo Extras! -->
-	<script src="../libs/prism.min.js"></script>
-	<script src="../libs/ZeroClipboard.min.js"></script>
+	<script src="libs/prism.min.js"></script>
+	<script src="libs/ZeroClipboard.min.js"></script>
 
 	<script type="text/javascript">
 		$( window ).bind( "create.view-source", function( e ) {
@@ -73,7 +72,7 @@
 						}),
 						code = $( this ).find( "code" ).text(),
 						clip = new ZeroClipboard( copy, { 
-							moviePath: "../libs/ZeroClipboard.swf",
+							moviePath: "libs/ZeroClipboard.swf",
 							text: code
 						});
 
