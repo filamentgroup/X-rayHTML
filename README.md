@@ -7,7 +7,7 @@ Instead of dropping in a block of markup to render as a demo, then copying and p
 ## Demos
 [Here’s the plugin in action](http://filamentgroup.github.com/X-rayHTML/).
 
-The second demo uses the plugin’s “create” event (`create.view-source` by default, but configurable) to bolt on the [Prism.js](http://prismjs.com) syntax highlighter, the third demo uses [ZeroClipboard](https://github.com/jonrohan/ZeroClipboard) to add a quick “copy to clipboard” button, and the last demo uses both. 
+The second set of demos are using the plugin’s “create” event (`create.xrayhtml` by default, but configurable) to bolt on [Prism.js](http://prismjs.com) syntax highlighting and [ZeroClipboard](https://github.com/jonrohan/ZeroClipboard) for a “copy to clipboard” button.
 
 ## Getting Started
 Download the [production version][min] or the [development version][max], and the [structural CSS][css].
@@ -32,25 +32,32 @@ and
 There are some config options up at the top of `X-rayHTML.js`:
 
 ```javascript
-var o = {
-	pluginName: "view-source",
-	text: {
-		open: "View Source",
-		close: "View Demo"
-	},
-	classes: {
-		button: "btn btn-small",
-		open: "view-source",
-		sourcepanel: "source-panel"
-	},
-	initSelector: ".source"
-}
+ var pluginName = "xrayhtml",
+        o = {
+        text: {
+            open: "View Source",
+            close: "View Demo"
+        },
+        classes: {
+            button: "btn btn-small",
+            open: "view-source",
+            sourcepanel: "source-panel"
+        },
+        initSelector: "[data-" + pluginName + "]",
+        defaultReveal: "inline"
+    }
 ```
 
-By default, functionality is hooked to the class `source`. A `pre`/`code` block gets dropped into place, so whitespace inside of `.source` counts the same way. For example:
+By default, functionality is hooked to the `xrayhtml` data attribute.
+
+`flip` as the value of the `data-xrayhtml` attribute will gives you a snazzy flip-to-reveal animation (browsers without support for 3D tranforms will simply show/hide the code snippet).</p>
+
+Leaving `data-xrayhtml` valueless or giving it a value of `inline` gives you—predictably enough—code snippets that are visible inline with the rendered code. 
+
+A `pre`/`code` block gets dropped into place, so whitespace inside of the element with that attribute counts the same way. For example, to avoid a bunch of extra whitespace at the start/end of your snippet:
 
 ```html
-<div class="source"><aside>
+<div data-xrayhtml><aside>
 	<blockquote>
 		<p>It is the unofficial force—the Baker Street irregulars.</p>
 	</blockquote>

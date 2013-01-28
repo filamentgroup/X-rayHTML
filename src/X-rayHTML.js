@@ -8,109 +8,116 @@
 */
 
 (function( $ ) {
-  var o = {
-    pluginName: "view-source",
-    text: {
-      open: "View Source",
-      close: "View Demo"
-    },
-    classes: {
-      button: "btn btn-small",
-      open: "view-source",
-      sourcepanel: "source-panel"
-    },
-    initSelector: ".source"
-    },
-    methods = {
-    _create: function() {
-      return $( this ).each(function() {
-        var init = $( this ).data( "init" + o.pluginName );
+  var pluginName = "xrayhtml",
+		o = {
+		text: {
+			open: "View Source",
+			close: "View Demo"
+		},
+		classes: {
+			button: "btn btn-small",
+			open: "view-source",
+			sourcepanel: "source-panel"
+		},
+		initSelector: "[data-" + pluginName + "]",
+		defaultReveal: "inline"
+	},
+	methods = {
+	_create: function() {
+		return $( this ).each(function() {
+			var init = $( this ).data( "init." + pluginName );
 
-        if( init ) {
-          return false;
-        }
+			if( init ) {
+				return false;
+			}
 
-        $( this )
-          .data( "init", true )
-          [ o.pluginName ]( "_init" )
-          .trigger( "create." + o.pluginName );
-      });
-    },
-    _init: function() {
-      $( this )
-        [ o.pluginName ]( "_createButton" )
-        [ o.pluginName ]( "_createSource" );
-    },
-    _createButton: function() {
-      var btn = document.createElement( "a" ),
-        txt = document.createTextNode( o.text.open ),
-        el = $( this );
+			$( this )
+				.data( "init." + pluginName, true )
+				[ pluginName ]( "_init" )
+				.trigger( "create." +  pluginName );
+		});
+	},
+	_init: function() {
+		var method = $( this ).data( pluginName ) || o.defaultReveal;
 
-      btn.setAttribute( "class", o.classes.button );
-      btn.href = "#";
-      btn.appendChild( txt );
+		if( method === "flip" ) {
+			$( this )[ pluginName ]( "_createButton" );
+		}
 
-      $( btn )
-        .bind( "click", function( e ) {
-          var isOpen = el.attr( "class" ).indexOf( o.classes.open ) > -1;
+		$( this )
+			.addClass( pluginName + " " + "method-" + method )
+			[ pluginName ]( "_createSource" );
+	},
+	_createButton: function() {
+		var btn = document.createElement( "a" ),
+			txt = document.createTextNode( o.text.open ),
+			el = $( this );
 
-          el[ isOpen ? "removeClass" : "addClass" ]( o.classes.open );
-          btn.innerHTML = ( isOpen ? o.text.open : o.text.close );
+		btn.setAttribute( "class", o.classes.button );
+		btn.href = "#";
+		btn.appendChild( txt );
 
-          e.preventDefault();
+		$( btn )
+			.bind( "click", function( e ) {
+				var isOpen = el.attr( "class" ).indexOf( o.classes.open ) > -1;
 
-        })
-        .insertBefore( el );
-    },
-    _createSource: function() {
-      var el = this,
-        preel = document.createElement( "pre" ),
-        codeel = document.createElement( "code" ),
-        wrap = document.createElement( "div" ),
-        sourcepanel = document.createElement( "div" ),
-        code = el.innerHTML,
-        source = document.createTextNode( code );
+				el[ isOpen ? "removeClass" : "addClass" ]( o.classes.open );
+				btn.innerHTML = ( isOpen ? o.text.open : o.text.close );
 
-      wrap.setAttribute( "class", "snippet" );
+				e.preventDefault();
 
-      $( el ).wrapInner( wrap );
+			})
+			.insertBefore( el );
+	},
+	_createSource: function() {
+		var el = this,
+			preel = document.createElement( "pre" ),
+			codeel = document.createElement( "code" ),
+			wrap = document.createElement( "div" ),
+			sourcepanel = document.createElement( "div" ),
+			code = el.innerHTML,
+			source = document.createTextNode( code );
 
-      codeel.appendChild( source );
-      preel.appendChild( codeel );
+		wrap.setAttribute( "class", "snippet" );
 
-      sourcepanel.setAttribute( "class", o.classes.sourcepanel );
-      sourcepanel.appendChild( preel );
+		$( el ).wrapInner( wrap );
 
-      this.appendChild( sourcepanel );
-    }
-  };
+		codeel.appendChild( source );
+		preel.appendChild( codeel );
 
-  // Collection method.
-  $.fn[ o.pluginName ] = function( arrg, a, b, c ) {
-    return this.each(function() {
+		sourcepanel.setAttribute( "class", o.classes.sourcepanel );
+		sourcepanel.appendChild( preel );
 
-    // if it's a method
-    if( arrg && typeof( arrg ) === "string" ){
-      return $.fn[ o.pluginName ].prototype[ arrg ].call( this, a, b, c );
-    }
+		this.appendChild( sourcepanel );
+	}
+};
 
-    // don't re-init
-    if( $( this ).data( o.pluginName + "data" ) ){
-      return $( this );
-    }
+	// Collection method.
+	$.fn[ pluginName ] = function( arrg, a, b, c ) {
+		return this.each(function() {
 
-    // otherwise, init
-    $( this ).data( o.pluginName + "active", true );
-      $.fn[ o.pluginName ].prototype._create.call( this );
-    });
-  };
+		// if it's a method
+		if( arrg && typeof( arrg ) === "string" ){
+			return $.fn[ pluginName ].prototype[ arrg ].call( this, a, b, c );
+		}
 
-  // add methods
-  $.extend( $.fn[ o.pluginName ].prototype, methods );
+		// don't re-init
+		if( $( this ).data( pluginName + "data" ) ){
+			return $( this );
+		}
 
-  // DOM-ready auto-init
-  $( function(){
-    $( o.initSelector )[ o.pluginName ]();
-  });
+		// otherwise, init
+		$( this ).data( pluginName + "active", true );
+			$.fn[ pluginName ].prototype._create.call( this );
+		});
+	};
+
+	// add methods
+	$.extend( $.fn[ pluginName ].prototype, methods );
+
+	// DOM-ready auto-init
+	$( function(){
+		$( o.initSelector )[ pluginName ]();
+	});
 
 }( jQuery ));

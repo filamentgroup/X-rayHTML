@@ -1,5 +1,20 @@
 /* Demo
 -------------------------- */
+h1, h2 {
+	font-family: sans-serif;
+}
+h1 {
+	border-bottom: 1px solid #ddd;
+	padding: .25em 0;
+}
+h2 {
+	font-size: 1.1em;
+}
+
+
+.xrayhtml {
+	position: relative !important;
+}
 
 .btn {
 	background-color: #fefefe;
@@ -8,7 +23,6 @@
 	background-image: linear-gradient( top, rgba( 255,255,255,.1 ) 0%, rgba( 255,255,255,.1 ) 50%, rgba( 170,170,170,.1 ) 55%, rgba( 120,120,120,.15 ) 100% );
 	border: 1px solid #ccc;
 	border-radius: .4em;
-	box-shadow: 0 1px 0 rgba(255,255,255,1);
 	color: #308bd3;
 	cursor: pointer;
 	display: block;
@@ -26,30 +40,49 @@
 	-ms-box-sizing: border-box;
 	box-sizing: border-box;
 }
+
+
+.method-inline .btn {
+	width: auto;
+	display: inline-block;
+	position: absolute;
+	right: 0;
+	bottom: 0;
+	padding-left: 1em;
+	padding-right: 1em;
+	border-radius: 5px 0 0 0;
+	border-width: 1px 0 0 1px;
+}
+
+.method-flip .btn-copy {
+	border-width: 0 0 1px 0;
+	border-radius: 0;
+}
 .btn-small {
 	display: inline-block;
 	font-size: .8em;
 	padding: .4em 2% .35em 2%;
 	width: auto;
 }
-.source {
+[data-xrayhtml] {
 	background: #aaa;
 	border: 6px solid rgba(0,0,0,.25);
 	border-radius: 7px;
 	margin: .5em 0 2.5em 0;
 }
-.source pre {
+.xrayhtml pre {
+	padding: 1em;
 	margin: 0 !important; /* Prism style override. */
 }
-.source code {
+.xrayhtml code {
 	white-space: pre-wrap !important; /* Prism style override. */
 }
 .snippet,
 .source-panel {
-	background: #eee;
+	background: #f5f2f0;
 }
 aside {
-	background: #eee;
+	background: #f5f2f0;
 	padding: .5em;
 }
 blockquote {

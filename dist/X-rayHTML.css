@@ -3,13 +3,27 @@
 /* Code Viewer */
 
 .source {
-	position: relative;
+}
+.source-panel {
+	tab-size: 3;
+}
+.source-panel pre {
+	margin: 0;
+}
+.source-panel code {
+	white-space: pre-wrap;
+}
 
+
+/* Flip Animation */
+
+.method-flip .source {
+	position: relative;
 	-webkit-perspective: 2500px;
 	-moz-perspective: 2500px;
 	perspective: 2500px;
 }
-.snippet {
+.method-flip .snippet {
 	padding: 0;
 	margin: 0;
 	position: relative;
@@ -18,29 +32,16 @@
 	z-index: 2;
 	min-height: 100%;
 }
-.source-panel {
+.method-flip .source-panel {
 	position: absolute;
 	top: 0;
 	left: 0;
-	tab-size: 3;
 	width: 100%;
 	height: 100%;
 	overflow-x: scroll;
 }
-.source-panel pre {
-	margin: 0;
-}
-.source-panel code {
-	white-space: pre-wrap;
-}
-.btn-copy {
-	border-width: 0 0 1px 0;
-	border-radius: 0;
-}
 
-/* Flip Animation */
-
-.snippet {
+.method-flip .snippet {
 	-webkit-transform: rotateY(0deg);
 	-webkit-transform-style: preserve-3d;
 	-webkit-backface-visibility: hidden;
@@ -52,12 +53,12 @@
 	-webkit-transition: -webkit-transform .4s ease-in-out;
 	-moz-transition: -moz-transform .4s ease-in-out;
 }
-.view-source .snippet {
+.method-flip.view-source .snippet {
 	z-index: 1;
 	-webkit-transform: rotateY(180deg);
 	-moz-transform: rotateY(180deg);
 }
-.source-panel {
+.method-flip .source-panel {
 	-webkit-transform: rotateY(-180deg);
 	-webkit-backface-visibility: hidden;
 
@@ -67,7 +68,7 @@
 	-moz-transition: all .4s ease-in-out;
 	-webkit-transition: all .4s ease-in-out;
 }
-.view-source .source-panel {
+.method-flip.view-source .source-panel {
 	z-index: 2;
 	-webkit-transform: rotateY(0deg);
 	-moz-transform: rotateY(0deg);
