@@ -3,6 +3,7 @@
 /* Code Viewer */
 
 .source {
+	position: relative;
 }
 .source-panel {
 	tab-size: 3;
@@ -13,12 +14,14 @@
 .source-panel code {
 	white-space: pre-wrap;
 }
-
+.btn-copy {
+	border-width: 0 0 1px 0;
+	border-radius: 0;
+}
 
 /* Flip Animation */
 
-.method-flip .source {
-	position: relative;
+.method-flip {
 	-webkit-perspective: 2500px;
 	-moz-perspective: 2500px;
 	perspective: 2500px;
