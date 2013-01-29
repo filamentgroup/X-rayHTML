@@ -3,6 +3,7 @@
 /* Code Viewer */
 
 .source {
+	position: relative;
 }
 .source-panel {
 	tab-size: 3;
@@ -17,8 +18,7 @@
 
 /* Flip Animation */
 
-.method-flip .source {
-	position: relative;
+.method-flip {
 	-webkit-perspective: 2500px;
 	-moz-perspective: 2500px;
 	perspective: 2500px;
