@@ -1,5 +1,7 @@
 # X-rayHTML
 
+[![Filament Group](http://filamentgroup.com/images/fg-logo-positive-sm-crop.png) ](http://www.filamentgroup.com/)
+
 A little something to help build documentation pages.
 
 Instead of dropping in a block of markup to render as a demo, then copying and pasting it into a `pre`/`code` block, then escaping it—then going back and updating both the rendered code and the escaped code should something change: now you just wrap the code you’re rendering in a `div` and it generates a copy/pastable source snippet. Credit to [@ugomobi](http://github.com/ugomobi) for the original idea, which is in use on the [jQuery Mobile docs](http://jquerymobile.com/test).
