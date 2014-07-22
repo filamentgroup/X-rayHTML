@@ -29,63 +29,65 @@
       </ul>
     </div>
   </div>
-	<section>
-		<h1 class="sub">Basics</h1>
-		<p>By default, functionality is hooked to the <code>data-xrayhtml</code> attribute.</p>
+  <div class="demo-main">
+    <section>
+      <h1 class="sub">Basics</h1>
+      <p>By default, functionality is hooked to the <code>data-xrayhtml</code> attribute.</p>
 
-		<h2>Inline</h2>
-		<p>Bolting the <code>data-xrayhtml</code> attribute on without a value will give you inline code snippets, like so:</p>
-		<div data-xrayhtml><aside>
-	<blockquote>
-		<p>It is the unofficial force—the Baker Street irregulars.</p>
-	</blockquote>
-	<address>Sherlock Holmes</address>
-	<cite>Sign of Four</cite>
-</aside></div>
+      <h2>Inline</h2>
+      <p>Bolting the <code>data-xrayhtml</code> attribute on without a value will give you inline code snippets, like so:</p>
+      <div data-xrayhtml><aside>
+    <blockquote>
+      <p>It is the unofficial force—the Baker Street irregulars.</p>
+    </blockquote>
+    <address>Sherlock Holmes</address>
+    <cite>Sign of Four</cite>
+  </aside></div>
 
-		<h2>Flip</h2>
-		<p>Setting “flip” as the value of the <code>data-xrayhtml</code> attribute will give you this snazzy flip-to-reveal animation (browsers without support for 3D tranforms will simply show/hide the code snippet).</p>
-		<div data-xrayhtml="flip"><aside>
-	<blockquote>
-		<p>It is the unofficial force—the Baker Street irregulars.</p>
-	</blockquote>
-	<address>Sherlock Holmes</address>
-	<cite>Sign of Four</cite>
-</aside></div>
-	</section>
+      <h2>Flip</h2>
+      <p>Setting “flip” as the value of the <code>data-xrayhtml</code> attribute will give you this snazzy flip-to-reveal animation (browsers without support for 3D tranforms will simply show/hide the code snippet).</p>
+      <div data-xrayhtml="flip"><aside>
+    <blockquote>
+      <p>It is the unofficial force—the Baker Street irregulars.</p>
+    </blockquote>
+    <address>Sherlock Holmes</address>
+    <cite>Sign of Four</cite>
+  </aside></div>
+    </section>
 
-	<section>
-		<h1 class="sub">Extras</h1>
-		<p>The plugin fires off a <code>create.xrayhtml</code> event that can be used to attach features like a “copy to clipboard” option (using <a href="https://github.com/jonrohan/ZeroClipboard">ZeroClipboard</a>, here) or syntax highlighting (using <a href="http://prismjs.com">Prism.js</a> here).</p>
+    <section>
+      <h1 class="sub">Extras</h1>
+      <p>The plugin fires off a <code>create.xrayhtml</code> event that can be used to attach features like a “copy to clipboard” option (using <a href="https://github.com/jonrohan/ZeroClipboard">ZeroClipboard</a>, here) or syntax highlighting (using <a href="http://prismjs.com">Prism.js</a> here).</p>
 
-		<h2>Prism.js</h2>
-		<div data-xrayhtml class="prism"><aside>
-	<blockquote>
-		<p>It is the unofficial force—the Baker Street irregulars.</p>
-	</blockquote>
-	<address>Sherlock Holmes</address>
-	<cite>Sign of Four</cite>
-</aside></div>
+      <h2>Prism.js</h2>
+      <div data-xrayhtml class="prism"><aside>
+    <blockquote>
+      <p>It is the unofficial force—the Baker Street irregulars.</p>
+    </blockquote>
+    <address>Sherlock Holmes</address>
+    <cite>Sign of Four</cite>
+  </aside></div>
 
-		<h2>ZeroClipboard</h2>
-		<div data-xrayhtml class="zeroclip"><aside>
-	<blockquote>
-		<p>It is the unofficial force—the Baker Street irregulars.</p>
-	</blockquote>
-	<address>Sherlock Holmes</address>
-	<cite>Sign of Four</cite>
-</aside></div>
+      <h2>ZeroClipboard</h2>
+      <div data-xrayhtml class="zeroclip"><aside>
+    <blockquote>
+      <p>It is the unofficial force—the Baker Street irregulars.</p>
+    </blockquote>
+    <address>Sherlock Holmes</address>
+    <cite>Sign of Four</cite>
+  </aside></div>
 
-		<h2>Prism.js and ZeroClipboard</h2>
-		<div data-xrayhtml="flip" class="prism zeroclip"><aside>
-	<blockquote>
-		<p>It is the unofficial force—the Baker Street irregulars.</p>
-	</blockquote>
-	<address>Sherlock Holmes</address>
-	<cite>Sign of Four</cite>
-</aside></div>
+      <h2>Prism.js and ZeroClipboard</h2>
+      <div data-xrayhtml="flip" class="prism zeroclip"><aside>
+    <blockquote>
+      <p>It is the unofficial force—the Baker Street irregulars.</p>
+    </blockquote>
+    <address>Sherlock Holmes</address>
+    <cite>Sign of Four</cite>
+  </aside></div>
 
-	</section>
+    </section>
+  </div>
 
 	<script src="libs/jquery/jquery.js"></script>
 	<script src="src/X-rayHTML.js"></script>
