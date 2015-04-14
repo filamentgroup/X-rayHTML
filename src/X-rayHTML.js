@@ -5,7 +5,9 @@
 *
 * Copyright (c) 2012 Filament Group, Inc.
 * Licensed under the MIT, GPL licenses.
-*/
+ */
+
+window.jQuery = window.jQuery || window.shoestring;
 
 (function( $ ) {
   var pluginName = "xrayhtml",
