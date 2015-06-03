@@ -98,18 +98,18 @@ window.jQuery = window.jQuery || window.shoestring;
 	$.fn[ pluginName ] = function( arrg, a, b, c ) {
 		return this.each(function() {
 
-		// if it's a method
-		if( arrg && typeof( arrg ) === "string" ){
-			return $.fn[ pluginName ].prototype[ arrg ].call( this, a, b, c );
-		}
+			// if it's a method
+			if( arrg && typeof( arrg ) === "string" ){
+				return $.fn[ pluginName ].prototype[ arrg ].call( this, a, b, c );
+			}
 
-		// don't re-init
-		if( $( this ).data( pluginName + "data" ) ){
-			return $( this );
-		}
+			// don't re-init
+			if( $( this ).data( pluginName + "data" ) ){
+				return $( this );
+			}
 
-		// otherwise, init
-		$( this ).data( pluginName + "active", true );
+			// otherwise, init
+			$( this ).data( pluginName + "active", true );
 			$.fn[ pluginName ].prototype._create.call( this );
 		});
 	};
