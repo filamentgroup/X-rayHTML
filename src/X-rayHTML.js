@@ -77,7 +77,7 @@ window.jQuery = window.jQuery || window.shoestring;
 				codeel = document.createElement( "code" ),
 				wrap = document.createElement( "div" ),
 				sourcepanel = document.createElement( "div" ),
-				code = el.innerHTML,
+				code = el.innerHTML.replace( /\=\"\"/g, '' ),
 				source = document.createTextNode( code );
 
 			wrap.setAttribute( "class", "snippet" );
