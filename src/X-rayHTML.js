@@ -77,6 +77,9 @@ window.jQuery = window.jQuery || window.shoestring;
 				codeel = document.createElement( "code" ),
 				wrap = document.createElement( "div" ),
 				sourcepanel = document.createElement( "div" ),
+				leadingWhiteSpace = code.match( /(^[\s]+)/ ),
+				lineWSRE = new RegExp( leadingWhiteSpace[ 1 ], "gmi" ),
+				code = code.replace( lineWSRE, "\n" ),
 				code = el.innerHTML.replace( /\=\"\"/g, '' ),
 				source = document.createTextNode( code );
 
