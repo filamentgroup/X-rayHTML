@@ -1,3 +1,5 @@
+@charset utf-8;
+
 /* Demo
 -------------------------- */
 .sub, h2 {
@@ -64,25 +66,7 @@ h2 {
 	padding: .4em 2% .35em 2%;
 	width: auto;
 }
-[data-xrayhtml] {
-	background: #aaa;
-	border: 6px solid rgba(0,0,0,.25);
-	border-radius: 7px;
-	margin: .5em 0 2.5em 0;
-}
-.xrayhtml pre {
-	padding: 1em;
-	margin: 0 !important; /* Prism style override. */
-}
-.xrayhtml code {
-	white-space: pre-wrap !important; /* Prism style override. */
-}
-.snippet,
-.source-panel {
-	background: #f5f2f0;
-}
 aside {
-	background: #f5f2f0;
 	padding: .5em;
 }
 blockquote {
@@ -127,4 +111,40 @@ cite {
 		background-size: 287px 52px;
 		background-image: url(http://filamentgroup.com/images/fg-logo-icon-lrg.png);
 	}
+}
+
+
+/* x-ray styling */
+[data-xrayhtml] {
+	border: 1px solid rgba(0,0,0,.1);
+	border-radius: .5em;
+	margin: 1.5em 0 2.5em 0;
+	padding: 1.5em 1em;
+}
+[data-xrayhtml]:before {
+	content: "Example";
+	text-transform: uppercase;
+	letter-spacing: 1px;
+	font: .75em sans-serif;
+	color: rgba(0,0,0,.5);
+	background-color: #fff;
+	position: absolute;
+	top: -.5em;
+	padding-left: .5em;
+	padding-right: .5em;
+	left: 1.333333333em; /* 16px */
+}
+.xrayhtml .source-panel {
+	margin: 1em -1em -1.5em -1em !important; /* Prism style override. */
+	background: #f7f7f7;
+	border-top: 1px solid rgba(0,0,0,.1);
+	border-radius: 0 0 .5em .5em;
+}
+.xrayhtml pre {
+	padding: 16px;
+	margin: 0 !important; /* Prism style override. */
+	border-radius: 0 0 .5em .5em;
+}
+.xrayhtml code {
+	white-space: pre-wrap !important; /* Prism style override. */
 }
