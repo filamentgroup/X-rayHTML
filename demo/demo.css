@@ -133,10 +133,18 @@ cite {
 	padding-left: .5em;
 	padding-right: .5em;
 	left: 1.333333333em; /* 16px */
+	z-index: 3;
+}
+[data-xrayhtml].method-flip:before {
+	background-color: rgba(255,255,255,.6);
 }
 .xrayhtml .source-panel {
-	margin: 1em -1em -1.5em -1em !important; /* Prism style override. */
 	background: #f7f7f7;
+}
+.xrayhtml.method-flip .source-panel {
+}
+.xrayhtml.method-inline .source-panel {
+	margin: 1em -1em -1.5em -1em !important; /* Prism style override. */
 	border-top: 1px solid rgba(0,0,0,.1);
 	border-radius: 0 0 .5em .5em;
 }
