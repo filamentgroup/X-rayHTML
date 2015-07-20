@@ -43,28 +43,10 @@
 
 	<section>
 		<h1 class="sub">Extras</h1>
-		<p>The plugin fires off a <code>create.xrayhtml</code> event that can be used to attach features like a “copy to clipboard” option (using <a href="https://github.com/jonrohan/ZeroClipboard">ZeroClipboard</a>, here) or syntax highlighting (using <a href="http://prismjs.com">Prism.js</a> here).</p>
+		<p>The plugin fires off a <code>create.xrayhtml</code> event that can be used to attach features like a “copy to clipboard” option (using <a href="https://github.com/jonrohan/ZeroClipboard">ZeroClipboard</a>) or syntax highlighting (using <a href="http://prismjs.com">Prism.js</a>).</p>
 
 		<h2>Prism.js</h2>
 		<div data-xrayhtml class="prism"><aside>
-	<blockquote>
-		<p>It is the unofficial force—the Baker Street irregulars.</p>
-	</blockquote>
-	<address>Sherlock Holmes</address>
-	<cite>Sign of Four</cite>
-</aside></div>
-
-		<h2>ZeroClipboard</h2>
-		<div data-xrayhtml class="zeroclip"><aside>
-	<blockquote>
-		<p>It is the unofficial force—the Baker Street irregulars.</p>
-	</blockquote>
-	<address>Sherlock Holmes</address>
-	<cite>Sign of Four</cite>
-</aside></div>
-
-		<h2>Prism.js and ZeroClipboard</h2>
-		<div data-xrayhtml="flip" class="prism zeroclip"><aside>
 	<blockquote>
 		<p>It is the unofficial force—the Baker Street irregulars.</p>
 	</blockquote>
@@ -79,7 +61,6 @@
 
 	<!-- Demo Extras! -->
 	<script src="libs/prism.min.js"></script>
-	<script src="libs/ZeroClipboard.min.js"></script>
 
 	<script type="text/javascript">
 		$( window ).bind( "create.xrayhtml", function( e ) {
@@ -90,23 +71,6 @@
 			if( prism && "Prism" in window ) {
 				$( ".prism" ).find( "code" ).addClass( "language-markup" );
 				Prism.highlightAll();
-			}
-
-			if( zeroclip && "ZeroClipboard" in window && flash ) {
-				$( e.target ).each(function() {
-					var copy = $( "<a/>", {
-							"class" : "btn btn-copy",
-							"href" : "#",
-							"text" : "Copy to Clipboard"
-						}),
-						code = $( this ).find( "code" ).text(),
-						clip = new ZeroClipboard( copy, {
-							moviePath: "libs/ZeroClipboard.swf",
-							text: code
-						});
-
-					$( this ).find( ".source-panel" ).prepend( copy );
-				});
 			}
 		});
 
