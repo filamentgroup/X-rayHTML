@@ -40,7 +40,7 @@ window.jQuery = window.jQuery || window.shoestring;
 			});
 		},
 		_init: function() {
-			var method = $( this ).data( pluginName ) || o.defaultReveal;
+			var method = $( this ).attr( "data-" + pluginName ) || o.defaultReveal;
 
 			if( method === "flip" ) {
 				$( this )[ pluginName ]( "_createButton" );
