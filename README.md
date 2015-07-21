@@ -6,6 +6,12 @@ A little something to help build documentation pages.
 
 Instead of dropping in a block of markup to render as a demo, then copying and pasting it into a `pre`/`code` block, then escaping it—then going back and updating both the rendered code and the escaped code should something change: now you just wrap the code you’re rendering in a `div` and it generates a copy/pastable source snippet. Credit to [@ugomobi](http://github.com/ugomobi) for the original idea, which is in use on the [jQuery Mobile docs](http://jquerymobile.com/test).
 
+## Dependencies
+
+1. jQuery or Shoestring (`./libs`)
+2. ZeroClipboard (`./libs`)
+3. prism.js (`./libs`)
+
 ## Demos
 [Here’s the plugin in action](http://filamentgroup.github.com/X-rayHTML/).
 
@@ -54,7 +60,7 @@ By default, functionality is hooked to the `xrayhtml` data attribute.
 
 `flip` as the value of the `data-xrayhtml` attribute will gives you a snazzy flip-to-reveal animation (browsers without support for 3D tranforms will simply show/hide the code snippet).</p>
 
-Leaving `data-xrayhtml` valueless or giving it a value of `inline` gives you—predictably enough—code snippets that are visible inline with the rendered code. 
+Leaving `data-xrayhtml` valueless or giving it a value of `inline` gives you—predictably enough—code snippets that are visible inline with the rendered code.
 
 A `pre`/`code` block gets dropped into place, so whitespace inside of the element with that attribute counts the same way. For example, to avoid a bunch of extra whitespace at the start/end of your snippet:
 

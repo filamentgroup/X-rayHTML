@@ -5,7 +5,9 @@
 *
 * Copyright (c) 2012 Filament Group, Inc.
 * Licensed under the MIT, GPL licenses.
-*/
+ */
+
+window.jQuery = window.jQuery || window.shoestring;
 
 (function( $ ) {
   var pluginName = "xrayhtml",
@@ -75,7 +77,7 @@
 				codeel = document.createElement( "code" ),
 				wrap = document.createElement( "div" ),
 				sourcepanel = document.createElement( "div" ),
-				code = el.innerHTML,
+				code = el.innerHTML.replace( /\=\"\"/g, '' ),
 				source = document.createTextNode( code );
 
 			wrap.setAttribute( "class", "snippet" );
@@ -96,18 +98,18 @@
 	$.fn[ pluginName ] = function( arrg, a, b, c ) {
 		return this.each(function() {
 
-		// if it's a method
-		if( arrg && typeof( arrg ) === "string" ){
-			return $.fn[ pluginName ].prototype[ arrg ].call( this, a, b, c );
-		}
+			// if it's a method
+			if( arrg && typeof( arrg ) === "string" ){
+				return $.fn[ pluginName ].prototype[ arrg ].call( this, a, b, c );
+			}
 
-		// don't re-init
-		if( $( this ).data( pluginName + "data" ) ){
-			return $( this );
-		}
+			// don't re-init
+			if( $( this ).data( pluginName + "data" ) ){
+				return $( this );
+			}
 
-		// otherwise, init
-		$( this ).data( pluginName + "active", true );
+			// otherwise, init
+			$( this ).data( pluginName + "active", true );
 			$.fn[ pluginName ].prototype._create.call( this );
 		});
 	};

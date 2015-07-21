@@ -12,116 +12,79 @@
 	<link href="libs/prism.css" rel="stylesheet">
 	<link href="/demo-head/demohead.css" rel="stylesheet">
 
-  <script src="/demo-head/loadfont.js"></script>
+	<script src="/demo-head/loadfont.js"></script>
 </head>
 <body>
-  <div class="demo-header">
-    <div class="company">
-      <img src="http://filamentgroup.com/images/fg-logo-positive-sm-crop.png">
-    </div>
-    <div class="details">
-      <p class="description-container">Demo of <span class="repo-name">X-rayHTML</span>
-        <span class="description">A little something to help build documentation pages</span>
-      </p>
-      <ul class="outbound-links">
-        <li><a href="https://github.com/filamentgroup/X-rayHTML">Code</a></li>
-        <li><a href="https://github.com/filamentgroup/X-rayHTML/issues">Issues</a></li>
-      </ul>
-    </div>
-  </div>
-  <div class="demo-main">
-    <section>
-      <h1 class="sub">Basics</h1>
-      <p>By default, functionality is hooked to the <code>data-xrayhtml</code> attribute.</p>
+	<div class="demo-header">
+		<div class="company">
+			<img src="http://filamentgroup.com/images/fg-logo-positive-sm-crop.png">
+		</div>
+		<div class="details">
+			<p class="description-container">Demo of <span class="repo-name">X-rayHTML</span>
+				<span class="description">A little something to help build documentation pages</span>
+			</p>
+			<ul class="outbound-links">
+				<li><a href="https://github.com/filamentgroup/X-rayHTML">Code</a></li>
+				<li><a href="https://github.com/filamentgroup/X-rayHTML/issues">Issues</a></li>
+			</ul>
+		</div>
+	</div>
+	<div class="demo-main">
+		<section>
+			<h1 class="sub">Basics</h1>
+			<p>By default, functionality is hooked to the <code>data-xrayhtml</code> attribute.</p>
 
-      <h2>Inline</h2>
-      <p>Bolting the <code>data-xrayhtml</code> attribute on without a value will give you inline code snippets, like so:</p>
-      <div data-xrayhtml><aside>
-    <blockquote>
-      <p>It is the unofficial force—the Baker Street irregulars.</p>
-    </blockquote>
-    <address>Sherlock Holmes</address>
-    <cite>Sign of Four</cite>
-  </aside></div>
+			<h2>Inline</h2>
+			<p>Bolting the <code>data-xrayhtml</code> attribute on without a value will give you inline code snippets, like so:</p>
+			<div data-xrayhtml><aside>
+		<blockquote>
+			<p>It is the unofficial force—the Baker Street irregulars.</p>
+		</blockquote>
+		<address>Sherlock Holmes</address>
+		<cite>Sign of Four</cite>
+	</aside></div>
 
-      <h2>Flip</h2>
-      <p>Setting “flip” as the value of the <code>data-xrayhtml</code> attribute will give you this snazzy flip-to-reveal animation (browsers without support for 3D tranforms will simply show/hide the code snippet).</p>
-      <div data-xrayhtml="flip"><aside>
-    <blockquote>
-      <p>It is the unofficial force—the Baker Street irregulars.</p>
-    </blockquote>
-    <address>Sherlock Holmes</address>
-    <cite>Sign of Four</cite>
-  </aside></div>
-    </section>
+			<h2>Flip</h2>
+			<p>Setting “flip” as the value of the <code>data-xrayhtml</code> attribute will give you this snazzy flip-to-reveal animation (browsers without support for 3D tranforms will simply show/hide the code snippet).</p>
+			<div data-xrayhtml="flip"><aside>
+		<blockquote>
+			<p>It is the unofficial force—the Baker Street irregulars.</p>
+		</blockquote>
+		<address>Sherlock Holmes</address>
+		<cite>Sign of Four</cite>
+	</aside></div>
+		</section>
 
-    <section>
-      <h1 class="sub">Extras</h1>
-      <p>The plugin fires off a <code>create.xrayhtml</code> event that can be used to attach features like a “copy to clipboard” option (using <a href="https://github.com/jonrohan/ZeroClipboard">ZeroClipboard</a>, here) or syntax highlighting (using <a href="http://prismjs.com">Prism.js</a> here).</p>
+		<section>
+			<h1 class="sub">Extras</h1>
+			<p>The plugin fires off a <code>create.xrayhtml</code> event that can be used to attach features like a “copy to clipboard” option (using <a href="https://github.com/jonrohan/ZeroClipboard">ZeroClipboard</a>) or syntax highlighting (using <a href="http://prismjs.com">Prism.js</a>).</p>
 
-      <h2>Prism.js</h2>
-      <div data-xrayhtml class="prism"><aside>
-    <blockquote>
-      <p>It is the unofficial force—the Baker Street irregulars.</p>
-    </blockquote>
-    <address>Sherlock Holmes</address>
-    <cite>Sign of Four</cite>
-  </aside></div>
+			<h2>Prism.js</h2>
+			<div data-xrayhtml class="prism"><aside>
+		<blockquote>
+			<p>It is the unofficial force—the Baker Street irregulars.</p>
+		</blockquote>
+		<address>Sherlock Holmes</address>
+		<cite>Sign of Four</cite>
+	</aside></div>
 
-      <h2>ZeroClipboard</h2>
-      <div data-xrayhtml class="zeroclip"><aside>
-    <blockquote>
-      <p>It is the unofficial force—the Baker Street irregulars.</p>
-    </blockquote>
-    <address>Sherlock Holmes</address>
-    <cite>Sign of Four</cite>
-  </aside></div>
+		</section>
+	</div>
 
-      <h2>Prism.js and ZeroClipboard</h2>
-      <div data-xrayhtml="flip" class="prism zeroclip"><aside>
-    <blockquote>
-      <p>It is the unofficial force—the Baker Street irregulars.</p>
-    </blockquote>
-    <address>Sherlock Holmes</address>
-    <cite>Sign of Four</cite>
-  </aside></div>
-
-    </section>
-  </div>
-
+	<!--<script src="libs/shoestring-dev.js"></script>-->
 	<script src="libs/jquery/jquery.js"></script>
 	<script src="src/X-rayHTML.js"></script>
 
 	<!-- Demo Extras! -->
 	<script src="libs/prism.min.js"></script>
-	<script src="libs/ZeroClipboard.min.js"></script>
 
 	<script type="text/javascript">
 		$( window ).bind( "create.xrayhtml", function( e ) {
-			var prism = !!~e.target.getAttribute( "class" ).indexOf( "prism" ),
-				zeroclip = !!~e.target.getAttribute( "class" ).indexOf( "zeroclip" ),
-				flash = !!( navigator.mimeTypes[ "application/x-shockwave-flash" ] || "ActiveXObject" in window );
+			var prism = !!~e.target.getAttribute( "class" ).indexOf( "prism" );
 
 			if( prism && "Prism" in window ) {
 				$( ".prism" ).find( "code" ).addClass( "language-markup" );
 				Prism.highlightAll();
-			}
-
-			if( zeroclip && "ZeroClipboard" in window && flash ) {
-				$( e.target ).each(function() {
-					var copy = $( "<a/>", {
-							"class" : "btn btn-copy",
-							"href" : "#",
-							"text" : "Copy to Clipboard"
-						}),
-						code = $( this ).find( "code" ).text(),
-						clip = new ZeroClipboard( copy, { 
-							moviePath: "libs/ZeroClipboard.swf",
-							text: code
-						});
-
-					$( this ).find( ".source-panel" ).prepend( copy );
-				});
 			}
 		});
 
