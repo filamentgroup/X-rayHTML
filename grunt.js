@@ -12,9 +12,13 @@ module.exports = function(grunt) {
         ' Licensed <%= _.pluck(pkg.licenses, "type").join(", ") %> */'
     },
     concat: {
-      dist: {
+      js: {
         src: ['<banner:meta.banner>', '<file_strip_banner:src/<%= pkg.name %>.js>'],
         dest: 'dist/<%= pkg.name %>.js'
+      },
+      css: {
+        src: ['<banner:meta.banner>', '<file_strip_banner:src/<%= pkg.name %>.css>'],
+        dest: 'dist/<%= pkg.name %>.css'
       }
     },
     qunit: {
@@ -24,7 +28,7 @@ module.exports = function(grunt) {
       files: ['grunt.js', 'src/**/*.js', 'test/**/*.js']
     },
     watch: {
-      files: '<config:lint.files>',
+      files: 'src/**/*',
       tasks: 'lint qunit'
     },
     jshint: {

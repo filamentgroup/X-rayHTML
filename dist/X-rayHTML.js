@@ -1,4 +1,4 @@
-/*! X-rayHTML - v0.1.0 - 2015-07-20
+/*! X-rayHTML - v0.1.0 - 2015-07-21
 * https://github.com/filamentgroup/X-rayHTML
 * Copyright (c) 2015 Mat Marquis; Licensed MIT */
 
