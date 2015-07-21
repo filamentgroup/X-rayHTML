@@ -13,11 +13,6 @@ h2 {
 	font-size: 1.1em;
 }
 
-
-.xrayhtml {
-	position: relative !important;
-}
-
 .btn {
 	background-color: #fefefe;
 	background-image: -webkit-linear-gradient( top, rgba( 255,255,255,.1 ) 0%, rgba( 255,255,255,.1 ) 50%, rgba( 170,170,170,.1 ) 55%, rgba( 120,120,120,.15 ) 100% );
@@ -117,9 +112,10 @@ cite {
 /* x-ray styling */
 [data-xrayhtml] {
 	border: 1px solid rgba(0,0,0,.1);
-	border-radius: .5em;
+	border-radius: .3em;
 	margin: 1.5em 0 2.5em 0;
-	padding: 1.5em 1em;
+	padding: 2em 1em;
+	position: relative;
 }
 [data-xrayhtml]:before {
 	content: "Example";
@@ -135,23 +131,26 @@ cite {
 	left: 1.333333333em; /* 16px */
 	z-index: 3;
 }
-[data-xrayhtml].method-flip:before {
+.xrayhtml.method-flip:before {
 	background-color: rgba(255,255,255,.6);
 }
 .xrayhtml .source-panel {
 	background: #f7f7f7;
+	margin-top: 2em;
 }
 .xrayhtml.method-flip .source-panel {
+	margin-top: 0;
+	border-radius: 0.3em;
 }
 .xrayhtml.method-inline .source-panel {
-	margin: 1em -1em -1.5em -1em !important; /* Prism style override. */
+	margin: 2em -1em -2em -1em !important; /* Prism style override. */
 	border-top: 1px solid rgba(0,0,0,.1);
-	border-radius: 0 0 .5em .5em;
+	border-radius: 0 0 .3em .3em;
 }
 .xrayhtml pre {
 	padding: 16px;
 	margin: 0 !important; /* Prism style override. */
-	border-radius: 0 0 .5em .5em;
+	border-radius: 0 0 .3em .3em;
 }
 .xrayhtml code {
 	white-space: pre-wrap !important; /* Prism style override. */
