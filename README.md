@@ -9,13 +9,20 @@ Instead of dropping in a block of markup to render as a demo, then copying and p
 ## Dependencies
 
 1. jQuery or Shoestring (`./libs`)
-2. ZeroClipboard (`./libs`)
-3. prism.js (`./libs`)
+1. prism.js (`./libs`) (Optional)
+
+## Install
+
+This plugin is available on npm as `xrayhtml`.
+
+```
+npm install xrayhtml
+```
 
 ## Demos
 [Here’s the plugin in action](http://filamentgroup.github.com/X-rayHTML/).
 
-The second set of demos are using the plugin’s “create” event (`create.xrayhtml` by default, but configurable) to bolt on [Prism.js](http://prismjs.com) syntax highlighting and [ZeroClipboard](https://github.com/jonrohan/ZeroClipboard) for a “copy to clipboard” button.
+The second set of demos are using the plugin’s “create” event (`create.xrayhtml` by default, but configurable) to bolt on [Prism.js](http://prismjs.com) syntax highlighting.
 
 ## Getting Started
 Download the [production version][min] or the [development version][max], and the [structural CSS][css].
