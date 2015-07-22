@@ -1,6 +1,27 @@
 {
-  "name": "jquery-plugin",
-  "version": "0.0.0-ignored",
+  "name": "xrayhtml",
+  "title": "X-rayHTML",
+  "description": "A plugin to easily show examples of components with the markup to use them.",
+  "homepage": "https://github.com/filamentgroup/x-rayhtml",
+  "version": "1.0.0",
+  "author": "Mat Marquis",
+  "contributors": [{
+    "name": "Zach Leatherman",
+    "company": "Filament Group",
+    "email": "zach@filamentgroup.com",
+    "url": "http://filamentgroup.com/"
+  }],
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/filamentgroup/tablesaw.git"
+  },
+  "bugs": "https://github.com/filamentgroup/tablesaw/issues",
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "https://github.com/filamentgroup/tablesaw/blob/master/LICENSE-MIT"
+    }
+  ],
   "engines": {
     "node": ">= 0.6.0"
   },
