@@ -19,6 +19,9 @@
 	left: 1.333333333em; /* 16px */
 	z-index: 3;
 }
+.xrayhtml[data-title]:before {
+	content: "Example: " attr(data-title);
+}
 .xrayhtml.method-flip:before {
 	background-color: rgba(255,255,255,.6);
 }
