@@ -77,6 +77,7 @@ window.jQuery = window.jQuery || window.shoestring;
 				codeel = document.createElement( "code" ),
 				wrap = document.createElement( "div" ),
 				sourcepanel = document.createElement( "div" ),
+				// remove empty value attributes
 				code = el.innerHTML.replace( /\=\"\"/g, '' ),
 				source = document.createTextNode( code );
 

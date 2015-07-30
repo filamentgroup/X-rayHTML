@@ -60,10 +60,10 @@
 .xrayhtml.antipattern:before {
 	color: #d75e72;
 	font-weight: 700;
-	content: "Anti-pattern, Do Not Use";
+	content: "Do Not Use";
 }
 .xrayhtml.antipattern[data-title]:before {
-	content: "Anti-pattern, Do Not Use: " attr(data-title);
+	content: "Do Not Use: " attr(data-title);
 }
 
 /* Flip Animation */

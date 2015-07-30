@@ -30,6 +30,18 @@
 	<cite>Sign of Four</cite>
 </aside></div>
 
+		<h2>Add a subtitle</h2>
+		<p>Use <code>data-title</code> add your own subtitle to the example text.</p>
+		<div data-xrayhtml data-title="Paragraph">
+			<p>This is a paragraph with text.</p>
+		</div>
+
+		<h2>Anti-patterns and Bad Examples</h2>
+		<p>Add <code>class="antipattern"</code> to show a bad example. Also works with <code>data-title</code>.</p>
+		<div data-xrayhtml class="antipattern" data-title="Non-standard HTML">
+			<text><code>Text</code> is not a standard HTML element. Do not use this code.</text>
+		</div>
+
 		<h2>Flip</h2>
 		<p>Setting “flip” as the value of the <code>data-xrayhtml</code> attribute will give you this snazzy flip-to-reveal animation (browsers without support for 3D tranforms will simply show/hide the code snippet).</p>
 		<div data-xrayhtml="flip"><aside>
