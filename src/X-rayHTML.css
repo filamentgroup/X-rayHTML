@@ -54,6 +54,18 @@
 	white-space: pre-wrap !important; /* Prism style override. */
 }
 
+.xrayhtml.antipattern {
+	border-color: #C9282D;
+}
+.xrayhtml.antipattern:before {
+	color: #d75e72;
+	font-weight: 700;
+	content: "Anti-pattern, Do Not Use";
+}
+.xrayhtml.antipattern[data-title]:before {
+	content: "Anti-pattern, Do Not Use: " attr(data-title);
+}
+
 /* Flip Animation */
 
 .method-flip {
