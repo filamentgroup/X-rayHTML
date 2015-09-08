@@ -3,7 +3,7 @@ module.exports = function(grunt) {
 
   // Project configuration.
   grunt.initConfig({
-    pkg: '<json:X-rayHTML.jquery.json>',
+    pkg: '<json:package.json>',
     meta: {
       banner: '/*! <%= pkg.title || pkg.name %> - v<%= pkg.version %> - ' +
         '<%= grunt.template.today("yyyy-mm-dd") %>\n' +
@@ -13,16 +13,13 @@ module.exports = function(grunt) {
     },
     concat: {
       js: {
-        src: ['<banner:meta.banner>', '<file_strip_banner:src/<%= pkg.name %>.js>'],
+        src: ['<banner:meta.banner>', '<file_strip_banner:src/X-rayHTML.js>'],
         dest: 'dist/<%= pkg.name %>.js'
       },
       css: {
-        src: ['<banner:meta.banner>', '<file_strip_banner:src/<%= pkg.name %>.css>'],
+        src: ['<banner:meta.banner>', '<file_strip_banner:src/X-rayHTML.css>'],
         dest: 'dist/<%= pkg.name %>.css'
       }
-    },
-    qunit: {
-      files: ['test/**/*.html']
     },
     lint: {
       files: ['grunt.js', 'src/**/*.js', 'test/**/*.js']
@@ -53,6 +50,6 @@ module.exports = function(grunt) {
   });
 
   // Default task.
-  grunt.registerTask('default', 'lint qunit concat');
+  grunt.registerTask('default', 'lint concat');
 
 };

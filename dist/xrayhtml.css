@@ -1,6 +1,6 @@
-/*! X-rayHTML - v0.1.0 - 2015-07-21
-* https://github.com/filamentgroup/X-rayHTML
-* Copyright (c) 2015 Mat Marquis; Licensed MIT */
+/*! X-rayHTML - v1.0.2 - 2015-09-08
+* https://github.com/filamentgroup/x-rayhtml
+* Copyright (c) 2015 ; Licensed MIT */
 
 .xrayhtml {
 	border: 1px solid rgba(0,0,0,.1);
@@ -22,6 +22,9 @@
 	padding-right: .5em;
 	left: 1.333333333em; /* 16px */
 	z-index: 3;
+}
+.xrayhtml[data-title]:before {
+	content: "Example: " attr(data-title);
 }
 .xrayhtml.method-flip:before {
 	background-color: rgba(255,255,255,.6);
@@ -53,6 +56,18 @@
 }
 .xrayhtml code {
 	white-space: pre-wrap !important; /* Prism style override. */
+}
+
+.xrayhtml.antipattern {
+	border-color: #C9282D;
+}
+.xrayhtml.antipattern:before {
+	color: #d75e72;
+	font-weight: 700;
+	content: "Do Not Use";
+}
+.xrayhtml.antipattern[data-title]:before {
+	content: "Do Not Use: " attr(data-title);
 }
 
 /* Flip Animation */

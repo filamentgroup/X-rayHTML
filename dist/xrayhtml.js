@@ -1,6 +1,6 @@
-/*! X-rayHTML - v0.1.0 - 2015-07-21
-* https://github.com/filamentgroup/X-rayHTML
-* Copyright (c) 2015 Mat Marquis; Licensed MIT */
+/*! X-rayHTML - v1.0.2 - 2015-09-08
+* https://github.com/filamentgroup/x-rayhtml
+* Copyright (c) 2015 ; Licensed MIT */
 
 window.jQuery = window.jQuery || window.shoestring;
 
@@ -35,7 +35,7 @@ window.jQuery = window.jQuery || window.shoestring;
 			});
 		},
 		_init: function() {
-			var method = $( this ).data( pluginName ) || o.defaultReveal;
+			var method = $( this ).attr( "data-" + pluginName ) || o.defaultReveal;
 
 			if( method === "flip" ) {
 				$( this )[ pluginName ]( "_createButton" );
@@ -72,6 +72,7 @@ window.jQuery = window.jQuery || window.shoestring;
 				codeel = document.createElement( "code" ),
 				wrap = document.createElement( "div" ),
 				sourcepanel = document.createElement( "div" ),
+				// remove empty value attributes
 				code = el.innerHTML.replace( /\=\"\"/g, '' ),
 				source = document.createTextNode( code );
 
