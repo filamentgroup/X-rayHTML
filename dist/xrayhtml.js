@@ -1,11 +1,6 @@
-
-/*
-* View Source
-* Generates copy/pastable markup from actual rendered markup.
-*
-* Copyright (c) 2012 Filament Group, Inc.
-* Licensed under the MIT, GPL licenses.
- */
+/*! X-rayHTML - v2.0.0 - 2015-09-15
+* https://github.com/filamentgroup/x-rayhtml
+* Copyright (c) 2015 ; Licensed MIT */
 
 window.jQuery = window.jQuery || window.shoestring;
 
@@ -116,9 +111,12 @@ window.jQuery = window.jQuery || window.shoestring;
 	$.extend( $.fn[ pluginName ].prototype, methods );
 
 	//  auto-init
+	var initted;
 	function init(){
-		$( o.initSelector )[ pluginName ]();
-		init = function(){};
+		if( !initted ){
+			$( o.initSelector )[ pluginName ]();
+			initted = true;
+		}
 	}
 	// init either on beforeenhance event or domready, whichever comes first.
 	$( document ).bind("beforeenhance", init );

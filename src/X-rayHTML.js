@@ -116,9 +116,12 @@ window.jQuery = window.jQuery || window.shoestring;
 	$.extend( $.fn[ pluginName ].prototype, methods );
 
 	//  auto-init
+	var initted;
 	function init(){
-		$( o.initSelector )[ pluginName ]();
-		init = function(){};
+		if( !initted ){
+			$( o.initSelector )[ pluginName ]();
+			initted = true;
+		}
 	}
 	// init either on beforeenhance event or domready, whichever comes first.
 	$( document ).bind("beforeenhance", init );
