@@ -1,6 +1,11 @@
-/*! X-rayHTML - v1.0.3 - 2015-09-08
-* https://github.com/filamentgroup/x-rayhtml
-* Copyright (c) 2015 ; Licensed MIT */
+
+/*
+* View Source
+* Generates copy/pastable markup from actual rendered markup.
+*
+* Copyright (c) 2012 Filament Group, Inc.
+* Licensed under the MIT, GPL licenses.
+ */
 
 window.jQuery = window.jQuery || window.shoestring;
 
@@ -70,15 +75,12 @@ window.jQuery = window.jQuery || window.shoestring;
 			var el = this,
 				preel = document.createElement( "pre" ),
 				codeel = document.createElement( "code" ),
-				wrap = document.createElement( "div" ),
 				sourcepanel = document.createElement( "div" ),
 				// remove empty value attributes
 				code = el.innerHTML.replace( /\=\"\"/g, '' ),
 				source = document.createTextNode( code );
 
-			wrap.setAttribute( "class", "snippet" );
-
-			$( el ).wrapInner( wrap );
+			$( el ).addClass( "snippet" );
 
 			codeel.appendChild( source );
 			preel.appendChild( codeel );
