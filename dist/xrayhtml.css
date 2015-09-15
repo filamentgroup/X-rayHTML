@@ -2,6 +2,10 @@
 * https://github.com/filamentgroup/x-rayhtml
 * Copyright (c) 2015 ; Licensed MIT */
 
+/*! X-rayHTML - v1.0.3 - 2015-09-08
+* https://github.com/filamentgroup/x-rayhtml
+* Copyright (c) 2015 ; Licensed MIT */
+
 .xrayhtml {
 	border: 1px solid rgba(0,0,0,.1);
 	border-radius: .3em;
@@ -77,8 +81,12 @@
 	-moz-perspective: 2500px;
 	perspective: 2500px;
 }
-.method-flip > *:first-child {
+.method-flip .snippet {
+	padding: 0;
+	margin: 0;
 	position: relative;
+	top: 0;
+	left: 0;
 	z-index: 2;
 	min-height: 100%;
 }
@@ -91,7 +99,7 @@
 	overflow-x: scroll;
 }
 
-.method-flip > *:first-child {
+.method-flip .snippet {
 	-webkit-transform: rotateY(0deg);
 	-webkit-transform-style: preserve-3d;
 	-webkit-backface-visibility: hidden;
@@ -103,7 +111,7 @@
 	-webkit-transition: -webkit-transform .4s ease-in-out;
 	-moz-transition: -moz-transform .4s ease-in-out;
 }
-.method-flip.view-source > *:first-child {
+.method-flip.view-source .snippet {
 	z-index: 1;
 	-webkit-transform: rotateY(180deg);
 	-moz-transform: rotateY(180deg);

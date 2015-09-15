@@ -70,12 +70,15 @@ window.jQuery = window.jQuery || window.shoestring;
 			var el = this,
 				preel = document.createElement( "pre" ),
 				codeel = document.createElement( "code" ),
+				wrap = document.createElement( "div" ),
 				sourcepanel = document.createElement( "div" ),
 				// remove empty value attributes
 				code = el.innerHTML.replace( /\=\"\"/g, '' ),
 				source = document.createTextNode( code );
 
-			$( el ).addClass( "snippet" );
+			wrap.setAttribute( "class", "snippet" );
+
+			$( el ).wrapInner( wrap );
 
 			codeel.appendChild( source );
 			preel.appendChild( codeel );
