@@ -80,9 +80,12 @@ window.jQuery = window.jQuery || window.shoestring;
 				// remove empty value attributes
 				code = el.innerHTML.replace( /\=\"\"/g, '' ),
 				leadingWhiteSpace = code.match( /(^[\s]+)/ ),
-				lineWSRE = new RegExp( leadingWhiteSpace[ 1 ], "gmi" ),
-				code = code.replace( lineWSRE, "\n" ),
-				source = document.createTextNode( code );
+				source;
+
+			if( leadingWhiteSpace ) {
+				code = code.replace( new RegExp( leadingWhiteSpace[ 1 ], "gmi" ), "\n" );
+			}
+			source = document.createTextNode( code );
 
 			wrap.setAttribute( "class", "snippet" );
 
