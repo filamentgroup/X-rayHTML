@@ -1,4 +1,4 @@
-/*! X-rayHTML - v2.0.0 - 2015-09-15
+/*! X-rayHTML - v2.0.0 - 2015-10-28
 * https://github.com/filamentgroup/x-rayhtml
 * Copyright (c) 2015 ; Licensed MIT */
 
@@ -74,7 +74,12 @@ window.jQuery = window.jQuery || window.shoestring;
 				sourcepanel = document.createElement( "div" ),
 				// remove empty value attributes
 				code = el.innerHTML.replace( /\=\"\"/g, '' ),
-				source = document.createTextNode( code );
+				leadingWhiteSpace = code.match( /(^[\s]+)/ ),
+				lineWSRE = new RegExp( leadingWhiteSpace[ 1 ], "gmi" ),
+				source;
+
+			code = code.replace( lineWSRE, "\n" ),
+			source = document.createTextNode( code );
 
 			wrap.setAttribute( "class", "snippet" );
 
