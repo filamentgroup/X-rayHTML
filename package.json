@@ -5,12 +5,14 @@
   "homepage": "https://github.com/filamentgroup/x-rayhtml",
   "version": "2.0.0",
   "author": "Mat Marquis",
-  "contributors": [{
-    "name": "Zach Leatherman",
-    "company": "Filament Group",
-    "email": "zach@filamentgroup.com",
-    "url": "http://filamentgroup.com/"
-  }],
+  "contributors": [
+    {
+      "name": "Zach Leatherman",
+      "company": "Filament Group",
+      "email": "zach@filamentgroup.com",
+      "url": "http://filamentgroup.com/"
+    }
+  ],
   "repository": {
     "type": "git",
     "url": "git://github.com/filamentgroup/x-rayhtml.git"
@@ -29,6 +31,6 @@
     "test": "grunt qunit"
   },
   "devDependencies": {
-    "grunt": "~0.3.17"
+    "grunt": "~0.4.5"
   }
 }
