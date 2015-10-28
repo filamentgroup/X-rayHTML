@@ -79,6 +79,9 @@ window.jQuery = window.jQuery || window.shoestring;
 				sourcepanel = document.createElement( "div" ),
 				// remove empty value attributes
 				code = el.innerHTML.replace( /\=\"\"/g, '' ),
+				leadingWhiteSpace = code.match( /(^[\s]+)/ ),
+				lineWSRE = new RegExp( leadingWhiteSpace[ 1 ], "gmi" ),
+				code = code.replace( lineWSRE, "\n" ),
 				source = document.createTextNode( code );
 
 			wrap.setAttribute( "class", "snippet" );
