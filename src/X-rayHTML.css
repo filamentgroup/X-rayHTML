@@ -9,8 +9,7 @@
 	padding: 2em 1em;
 	position: relative;
 }
-.xrayhtml:before {
-	content: "Example";
+.xrayhtml .xraytitle {
 	text-transform: uppercase;
 	letter-spacing: 1px;
 	font: .75em sans-serif;
@@ -22,9 +21,7 @@
 	padding-right: .5em;
 	left: 1.333333333em; /* 16px */
 	z-index: 3;
-}
-.xrayhtml[data-title]:before {
-	content: "Example: " attr(data-title);
+	margin: 0;
 }
 .xrayhtml.method-flip:before {
 	background-color: rgba(255,255,255,.6);
@@ -61,13 +58,9 @@
 .xrayhtml.antipattern {
 	border-color: #C9282D;
 }
-.xrayhtml.antipattern:before {
+.xrayhtml.antipattern .xraytitle {
 	color: #d75e72;
 	font-weight: 700;
-	content: "Do Not Use";
-}
-.xrayhtml.antipattern[data-title]:before {
-	content: "Do Not Use: " attr(data-title);
 }
 
 /* Flip Animation */

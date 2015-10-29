@@ -31,14 +31,17 @@
 </aside></div>
 
 		<h2>Add a subtitle</h2>
-		<p>Use <code>data-title</code> add your own subtitle to the example text.</p>
-		<div data-xrayhtml data-title="Paragraph">
+		<p>Use a heading element with an <code>xraytitle</code> class to add your own subtitle to the example text.</p>
+		<p>Also works with a <code>data-title</code> attribute but that approach is deprecated.</p>
+		<div data-xrayhtml>
+			<h2 class="xraytitle">Parapraph</h2>
 			<p>This is a paragraph with text.</p>
 		</div>
 
 		<h2>Anti-patterns and Bad Examples</h2>
-		<p>Add <code>class="antipattern"</code> to show a bad example. Also works with <code>data-title</code>.</p>
-		<div data-xrayhtml class="antipattern" data-title="Non-standard HTML">
+		<p>Add <code>class="antipattern"</code> to show a bad example. Also works with subtitles as documented above.</p>
+		<div data-xrayhtml class="antipattern">
+			<h2 class="xraytitle">Non-standard HTML</h2>
 			<text><code>Text</code> is not a standard HTML element. Do not use this code.</text>
 		</div>
 

@@ -14,12 +14,16 @@ window.jQuery = window.jQuery || window.shoestring;
 		o = {
 		text: {
 			open: "View Source",
-			close: "View Demo"
+			close: "View Demo",
+			titlePrefix: "Example",
+			antipattern: "Do Not Use"
 		},
 		classes: {
 			button: "btn btn-small",
 			open: "view-source",
-			sourcepanel: "source-panel"
+			sourcepanel: "source-panel",
+			title: "xraytitle",
+			antipattern: "antipattern"
 		},
 		initSelector: "[data-" + pluginName + "]",
 		defaultReveal: "inline"
@@ -72,19 +76,42 @@ window.jQuery = window.jQuery || window.shoestring;
 				.insertBefore( el );
 		},
 		_createSource: function() {
-			var el = this,
-				preel = document.createElement( "pre" ),
-				codeel = document.createElement( "code" ),
-				wrap = document.createElement( "div" ),
-				sourcepanel = document.createElement( "div" ),
-				// remove empty value attributes
-				code = el.innerHTML.replace( /\=\"\"/g, '' ),
-				leadingWhiteSpace = code.match( /(^[\s]+)/ ),
-				source;
+			var el = this;
+			var getPrefixText = function () {
+				if( el.className.match( new RegExp( "\\b" + o.classes.antipattern + "\\b", "gi" ) ) ) {
+					return o.text.antipattern;
+				}
+				return o.text.titlePrefix;
+			};
+			var title = el.getElementsByClassName( o.classes.title );
+			var deprecatedTitle;
+			var preel = document.createElement( "pre" );
+			var codeel = document.createElement( "code" );
+			var wrap = document.createElement( "div" );
+			var sourcepanel = document.createElement( "div" );
+			var code;
+			var leadingWhiteSpace;
+			var source;
+
+			if( title.length ) {
+				title = title[ 0 ];
+				title.parentNode.removeChild( title );
+				title.innerHTML = getPrefixText() + ": " + title.innerHTML;
+			} else {
+				deprecatedTitle = el.getAttribute( "data-title" );
+				title = document.createElement( "div" );
+				title.className = o.classes.title;
+				title.innerHTML = getPrefixText() + ( deprecatedTitle ? ": " + deprecatedTitle : "" );
+			}
+
+			// remove empty value attributes
+			code = el.innerHTML.replace( /\=\"\"/g, '' );
+			leadingWhiteSpace = code.match( /(^[\s]+)/ );
 
 			if( leadingWhiteSpace ) {
 				code = code.replace( new RegExp( leadingWhiteSpace[ 1 ], "gmi" ), "\n" );
 			}
+
 			source = document.createTextNode( code );
 
 			wrap.setAttribute( "class", "snippet" );
@@ -98,6 +125,7 @@ window.jQuery = window.jQuery || window.shoestring;
 			sourcepanel.appendChild( preel );
 
 			this.appendChild( sourcepanel );
+			this.insertBefore( title, this.firstChild );
 		}
 	};
 
