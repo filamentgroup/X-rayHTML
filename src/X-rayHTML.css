@@ -116,3 +116,13 @@
 	-webkit-transform: rotateY(0deg);
 	-moz-transform: rotateY(0deg);
 }
+
+.method-flip.view-source .xraytitle {
+	background-color: transparent;
+	background-image: linear-gradient(
+		to bottom,
+		transparent,
+		transparent 40%,
+		#ffffff 40%,
+		transparent);
+}
