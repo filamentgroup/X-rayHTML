@@ -1,13 +1,8 @@
-/*! X-rayHTML - v1.0.3 - 2015-09-08
-* https://github.com/filamentgroup/x-rayhtml
-* Copyright (c) 2015 ; Licensed MIT */
-
 .xrayhtml {
 	border: 1px solid rgba(0,0,0,.1);
 	border-radius: .3em;
 	margin: 1.5em 0 2.5em 0;
-	padding: 2em 1em;
-	position: relative;
+	padding: 1em 1em 2em;
 }
 .xrayhtml .xraytitle {
 	text-transform: uppercase;
@@ -15,11 +10,12 @@
 	font: .75em sans-serif;
 	color: rgba(0,0,0,.5);
 	background-color: #fff;
-	position: absolute;
-	top: -.5em;
-	padding-left: .5em;
-	padding-right: .5em;
-	left: 1.333333333em; /* 16px */
+	border-radius: 3px;
+	display: inline-block;
+	position: relative;
+	top: -2.166666667em; /* 26px */
+	padding-left: .1em;
+	padding-right: .1em;
 	z-index: 3;
 	margin: 0;
 }
