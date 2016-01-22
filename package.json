@@ -3,7 +3,7 @@
   "title": "X-rayHTML",
   "description": "A plugin to easily show examples of components with the markup to use them.",
   "homepage": "https://github.com/filamentgroup/x-rayhtml",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "author": "Mat Marquis",
   "contributors": [
     {

@@ -1,6 +1,6 @@
-/*! X-rayHTML - v2.0.1 - 2015-10-29
+/*! X-rayHTML - v2.0.2 - 2016-01-22
 * https://github.com/filamentgroup/x-rayhtml
-* Copyright (c) 2015 ; Licensed MIT */
+* Copyright (c) 2016 ; Licensed MIT */
 
 window.jQuery = window.jQuery || window.shoestring;
 
