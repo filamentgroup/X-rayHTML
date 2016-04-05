@@ -18,7 +18,7 @@
     "url": "git://github.com/filamentgroup/x-rayhtml.git"
   },
   "bugs": "https://github.com/filamentgroup/x-rayhtml/issues",
-  "license" : "MIT",
+  "license": "MIT",
   "engines": {
     "node": ">= 0.6.0"
   },
@@ -26,6 +26,6 @@
     "test": "grunt qunit"
   },
   "devDependencies": {
-    "grunt": "~0.4.5"
+    "grunt": "~1.0.0"
   }
 }
