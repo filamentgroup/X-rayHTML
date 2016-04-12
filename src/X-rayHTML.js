@@ -85,7 +85,7 @@ window.jQuery = window.jQuery || window.shoestring;
 						html: snippetHTML,
 						head: headHTML
 					}, "*");
-				})
+				});
 
 				// style the iframe properly
 				$iframe.addClass("xray-iframe");
