@@ -44,6 +44,7 @@ window.jQuery = window.jQuery || window.shoestring;
 			});
 		},
 		_init: function() {
+			var self = this;
 			var method = $( this ).attr( "data-" + pluginName ) || o.defaultReveal;
 
 			if( method === "flip" ) {
@@ -53,6 +54,22 @@ window.jQuery = window.jQuery || window.shoestring;
 			$( this )
 				.addClass( pluginName + " " + "method-" + method )
 				[ pluginName ]( "_createSource" );
+
+			if( $(this).is("[data-" + pluginName + "-iframe]") ){
+				var snippetHTML = $(this).find(".snippet").html();
+				var url = $(this).attr("data-" + pluginName + "-iframe");
+				var $iframe = $("<iframe src='" + url + "'/>");
+
+				$iframe.bind("load",function(){
+					debugger;
+					$iframe[0].contentWindow.postMessage({
+						html: snippetHTML,
+					}, "*");
+				});
+
+				$(this).html($iframe);
+			}
+
 		},
 		_createButton: function() {
 			var btn = document.createElement( "a" ),
@@ -163,5 +180,6 @@ window.jQuery = window.jQuery || window.shoestring;
 	// init either on beforeenhance event or domready, whichever comes first.
 	$( document ).bind("beforeenhance", init );
 	$( init );
+
 
 }( jQuery ));
