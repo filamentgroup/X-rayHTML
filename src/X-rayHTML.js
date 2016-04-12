@@ -44,7 +44,6 @@ window.jQuery = window.jQuery || window.shoestring;
 			});
 		},
 		_init: function() {
-			var self = this;
 			var method = $( this ).attr( "data-" + pluginName ) || o.defaultReveal;
 
 			if( method === "flip" ) {
@@ -53,30 +52,47 @@ window.jQuery = window.jQuery || window.shoestring;
 
 			$( this )
 				.addClass( pluginName + " " + "method-" + method )
-				[ pluginName ]( "_createSource" );
+			[ pluginName ]( "_createSource" );
 
+			// use an iframe to host the source
 			if( $(this).is("[data-" + pluginName + "-iframe]") ){
+
+				// grab the snippet html to ship to the iframe
 				var snippetHTML = $(this).find(".snippet").html();
+
+				// grab the url of the iframe to load
 				var url = $(this).attr("data-" + pluginName + "-iframe");
+
+				// create the iframe element, so we can bind to the load event
 				var $iframe = $("<iframe src='" + url + "'/>");
 
-				var head = $( "head" ).html();
+				// get the scripts and styles to ship to the iframe
+				// TODO we should support styles/scripts elsewhere in the page
+				var headHTML = $( "head" ).html();
 
+				// wait until the iframe loads to send the data
 				$iframe.bind("load",function(){
+
+					// wait for the iframe page to transmit the height of the page
 					$(window).bind("message", function(event){
 						var data = event.data || event.originalEvent.data;
 						$iframe.attr("height", JSON.parse(data).iframeheight);
 					});
+
+					// send a message to the iframe with the snippet to load and any
+					// assets that are required to make it look right
 					$iframe[0].contentWindow.postMessage({
 						html: snippetHTML,
-						head: head
+						head: headHTML
 					}, "*");
-				});
+				})
 
+				// style the iframe properly
 				$iframe.addClass("xray-iframe");
-				$(this).html($iframe);
-			}
 
+				// replace the snippet which is rendered in the page with the iframe
+				$(this).find(".snippet").html($iframe);
+			}
 		},
 		_createButton: function() {
 			var btn = document.createElement( "a" ),
