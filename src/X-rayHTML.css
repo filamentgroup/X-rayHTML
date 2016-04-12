@@ -126,3 +126,8 @@
 		#ffffff 40%,
 		transparent);
 }
+
+iframe.xray-iframe {
+	border: 0;
+	width: 100%
+}

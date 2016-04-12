@@ -60,13 +60,20 @@ window.jQuery = window.jQuery || window.shoestring;
 				var url = $(this).attr("data-" + pluginName + "-iframe");
 				var $iframe = $("<iframe src='" + url + "'/>");
 
+				var head = $( "head" ).html();
+
 				$iframe.bind("load",function(){
-					debugger;
+					$(window).bind("message", function(event){
+						var data = event.data || event.originalEvent.data;
+						$iframe.attr("height", JSON.parse(data).iframeheight);
+					});
 					$iframe[0].contentWindow.postMessage({
 						html: snippetHTML,
+						head: head
 					}, "*");
 				});
 
+				$iframe.addClass("xray-iframe");
 				$(this).html($iframe);
 			}
 
