@@ -1,4 +1,4 @@
-/*! X-rayHTML - v2.0.2 - 2016-01-22
+/*! X-rayHTML - v2.0.2 - 2016-04-22
 * https://github.com/filamentgroup/x-rayhtml
 * Copyright (c) 2016 ; Licensed MIT */
 
@@ -129,4 +129,9 @@
 		transparent 40%,
 		#ffffff 40%,
 		transparent);
+}
+
+iframe.xray-iframe {
+	border: 0;
+	width: 100%
 }
