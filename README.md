@@ -89,7 +89,7 @@ the viewport width and which may be in pages where the examples are not full wid
 
 ```html
 <div data-xrayhtml data-xrayhtml-iframe="/xray.html">
-    ...
+  ...
 ```
 
 Critically, the value of the attribute should point to a URL which serves a document that includes all of the necessary assets to handle the example properly. 
@@ -103,11 +103,11 @@ Following the example above, you might include the following in `/xray.html`
 ```html
 <!doctype html>
 <html lang="en">
-  <head>
-    <!-- other assets to support code snippets go here -->
-    <script src="xrayhtml-iframe.js"></script>
-  </head>
-  <body>
-  </body>
+	<head>
+		<!-- other assets to support code snippets go here -->
+		<script src="xrayhtml-iframe.js"></script>
+	</head>
+	<body>
+	</body>
 </html>
 ```
