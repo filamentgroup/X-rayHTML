@@ -13,8 +13,18 @@ module.exports = function(grunt) {
     },
     concat: {
       js: {
-        src: ['<banner:meta.banner>', '<file_strip_banner:src/X-rayHTML.js>'],
+        src: [
+          '<banner:meta.banner>',
+          '<file_strip_banner:src/X-rayHTML.js>'
+        ],
         dest: 'dist/<%= pkg.name %>.js'
+      },
+      "iframe-js": {
+        src: [
+          '<banner:meta.banner>',
+          '<file_strip_banner:src/X-rayHTML-iframe.js>'
+        ],
+        dest: 'dist/<%= pkg.name %>-iframe.js'
       },
       css: {
         src: ['<banner:meta.banner>', '<file_strip_banner:src/X-rayHTML.css>'],
