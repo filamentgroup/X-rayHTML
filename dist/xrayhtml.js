@@ -1,4 +1,4 @@
-/*! X-rayHTML - v2.0.2 - 2016-04-12
+/*! X-rayHTML - v2.0.2 - 2016-04-22
 * https://github.com/filamentgroup/x-rayhtml
 * Copyright (c) 2016 ; Licensed MIT */
 
