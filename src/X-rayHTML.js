@@ -91,7 +91,7 @@ window.jQuery = window.jQuery || window.shoestring;
 				$iframe.addClass("xray-iframe");
 
 				// replace the snippet which is rendered in the page with the iframe
-				$(this).find(".snippet").html($iframe);
+				$(this).find(".snippet").html("").append($iframe);
 			}
 		},
 		_createButton: function() {
