@@ -80,3 +80,34 @@ A `pre`/`code` block gets dropped into place, so whitespace inside of the elemen
 	<cite>Sign of Four</cite>
 </aside></div>
 ```
+
+## iframe support
+
+You can load your examples into an iframe using the `data-xrayhtml-iframe`
+attribute. This is useful for examples that have media queries which depend on
+the viewport width and which may be in pages where the examples are not full width (e.g. when you have documentation navigation on the left).
+
+```html
+<div data-xrayhtml data-xrayhtml-iframe="/xray.html">
+    ...
+```
+
+Critically, the value of the attribute should point to a URL which serves a document that includes all of the necessary assets to handle the example properly. 
+
+That document must also include the `xrayhtml-iframe.js` found in the `dist`
+directory. The JS will listen for messages from the `xrayhtml.js` in the parent
+page to so that it can communicate dimensions for the iframe during initial load and also during `resize` events.
+
+Following the example above, you might include the following in `/xray.html`
+
+```html
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- other assets to support code snippets go here -->
+    <script src="xrayhtml-iframe.js"></script>
+  </head>
+  <body>
+  </body>
+</html>
+```
