@@ -66,7 +66,7 @@
 		}
 
 		var data = event.data || event.originalEvent.data;
-		var body =	document.querySelector("body");
+		var body = document.querySelector("body");
 
 		// use the passed information to populate the page
 		body.innerHTML = data.html;
