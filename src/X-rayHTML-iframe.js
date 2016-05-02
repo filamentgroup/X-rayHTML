@@ -1,4 +1,17 @@
 (function(){
+
+	// Empty and exec the ready queue
+	var ready = false,
+			readyQueue = [],
+			runReady = function(){
+				if( !ready ){
+					while( readyQueue.length ){
+						readyQueue.shift().call( document );
+					}
+					ready = true;
+				}
+			};
+
 	// The following is borrowed wholesale from shoestring
 	// https://github.com/filamentgroup/shoestring/blob/master/src/core/ready.js
 	function onReady( callback ){
@@ -13,17 +26,6 @@
 		return [document];
 	}
 
-	// Empty and exec the ready queue
-	var ready = false,
-			readyQueue = [],
-			runReady = function(){
-				if( !ready ){
-					while( readyQueue.length ){
-						readyQueue.shift().call( document );
-					}
-					ready = true;
-				}
-			};
 
 	// Quick IE8 shiv
 	if( !window.addEventListener ){
