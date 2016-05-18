@@ -10,6 +10,7 @@
 window.jQuery = window.jQuery || window.shoestring;
 
 (function( $ ) {
+  var xrayiframeid = 0;
   var pluginName = "xrayhtml",
 		o = {
 		text: {
@@ -44,6 +45,10 @@ window.jQuery = window.jQuery || window.shoestring;
 			});
 		},
 		_init: function() {
+			var $self =	 $(this);
+
+			$self.data( "id." + pluginName, xrayiframeid++);
+
 			var method = $( this ).attr( "data-" + pluginName ) || o.defaultReveal;
 
 			if( method === "flip" ) {
@@ -75,15 +80,21 @@ window.jQuery = window.jQuery || window.shoestring;
 
 					// wait for the iframe page to transmit the height of the page
 					$(window).bind("message", function(event){
-						var data = event.data || event.originalEvent.data;
-						$iframe.attr("height", JSON.parse(data).iframeheight);
+						var data = JSON.parse(event.data || event.originalEvent.data);
+
+						if( data.iframeid !== $self.data("id." + pluginName) ){
+							return;
+						}
+
+						$iframe.attr("height", data.iframeheight);
 					});
 
 					// send a message to the iframe with the snippet to load and any
 					// assets that are required to make it look right
 					$iframe[0].contentWindow.postMessage({
 						html: snippetHTML,
-						head: headHTML
+						head: headHTML,
+						id: $self.data("id." + pluginName)
 					}, "*");
 				});
 

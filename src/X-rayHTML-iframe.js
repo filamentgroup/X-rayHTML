@@ -51,13 +51,15 @@
 
 	// end domready code
 
-	function sendSize(){
+	function sendSize( iframeid ){
 		window
 			.parent
-			.postMessage('{ "iframeheight" : ' +
+			.postMessage('{ "iframeid": ' + iframeid + ', "iframeheight" : ' +
 									document.documentElement.offsetHeight +
 									'}', "*");
 	}
+
+	var id;
 
 	window.addEventListener("message", function( event ){
 		// same host check
@@ -72,17 +74,20 @@
 
 		// use the passed information to populate the page
 		body.innerHTML = data.html;
+		id = data.id;
 
 		// wait until everything loads to calc the height and communicate it
 		// TODO it would be better to bind to the load of the styles at least
-		onReady(sendSize);
+		onReady(function(){
+			sendSize(id);
+		});
 	}, false);
 
 	var minInterval = 300;
 	var resized = false;
 	window.addEventListener("resize", function(){
 		if(resized){ return; }
-		sendSize();
+		sendSize(id);
 		resized = true;
 		setTimeout(function(){ resized = false; }, minInterval);
 	});
