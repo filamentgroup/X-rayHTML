@@ -70,7 +70,7 @@
 		}
 
 		var data = event.data || event.originalEvent.data;
-		var elem = document.querySelector(data.selector);
+		var elem = document.querySelector(data.selector || "body");
 
 		// use the passed information to populate the page
 		elem.innerHTML = data.html;
