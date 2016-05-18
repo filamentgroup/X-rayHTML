@@ -1,4 +1,4 @@
-/*! X-rayHTML - v2.0.2 - 2016-05-02
+/*! X-rayHTML - v2.1.2 - 2016-05-18
 * https://github.com/filamentgroup/x-rayhtml
 * Copyright (c) 2016 Filament Group; Licensed MIT */
 (function(){
@@ -54,13 +54,15 @@
 
 	// end domready code
 
-	function sendSize(){
+	function sendSize( iframeid ){
 		window
 			.parent
-			.postMessage('{ "iframeheight" : ' +
+			.postMessage('{ "iframeid": ' + iframeid + ', "iframeheight" : ' +
 									document.documentElement.offsetHeight +
 									'}', "*");
 	}
+
+	var id;
 
 	window.addEventListener("message", function( event ){
 		// same host check
@@ -71,21 +73,24 @@
 		}
 
 		var data = event.data || event.originalEvent.data;
-		var body = document.querySelector("body");
+		var elem = document.querySelector(data.selector || "body");
 
 		// use the passed information to populate the page
-		body.innerHTML = data.html;
+		elem.innerHTML = data.html;
+		id = data.id;
 
 		// wait until everything loads to calc the height and communicate it
 		// TODO it would be better to bind to the load of the styles at least
-		onReady(sendSize);
+		onReady(function(){
+			sendSize(id);
+		});
 	}, false);
 
 	var minInterval = 300;
 	var resized = false;
 	window.addEventListener("resize", function(){
 		if(resized){ return; }
-		sendSize();
+		sendSize(id);
 		resized = true;
 		setTimeout(function(){ resized = false; }, minInterval);
 	});
