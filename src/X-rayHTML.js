@@ -68,6 +68,9 @@ window.jQuery = window.jQuery || window.shoestring;
 				// grab the url of the iframe to load
 				var url = $(this).attr("data-" + pluginName + "-iframe");
 
+				// grab the selector for the element in the iframe to put the html in
+				var selector = $(this).attr("data-" + pluginName + "-iframe-target");
+
 				// create the iframe element, so we can bind to the load event
 				var $iframe = $("<iframe src='" + url + "'/>");
 
@@ -94,7 +97,8 @@ window.jQuery = window.jQuery || window.shoestring;
 					$iframe[0].contentWindow.postMessage({
 						html: snippetHTML,
 						head: headHTML,
-						id: $self.data("id." + pluginName)
+						id: $self.data("id." + pluginName),
+						selector: selector
 					}, "*");
 				});
 

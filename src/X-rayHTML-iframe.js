@@ -70,10 +70,10 @@
 		}
 
 		var data = event.data || event.originalEvent.data;
-		var body = document.querySelector("body");
+		var elem = document.querySelector(data.selector || "body");
 
 		// use the passed information to populate the page
-		body.innerHTML = data.html;
+		elem.innerHTML = data.html;
 		id = data.id;
 
 		// wait until everything loads to calc the height and communicate it

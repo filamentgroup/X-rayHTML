@@ -70,7 +70,17 @@
 </aside></div>
 
     <h2>iframe</h2>
-		<div data-xrayhtml data-xrayhtml-iframe="iframe.html" class="prism"><aside>
+		<p>
+			It's also possible to use an iframe for situations where styles (like
+			media queries) depend on the viewport. Specify the URL for the iframe
+			with <code>data-xrayhtml-iframe="iframe.html"</code> on
+			the <code>data-xrayhtml</code> element. You can also tell XRay where in
+			the iframe page to place the included markup
+			using <code>data-xrayhtml-iframe-target="#replace"</code>. Otherwise it
+			will default to replacing the <code>body</code> HTML with the code XRay
+			code snippet.
+		</p>
+		<div data-xrayhtml data-xrayhtml-iframe="iframe.html" data-xrayhtml-iframe-target="#replace" class="prism"><aside>
 	<blockquote>
 		<p>It is the unofficial force—the Baker Street irregulars.</p>
 	</blockquote>
