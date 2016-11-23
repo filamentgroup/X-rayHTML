@@ -28,7 +28,7 @@
   "devDependencies": {
     "grunt": "~1.0.1",
     "grunt-contrib-concat": "~1.0.1",
-    "grunt-contrib-jshint": "~1.0.0",
+    "grunt-contrib-jshint": "~1.1.0",
     "grunt-contrib-qunit": "~1.2.0",
     "grunt-contrib-watch": "~1.0.0",
     "matchdep": "^1.0.1"
