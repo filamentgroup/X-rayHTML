@@ -29,6 +29,8 @@
 }
 .xrayhtml .source-panel pre {
 	margin: 0;
+	padding: 16px;
+	border-radius: 0 0 .3em .3em;
 }
 .xrayhtml .source-panel code {
 	white-space: pre-wrap;
@@ -38,17 +40,13 @@
 	border-radius: 0.3em;
 }
 .xrayhtml.method-inline .source-panel {
-	margin: 2em -1em -2em -1em !important; /* Prism style override. */
+	margin: 2em -1em -2em -1em !important; /* Prism override. */
 	border-top: 1px solid rgba(0,0,0,.1);
 	border-radius: 0 0 .3em .3em;
 }
-.xrayhtml pre {
-	padding: 16px;
-	margin: 0 !important; /* Prism style override. */
-	border-radius: 0 0 .3em .3em;
-}
-.xrayhtml code {
-	white-space: pre-wrap !important; /* Prism style override. */
+/* Prism override. */
+.xrayhtml .source-panel code.language-markup {
+	white-space: pre-wrap !important;
 }
 
 .xrayhtml.antipattern {
