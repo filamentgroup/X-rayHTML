@@ -83,7 +83,7 @@ window.jQuery = window.jQuery || window.shoestring;
 
 					// wait for the iframe page to transmit the height of the page
 					$(window).bind("message", function(event){
-						var data = JSON.parse(event.data || event.originalEvent.data);
+						var data = event.data || event.originalEvent.data;
 
 						if( data.iframeid !== $self.data("id." + pluginName) ){
 							return;

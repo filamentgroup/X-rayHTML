@@ -54,9 +54,10 @@
 	function sendSize( iframeid ){
 		window
 			.parent
-			.postMessage('{ "iframeid": ' + iframeid + ', "iframeheight" : ' +
-									document.documentElement.offsetHeight +
-									'}', "*");
+			.postMessage({
+				iframeid: iframeid,
+				iframeheight :document.documentElement.offsetHeight
+			}, "*");
 	}
 
 	var id;
