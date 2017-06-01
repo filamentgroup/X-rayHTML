@@ -1,6 +1,6 @@
-/*! X-rayHTML - v2.1.3 - 2016-12-20
+/*! X-rayHTML - v2.1.3 - 2017-06-01
 * https://github.com/filamentgroup/x-rayhtml
-* Copyright (c) 2016 Filament Group; Licensed MIT */
+* Copyright (c) 2017 Filament Group; Licensed MIT */
 (function(){
 
 	// Empty and exec the ready queue
