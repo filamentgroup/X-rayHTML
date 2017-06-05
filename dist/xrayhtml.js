@@ -1,12 +1,6 @@
-
-/*
-* View Source
-* Generates copy/pastable markup from actual rendered markup.
-*
-* Copyright (c) 2016 Filament Group, Inc.
-* Licensed under the MIT, GPL licenses.
- */
-
+/*! X-rayHTML - v2.1.3 - 2017-06-05
+* https://github.com/filamentgroup/x-rayhtml
+* Copyright (c) 2017 Filament Group; Licensed MIT */
 window.jQuery = window.jQuery || window.shoestring;
 
 (function( $ ) {

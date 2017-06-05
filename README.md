@@ -9,13 +9,20 @@ Instead of dropping in a block of markup to render as a demo, then copying and p
 ## Dependencies
 
 1. jQuery or Shoestring (`./libs`)
-2. ZeroClipboard (`./libs`)
-3. prism.js (`./libs`)
+1. prism.js (`./libs`) (Optional)
+
+## Install
+
+This plugin is available on npm as `xrayhtml`.
+
+```
+npm install xrayhtml
+```
 
 ## Demos
 [Here’s the plugin in action](http://filamentgroup.github.com/X-rayHTML/).
 
-The second set of demos are using the plugin’s “create” event (`create.xrayhtml` by default, but configurable) to bolt on [Prism.js](http://prismjs.com) syntax highlighting and [ZeroClipboard](https://github.com/jonrohan/ZeroClipboard) for a “copy to clipboard” button.
+The second set of demos are using the plugin’s “create” event (`create.xrayhtml` by default, but configurable) to bolt on [Prism.js](http://prismjs.com) syntax highlighting.
 
 ## Getting Started
 Download the [production version][min] or the [development version][max], and the [structural CSS][css].
@@ -72,4 +79,35 @@ A `pre`/`code` block gets dropped into place, so whitespace inside of the elemen
 	<address>Sherlock Holmes</address>
 	<cite>Sign of Four</cite>
 </aside></div>
+```
+
+## iframe support
+
+You can load your examples into an iframe using the `data-xrayhtml-iframe`
+attribute. This is useful for examples that have media queries which depend on
+the viewport width and which may be in pages where the examples are not full width (e.g. when you have documentation navigation on the left).
+
+```html
+<div data-xrayhtml data-xrayhtml-iframe="/xray.html">
+  ...
+```
+
+Critically, the value of the attribute should point to a URL which serves a document that includes all of the necessary assets to handle the example properly. 
+
+That document must also include the `xrayhtml-iframe.js` found in the `dist`
+directory. The JS will listen for messages from the `xrayhtml.js` in the parent
+page to so that it can communicate dimensions for the iframe during initial load and also during `resize` events.
+
+Following the example above, you might include the following in `/xray.html`
+
+```html
+<!doctype html>
+<html lang="en">
+	<head>
+		<!-- other assets to support code snippets go here -->
+		<script src="xrayhtml-iframe.js"></script>
+	</head>
+	<body>
+	</body>
+</html>
 ```
