@@ -58,20 +58,13 @@
 }
 
 /* Flip Animation */
-
+.xrayhtml.method-flip {
+	padding: 0;
+}
 .method-flip {
 	-webkit-perspective: 2500px;
 	-moz-perspective: 2500px;
 	perspective: 2500px;
-}
-.method-flip .snippet {
-	padding: 0;
-	margin: 0;
-	position: relative;
-	top: 0;
-	left: 0;
-	z-index: 2;
-	min-height: 100%;
 }
 .method-flip .source-panel {
 	position: absolute;
@@ -81,8 +74,16 @@
 	height: 100%;
 	overflow-x: auto;
 }
-
 .method-flip .snippet {
+	margin: 0;
+	position: relative;
+	top: 0;
+	left: 0;
+	z-index: 2;
+	min-height: 100%;
+	background-color: #fff;
+	padding: 1em;
+
 	-webkit-transform: rotateY(0deg);
 	-webkit-transform-style: preserve-3d;
 	-webkit-backface-visibility: hidden;
