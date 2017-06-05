@@ -1,6 +1,6 @@
-/*! X-rayHTML - v2.1.3 - 2016-12-20
+/*! X-rayHTML - v2.1.3 - 2017-06-05
 * https://github.com/filamentgroup/x-rayhtml
-* Copyright (c) 2016 Filament Group; Licensed MIT */
+* Copyright (c) 2017 Filament Group; Licensed MIT */
 .xrayhtml {
 	border: 1px solid rgba(0,0,0,.1);
 	border-radius: .3em;
@@ -61,20 +61,13 @@
 }
 
 /* Flip Animation */
-
+.xrayhtml.method-flip {
+	padding: 0;
+}
 .method-flip {
 	-webkit-perspective: 2500px;
 	-moz-perspective: 2500px;
 	perspective: 2500px;
-}
-.method-flip .snippet {
-	padding: 0;
-	margin: 0;
-	position: relative;
-	top: 0;
-	left: 0;
-	z-index: 2;
-	min-height: 100%;
 }
 .method-flip .source-panel {
 	position: absolute;
@@ -82,10 +75,18 @@
 	left: 0;
 	width: 100%;
 	height: 100%;
-	overflow-x: scroll;
+	overflow-x: auto;
 }
-
 .method-flip .snippet {
+	margin: 0;
+	position: relative;
+	top: 0;
+	left: 0;
+	z-index: 2;
+	min-height: 100%;
+	background-color: #fff;
+	padding: 1em;
+
 	-webkit-transform: rotateY(0deg);
 	-webkit-transform-style: preserve-3d;
 	-webkit-backface-visibility: hidden;
