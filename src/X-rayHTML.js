@@ -20,7 +20,7 @@ window.jQuery = window.jQuery || window.shoestring;
 			antipattern: "Do Not Use"
 		},
 		classes: {
-			button: "btn btn-small",
+			button: "btn btn-small btn-xrayhtml",
 			open: "view-source",
 			sourcepanel: "source-panel",
 			title: "xraytitle",
