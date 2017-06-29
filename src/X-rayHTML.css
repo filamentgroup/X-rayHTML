@@ -1,9 +1,11 @@
 .xrayhtml {
-	position: relative;
 	border: 1px solid rgba(0,0,0,.1);
 	border-radius: .3em;
 	margin: 1.5em 0 2.5em 0;
 	padding: 1em 1em 2em;
+}
+.xrayhtml.copy {
+	position: relative;
 }
 .xrayhtml .xraytitle {
 	text-transform: uppercase;
