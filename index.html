@@ -91,7 +91,9 @@
 </div>
 
 <h2>Copy (clipboard.js)</h2>
-<div data-xrayhtml class="copy">
+<p>Add the <code>xray-copy</code> class to the <code>data-xrayhtml</code> container to append a "Copy" button to the code snippet; when clicked, it'll copy the entire snippet.</p>
+
+<div data-xrayhtml class="xray-copy">
 <aside>
 <blockquote>
 	<p>It is the unofficial force—the Baker Street irregulars.</p>
@@ -136,7 +138,7 @@
 		}
 
 		// Clipboard
-		var copy = !!~e.target.getAttribute( "class" ).indexOf( "copy" );
+		var copy = !!~e.target.getAttribute( "class" ).indexOf( "xray-copy" );
 
 		if( copy && "Clipboard" in window ) {
 			var $target = $( event.target );
