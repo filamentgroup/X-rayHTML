@@ -80,6 +80,8 @@
 <p>The plugin fires off a <code>create.xrayhtml</code> event that can be used to attach features like syntax highlighting (using <a href="http://prismjs.com">Prism.js</a>), or "copy to clipboard" (using <a href="https://clipboardjs.com/">Clipboard</a>).</p>
 
 <h2>Prism.js</h2>
+<p>Add the <code>prism</code> class to the <code>data-xrayhtml</code> container to colorize the code snippet.</p>
+
 <div data-xrayhtml class="prism">
 <aside>
 <blockquote>
@@ -100,6 +102,7 @@
 </blockquote>
 <address>Sherlock Holmes</address>
 <cite>Sign of Four</cite>
+<p>(Copied from the demo page)</p>
 </aside>
 </div>
 
@@ -141,7 +144,7 @@
 		var copy = !!~e.target.getAttribute( "class" ).indexOf( "xray-copy" );
 
 		if( copy && "Clipboard" in window ) {
-			var $target = $( event.target );
+			var $target = $( e.target );
 			var $snippet = $target.find( ".snippet" );
 			var html = $snippet.html();
 			var $link = $( "<a href='#' class='btn btn-xray-copy'>copy</a>" );
@@ -157,7 +160,7 @@
 			});
 
 			// disable the normal link click behavior
-			$link.bind( "click", function(event ){ event.preventDefault() });
+			$link.bind( "click", function( e ){ e.preventDefault() });
 		}		
 	});
 
