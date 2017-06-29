@@ -9,6 +9,7 @@ module.exports = function(grunt) {
 			'<%= pkg.homepage ? "* " + pkg.homepage + "\\n" : "" %>' +
 			'* Copyright (c) <%= grunt.template.today("yyyy") %> Filament Group;' +
 			' Licensed <%= pkg.license %> */\n',
+
 		concat: {
 			options: {
 				banner: '<%= banner %>',
@@ -36,10 +37,24 @@ module.exports = function(grunt) {
 				dest: 'dist/<%= pkg.name %>.css'
 			}
 		},
+
+		copy: {
+			libs: {
+				files: [
+					{ expand: true, cwd: 'node_modules/prismjs/themes/', src: [ 'prism.css' ], dest: 'src/lib/' },
+					{ expand: true, cwd: 'node_modules/shoestring/dist/', src: [ 'shoestring.js' ], dest: 'src/lib/' },
+					{ expand: true, cwd: 'node_modules/jquery/dist/', src: [ 'jquery.js' ], dest: 'src/lib/' },
+					{ expand: true, cwd: 'node_modules/prismjs/', src: [ 'prism.js' ], dest: 'src/lib/' },
+					{ expand: true, cwd: 'node_modules/clipboard/dist/', src: [ 'clipboard.js' ], dest: 'src/lib/' }
+				]
+			}
+		},
+
 		watch: {
 			files: 'src/**/*',
 			tasks: 'default'
 		},
+
 		jshint: {
 			src: {
 				options: {
@@ -53,5 +68,5 @@ module.exports = function(grunt) {
 	require('matchdep').filterDev('grunt-*').forEach(grunt.loadNpmTasks);
 
 	// Default task.
-	grunt.registerTask('default', ['jshint', 'concat']);
+	grunt.registerTask('default', ['jshint', 'copy:libs', 'concat']);
 };
