@@ -77,10 +77,22 @@
 <section>
 
 <h1 class="sub">Extras</h1>
-<p>The plugin fires off a <code>create.xrayhtml</code> event that can be used to attach features like a “copy to clipboard” option (using <a href="https://clipboardjs.com/">Clipboard</a>) or syntax highlighting (using <a href="http://prismjs.com">Prism.js</a>).</p>
+<p>The plugin fires off a <code>create.xrayhtml</code> event that can be used to attach features like syntax highlighting (using <a href="http://prismjs.com">Prism.js</a>), or "copy to clipboard" (using <a href="https://clipboardjs.com/">Clipboard</a>).</p>
 
 <h2>Prism.js</h2>
-<div data-xrayhtml class="prism"><aside>
+<div data-xrayhtml class="prism">
+<aside>
+<blockquote>
+	<p>It is the unofficial force—the Baker Street irregulars.</p>
+</blockquote>
+<address>Sherlock Holmes</address>
+<cite>Sign of Four</cite>
+</aside>
+</div>
+
+<h2>Copy (clipboard.js)</h2>
+<div data-xrayhtml class="copy">
+<aside>
 <blockquote>
 	<p>It is the unofficial force—the Baker Street irregulars.</p>
 </blockquote>
@@ -124,6 +136,27 @@
 		}
 
 		// Clipboard
+		var copy = !!~e.target.getAttribute( "class" ).indexOf( "copy" );
+
+		if( copy && "Clipboard" in window ) {
+			var $target = $( event.target );
+			var $snippet = $target.find( ".snippet" );
+			var html = $snippet.html();
+			var $link = $( "<a href='#' class='btn btn-xray-copy'>copy</a>" );
+
+			// place the link after the snippet but before the code
+			$snippet.after( $link );
+
+			// set of up the clipboard to use the html
+			new Clipboard($link[0], {
+				text: function(){
+					return html;
+				}
+			});
+
+			// disable the normal link click behavior
+			$link.bind( "click", function(event ){ event.preventDefault() });
+		}		
 	});
 
 </script>
