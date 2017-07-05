@@ -1,4 +1,4 @@
-/*! X-rayHTML - v2.1.4 - 2017-06-08
+/*! X-rayHTML - v2.1.4 - 2017-06-29
 * https://github.com/filamentgroup/x-rayhtml
 * Copyright (c) 2017 Filament Group; Licensed MIT */
 .xrayhtml {
@@ -6,6 +6,9 @@
 	border-radius: .3em;
 	margin: 1.5em 0 2.5em 0;
 	padding: 1em 1em 2em;
+}
+.xrayhtml.xray-copy {
+	position: relative;
 }
 .xrayhtml .xraytitle {
 	text-transform: uppercase;

@@ -25,9 +25,16 @@
   "scripts": {
     "test": "grunt qunit"
   },
+  "dependencies": {
+    "jquery": "^3.2.1",
+    "shoestring": "^2.0.1",
+    "prismjs": "^1.6.0",
+    "clipboard": "^1.7.1"
+  },
   "devDependencies": {
     "grunt": "~1.0.1",
     "grunt-contrib-concat": "~1.0.1",
+    "grunt-contrib-copy": "^1.0.0",
     "grunt-contrib-jshint": "~1.1.0",
     "grunt-contrib-qunit": "~2.0.0",
     "grunt-contrib-watch": "~1.0.0",

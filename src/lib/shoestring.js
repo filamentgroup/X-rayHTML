@@ -1,7 +1,22 @@
-/*! Shoestring - v1.0.3 - 2015-04-13
+/*! Shoestring - v2.0.1 - 2017-05-24
 * http://github.com/filamentgroup/shoestring/
-* Copyright (c) 2015 Scott Jehl, Filament Group, Inc; Licensed MIT & GPLv2 */ 
-(function( w, undefined ){
+* Copyright (c) 2017 Scott Jehl, Filament Group, Inc; Licensed MIT & GPLv2 */ 
+(function( factory ) {
+	if( typeof define === 'function' && define.amd ) {
+			// AMD. Register as an anonymous module.
+			define( [ 'shoestring' ], factory );
+	} else if (typeof module === 'object' && module.exports) {
+		// Node/CommonJS
+		module.exports = factory();
+	} else {
+		// Browser globals
+		factory();
+	}
+}(function () {
+	var win = typeof window !== "undefined" ? window : this;
+	var doc = win.document;
+
+
 	/**
 	 * The shoestring object constructor.
 	 *
@@ -32,7 +47,7 @@
 
 		// if string starting with <, make html
 		if( pType === "string" && prim.indexOf( "<" ) === 0 ){
-			var dfrag = document.createElement( "div" );
+			var dfrag = doc.createElement( "div" );
 
 			dfrag.innerHTML = prim;
 
@@ -48,18 +63,14 @@
 				return shoestring( sec ).find( prim );
 			}
 
-			try {
-				sel = document.querySelectorAll( prim );
-			} catch( e ) {
-				shoestring.error( 'queryselector', prim );
-			}
+				sel = doc.querySelectorAll( prim );
 
 			return new Shoestring( sel, prim );
 		}
 
 		// array like objects or node lists
 		if( Object.prototype.toString.call( pType ) === '[object Array]' ||
-				(window.NodeList && prim instanceof window.NodeList) ){
+				(win.NodeList && prim instanceof win.NodeList) ){
 
 			return new Shoestring( prim, prim );
 		}
@@ -85,7 +96,6 @@
 	// For adding element set methods
 	shoestring.fn = Shoestring.prototype;
 
-	// expose for testing purposes only
 	shoestring.Shoestring = Shoestring;
 
 	// For extending objects
@@ -118,52 +128,9 @@
 	};
 
 	// expose
-	window.shoestring = shoestring;
+	win.shoestring = shoestring;
 
 
-
-	shoestring.enUS = {
-		errors: {
-			"prefix": "Shoestring does not support",
-
-			"ajax-url-query": "data with urls that have existing query params",
-			"click": "the click method. Try using trigger( 'click' ) instead.",
-			"css-get" : "getting computed attributes from the DOM.",
-			"has-class" : "the hasClass method. Try using .is( '.klassname' ) instead.",
-			"html-function" : "passing a function into .html. Try generating the html you're passing in an outside function",
-			"live-delegate" : "the .live or .delegate methods. Use .bind or .on instead.",
-			"map": "the map method. Try using .each to make a new object.",
-			"next-selector" : "passing selectors into .next, try .next().filter( selector )",
-			"off-delegate" : ".off( events, selector, handler ) or .off( events, selector ). Use .off( eventName, callback ) instead.",
-			"next-until" : "the .nextUntil method. Use .next in a loop until you reach the selector, don't include the selector",
-			"on-delegate" : "the .on method with three or more arguments. Using .on( eventName, callback ) instead.",
-			"outer-width": "the outerWidth method. Try combining .width() with .css for padding-left, padding-right, and the border of the left and right side.",
-			"prev-selector" : "passing selectors into .prev, try .prev().filter( selector )",
-			"prevall-selector" : "passing selectors into .prevAll, try .prevAll().filter( selector )",
-			"queryselector": "all CSS selectors on querySelector (varies per browser support). Specifically, this failed: ",
-			"siblings-selector": "passing selector into siblings not supported, try .siblings().find( ... )",
-			"show-hide": "the show or hide methods. Use display: block (or whatever you'd like it to be) or none instead",
-			"text-setter": "setting text via the .text method.",
-			"toggle-class" : "the toggleClass method. Try using addClass or removeClass instead.",
-			"trim": "the trim method. Try using replace(/^\\s+|\\s+$/g, ''), or just String.prototype.trim if you don't need to support IE8"
-		}
-	};
-
-	shoestring.error = function( id, str ) {
-		var errors = shoestring.enUS.errors;
-		throw new Error( errors.prefix + " " + errors[id] + ( str ? " " + str : "" ) );
-	};
-
-
-
-	var xmlHttp = function() {
-		try {
-			return new XMLHttpRequest();
-		}
-		catch( e ){
-			return new ActiveXObject( "Microsoft.XMLHTTP" );
-		}
-	};
 
 	/**
 	 * Make an HTTP request to a url.
@@ -185,7 +152,7 @@
 	 */
 
 	shoestring.ajax = function( url, options ) {
-		var params = "", req = xmlHttp(), settings, key;
+		var params = "", req = new XMLHttpRequest(), settings, key;
 
 		settings = shoestring.extend( {}, shoestring.ajax.settings );
 
@@ -216,9 +183,6 @@
 
 		// append params to url for GET requests
 		if( settings.method === "GET" && params ){
-						if( url.indexOf("?") >= 0 ){
-				shoestring.error( 'ajax-url-query' );
-			}
 			
 			url += "?" + params;
 		}
@@ -392,7 +356,7 @@
 	 */
 	shoestring.ready = function( fn ){
 		if( ready && fn ){
-			fn.call( document );
+			fn.call( doc );
 		}
 		else if( fn ){
 			readyQueue.push( fn );
@@ -401,7 +365,7 @@
 			runReady();
 		}
 
-		return [document];
+		return [doc];
 	};
 
 	// TODO necessary?
@@ -416,32 +380,79 @@
 		runReady = function(){
 			if( !ready ){
 				while( readyQueue.length ){
-					readyQueue.shift().call( document );
+					readyQueue.shift().call( doc );
 				}
 				ready = true;
 			}
 		};
 
-	// Quick IE8 shiv
-	if( !window.addEventListener ){
-		window.addEventListener = function( evt, cb ){
-			return window.attachEvent( "on" + evt, cb );
-		};
-	}
-
 	// If DOM is already ready at exec time, depends on the browser.
 	// From: https://github.com/mobify/mobifyjs/blob/526841be5509e28fc949038021799e4223479f8d/src/capture.js#L128
-	if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
+	if (doc.attachEvent ? doc.readyState === "complete" : doc.readyState !== "loading") {
 		runReady();
-	}	else {
-		if( !document.addEventListener ){
-			document.attachEvent( "DOMContentLoaded", runReady );
-			document.attachEvent( "onreadystatechange", runReady );
-		} else {
-			document.addEventListener( "DOMContentLoaded", runReady, false );
-			document.addEventListener( "readystatechange", runReady, false );
+	} else {
+		doc.addEventListener( "DOMContentLoaded", runReady, false );
+		doc.addEventListener( "readystatechange", runReady, false );
+		win.addEventListener( "load", runReady, false );
+	}
+
+
+
+  /**
+	 * Checks the current set of elements against the selector, if one matches return `true`.
+	 *
+	 * @param {string} selector The selector to check.
+	 * @return {boolean}
+	 * @this {shoestring}
+	 */
+	shoestring.fn.is = function( selector ){
+		var ret = false, self = this, parents, check;
+
+		// assume a dom element
+		if( typeof selector !== "string" ){
+			// array-like, ie shoestring objects or element arrays
+			if( selector.length && selector[0] ){
+				check = selector;
+			} else {
+				check = [selector];
+			}
+
+			return _checkElements(this, check);
 		}
-		window.addEventListener( "load", runReady, false );
+
+		parents = this.parent();
+
+		if( !parents.length ){
+			parents = shoestring( doc );
+		}
+
+		parents.each(function( i, e ) {
+			var children;
+
+					children = e.querySelectorAll( selector );
+
+			ret = _checkElements( self, children );
+		});
+
+		return ret;
+	};
+
+	function _checkElements(needles, haystack){
+		var ret = false;
+
+		needles.each(function() {
+			var j = 0;
+
+			while( j < haystack.length ){
+				if( this === haystack[j] ){
+					ret = true;
+				}
+
+				j++;
+			}
+		});
+
+		return ret;
 	}
 
 
@@ -466,7 +477,11 @@
 				});
 			}
 			else {
-				return this[ 0 ] && this[ 0 ].shoestringData ? this[ 0 ].shoestringData[ name ] : undefined;
+				if( this[ 0 ] ) {
+					if( this[ 0 ].shoestringData ) {
+						return this[ 0 ].shoestringData[ name ];
+					}
+				}
 			}
 		}
 		else {
@@ -498,7 +513,7 @@
 	/**
 	 * An alias for the `shoestring` constructor.
 	 */
-	window.$ = shoestring;
+	win.$ = shoestring;
 
 
 
@@ -665,7 +680,7 @@
 	 * @this shoestring
 	 */
 	shoestring.fn.children = function(){
-		var ret = [],
+				var ret = [],
 			childs,
 			j;
 		this.each(function(){
@@ -698,69 +713,6 @@
 
 		return shoestring( ret );
 	};
-
-
-
-  /**
-	 * Checks the current set of elements against the selector, if one matches return `true`.
-	 *
-	 * @param {string} selector The selector to check.
-	 * @return {boolean}
-	 * @this {shoestring}
-	 */
-	shoestring.fn.is = function( selector ){
-		var ret = false, self = this, parents, check;
-
-		// assume a dom element
-		if( typeof selector !== "string" ){
-			// array-like, ie shoestring objects or element arrays
-			if( selector.length && selector[0] ){
-				check = selector;
-			} else {
-				check = [selector];
-			}
-
-			return _checkElements(this, check);
-		}
-
-		parents = this.parent();
-
-		if( !parents.length ){
-			parents = shoestring( document );
-		}
-
-		parents.each(function( i, e ) {
-			var children;
-
-				try {
-					children = e.querySelectorAll( selector );
-				} catch( e ) {
-					shoestring.error( 'queryselector', selector );
-				}
-
-			ret = _checkElements( self, children );
-		});
-
-		return ret;
-	};
-
-	function _checkElements(needles, haystack){
-		var ret = false;
-
-		needles.each(function() {
-			var j = 0;
-
-			while( j < haystack.length ){
-				if( this === haystack[j] ){
-					ret = true;
-				}
-
-				j++;
-			}
-		});
-
-		return ret;
-	}
 
 
 
@@ -802,146 +754,15 @@
 
 
   shoestring.cssExceptions = {
-		'float': [ 'cssFloat', 'styleFloat' ] // styleFloat is IE8
+		'float': [ 'cssFloat' ]
 	};
-
-
-
-	/**
-	 * A polyfill to support computed styles in IE < 9
-	 *
-	 * NOTE this is taken directly from https://github.com/jonathantneal/polyfill
-	 */
-	(function () {
-		function getComputedStylePixel(element, property, fontSize) {
-			element.document; // Internet Explorer sometimes struggles to read currentStyle until the element's document is accessed.
-
-			var
-			value = element.currentStyle[property].match(/([\d\.]+)(%|cm|em|in|mm|pc|pt|)/) || [0, 0, ''],
-			size = value[1],
-			suffix = value[2],
-			rootSize;
-
-			fontSize = !fontSize ? fontSize : /%|em/.test(suffix) && element.parentElement ? getComputedStylePixel(element.parentElement, 'fontSize', null) : 16;
-			rootSize = property === 'fontSize' ? fontSize : /width/i.test(property) ? element.clientWidth : element.clientHeight;
-
-			return suffix === '%' ? size / 100 * rootSize :
-				suffix === 'cm' ? size * 0.3937 * 96 :
-				suffix === 'em' ? size * fontSize :
-				suffix === 'in' ? size * 96 :
-				suffix === 'mm' ? size * 0.3937 * 96 / 10 :
-				suffix === 'pc' ? size * 12 * 96 / 72 :
-				suffix === 'pt' ? size * 96 / 72 :
-				size;
-		}
-
-		function setShortStyleProperty(style, property) {
-			var
-			borderSuffix = property === 'border' ? 'Width' : '',
-			t = property + 'Top' + borderSuffix,
-			r = property + 'Right' + borderSuffix,
-			b = property + 'Bottom' + borderSuffix,
-			l = property + 'Left' + borderSuffix;
-
-			style[property] = (style[t] === style[r] && style[t] === style[b] && style[t] === style[l] ? [ style[t] ] :
-												 style[t] === style[b] && style[l] === style[r] ? [ style[t], style[r] ] :
-												 style[l] === style[r] ? [ style[t], style[r], style[b] ] :
-												 [ style[t], style[r], style[b], style[l] ]).join(' ');
-		}
-
-		// <CSSStyleDeclaration>
-		function CSSStyleDeclaration(element) {
-			var
-			style = this,
-			currentStyle = element.currentStyle,
-			fontSize = getComputedStylePixel(element, 'fontSize'),
-			unCamelCase = function (match) {
-				return '-' + match.toLowerCase();
-			},
-			property;
-
-			for (property in currentStyle) {
-				Array.prototype.push.call(style, property === 'styleFloat' ? 'float' : property.replace(/[A-Z]/, unCamelCase));
-
-				if (property === 'width') {
-					style[property] = element.offsetWidth + 'px';
-				} else if (property === 'height') {
-					style[property] = element.offsetHeight + 'px';
-				} else if (property === 'styleFloat') {
-					style.float = currentStyle[property];
-				} else if (/margin.|padding.|border.+W/.test(property) && style[property] !== 'auto') {
-					style[property] = Math.round(getComputedStylePixel(element, property, fontSize)) + 'px';
-				} else if (/^outline/.test(property)) {
-					// errors on checking outline
-					try {
-						style[property] = currentStyle[property];
-					} catch (error) {
-						style.outlineColor = currentStyle.color;
-						style.outlineStyle = style.outlineStyle || 'none';
-						style.outlineWidth = style.outlineWidth || '0px';
-						style.outline = [style.outlineColor, style.outlineWidth, style.outlineStyle].join(' ');
-					}
-				} else {
-					style[property] = currentStyle[property];
-				}
-			}
-
-			setShortStyleProperty(style, 'margin');
-			setShortStyleProperty(style, 'padding');
-			setShortStyleProperty(style, 'border');
-
-			style.fontSize = Math.round(fontSize) + 'px';
-		}
-
-		CSSStyleDeclaration.prototype = {
-			constructor: CSSStyleDeclaration,
-			// <CSSStyleDeclaration>.getPropertyPriority
-			getPropertyPriority: function () {
-				throw new Error('NotSupportedError: DOM Exception 9');
-			},
-			// <CSSStyleDeclaration>.getPropertyValue
-			getPropertyValue: function (property) {
-				return this[property.replace(/-\w/g, function (match) {
-					return match[1].toUpperCase();
-				})];
-			},
-			// <CSSStyleDeclaration>.item
-			item: function (index) {
-				return this[index];
-			},
-			// <CSSStyleDeclaration>.removeProperty
-			removeProperty: function () {
-				throw new Error('NoModificationAllowedError: DOM Exception 7');
-			},
-			// <CSSStyleDeclaration>.setProperty
-			setProperty: function () {
-				throw new Error('NoModificationAllowedError: DOM Exception 7');
-			},
-			// <CSSStyleDeclaration>.getPropertyCSSValue
-			getPropertyCSSValue: function () {
-				throw new Error('NotSupportedError: DOM Exception 9');
-			}
-		};
-
-		if( !window.getComputedStyle ) {
-			// <window>.getComputedStyle
-			// NOTE Window is not defined in all browsers
-			window.getComputedStyle = function (element) {
-				return new CSSStyleDeclaration(element);
-			};
-
-			if ( window.Window ) {
-				window.Window.prototype.getComputedStyle = window.getComputedStyle;
-			}
-		}
-	})();
 
 
 
 	(function() {
 		var cssExceptions = shoestring.cssExceptions;
 
-		// IE8 uses marginRight instead of margin-right
+		// marginRight instead of margin-right
 		function convertPropertyName( str ) {
 			return str.replace( /\-([A-Za-z])/g, function ( match, character ) {
 				return character.toUpperCase();
@@ -949,8 +770,7 @@
 		}
 
 		function _getStyle( element, property ) {
-			// polyfilled in getComputedStyle module
-			return window.getComputedStyle( element, null ).getPropertyValue( property );
+			return win.getComputedStyle( element, null ).getPropertyValue( property );
 		}
 
 		var vendorPrefixes = [ '', '-webkit-', '-ms-', '-moz-', '-o-', '-khtml-' ];
@@ -1006,7 +826,7 @@
 	(function() {
 		var cssExceptions = shoestring.cssExceptions;
 
-		// IE8 uses marginRight instead of margin-right
+		// marginRight instead of margin-right
 		function convertPropertyName( str ) {
 			return str.replace( /\-([A-Za-z])/g, function ( match, character ) {
 				return character.toUpperCase();
@@ -1114,9 +934,14 @@
 				if( selector.call( this, index ) !== false ) {
 					ret.push( this );
 				}
+			// document node
+			} else if( this.nodeType === 9 ){
+				if( this === selector ) {
+					ret.push( this );
+				}
 			} else {
 				if( !this.parentNode ){
-					var context = shoestring( document.createDocumentFragment() );
+					var context = shoestring( doc.createDocumentFragment() );
 
 					context[ 0 ].appendChild( this );
 					wsel = shoestring( selector, context );
@@ -1146,11 +971,7 @@
 		var ret = [],
 			finds;
 		this.each(function(){
-			try {
 				finds = this.querySelectorAll( selector );
-			} catch( e ) {
-				shoestring.error( 'queryselector', selector );
-			}
 
 			for( var i = 0, il = finds.length; i < il; i++ ){
 				ret = ret.concat( finds[i] );
@@ -1177,11 +998,23 @@
 	 * Returns the raw DOM node at the passed index.
 	 *
 	 * @param {integer} index The index of the element to wrap and return.
-	 * @return HTMLElement
+	 * @return {HTMLElement|undefined|array}
 	 * @this shoestring
 	 */
 	shoestring.fn.get = function( index ){
-		return this[ index ];
+
+		// return an array of elements if index is undefined
+		if( index === undefined ){
+			var elements = [];
+
+			for( var i = 0; i < this.length; i++ ){
+				elements.push( this[ i ] );
+			}
+
+			return elements;
+		} else {
+			return this[ index ];
+		}
 	};
 
 
@@ -1232,9 +1065,9 @@
 
 
 	var set = function( html ){
-		if( typeof html === "string" ){
+		if( typeof html === "string" || typeof html === "number" ){
 			return this.each(function(){
-				this.innerHTML = html;
+				this.innerHTML = "" + html;
 			});
 		} else {
 			var h = "";
@@ -1258,9 +1091,6 @@
 	 * @this shoestring
 	 */
 	shoestring.fn.html = function( html ){
-				if( !!html && typeof html === "function" ){
-			shoestring.error( 'html-function' );
-		}
 				if( typeof html !== "undefined" ){
 			return set.call( this, html );
 		} else { // get
@@ -1312,7 +1142,7 @@
 
 			// no arg? check the children, otherwise check each element that matches
 			if( selector === undefined ){
-				children = ( ( this[ 0 ] && this[0].parentNode ) || document.documentElement).childNodes;
+				children = ( ( this[ 0 ] && this[0].parentNode ) || doc.documentElement).childNodes;
 
 				// check if the element matches the first of the set
 				return _getIndex(children, function( element ) {
@@ -1379,9 +1209,6 @@
 	 * @this shoestring
 	 */
 	shoestring.fn.next = function(){
-				if( arguments.length > 0 ){
-			shoestring.error( 'next-selector' );
-		}
 		
 		var result = [];
 
@@ -1466,7 +1293,7 @@
 		this.each(function(){
 			// no parent node, assume top level
 			// jQuery parent: return the document object for <html> or the parent node if it exists
-			parent = (this === document.documentElement ? document : this.parentNode);
+			parent = (this === doc.documentElement ? doc : this.parentNode);
 
 			// if there is a parent and it's not a document fragment
 			if( parent && parent.nodeType !== 11 ){
@@ -1565,9 +1392,6 @@
 	 * @this shoestring
 	 */
 	shoestring.fn.prev = function(){
-				if( arguments.length > 0 ){
-			shoestring.error( 'prev-selector' );
-		}
 		
 		var result = [];
 
@@ -1608,9 +1432,6 @@
 	 * @this shoestring
 	 */
 	shoestring.fn.prevAll = function(){
-				if( arguments.length > 0 ){
-			shoestring.error( 'prevall-selector' );
-		}
 		
 		var result = [];
 
@@ -1838,9 +1659,6 @@
 	 * @this shoestring
 	 */
 	shoestring.fn.siblings = function(){
-				if( arguments.length > 0 ) {
-			shoestring.error( 'siblings-selector' );
-		}
 		
 		if( !this.length ) {
 			return shoestring( [] );
@@ -1899,9 +1717,6 @@
 	 * @this shoestring
 	 */
 	shoestring.fn.text = function() {
-				if( arguments.length > 0 ){
-			shoestring.error( 'text-setter' );
-		}
 		
 		return getText( this );
 	};
@@ -2019,24 +1834,6 @@
 		}
 	}
 
-	// In IE8 the events trigger in a reverse order (LIFO). This code
-	// unbinds and rebinds all callbacks on an element in the a FIFO order.
-	function reorderEvents( node, eventName ) {
-		if( node.addEventListener || !node.shoestringData || !node.shoestringData.events ) {
-			// add event listner obviates the need for all the callback order juggling
-			return;
-		}
-
-		var otherEvents = node.shoestringData.events[ eventName ] || [];
-		for( var j = otherEvents.length - 1; j >= 0; j-- ) {
-			// DOM Events only, Custom events maintain their own order internally.
-			if( !otherEvents[ j ].isCustomEvent ) {
-				node.detachEvent( "on" + eventName, otherEvents[ j ].callback );
-				node.attachEvent( "on" + eventName, otherEvents[ j ].callback );
-			}
-		}
-	}
-
 	/**
 	 * Bind a callback to an event for the currrent set of elements.
 	 *
@@ -2048,19 +1845,12 @@
 	 */
 	shoestring.fn.bind = function( evt, data, originalCallback ){
 
-				if( arguments.length > 3 ){
-			shoestring.error( 'on-delegate' );
-		}
-		if( typeof data === "string" ){
-			shoestring.error( 'on-delegate' );
-		}
 				if( typeof data === "function" ){
 			originalCallback = data;
 			data = null;
 		}
 
-		var evts = evt.split( " " ),
-			docEl = document.documentElement;
+		var evts = evt.split( " " );
 
 		// NOTE the `triggeredElement` is purely for custom events from IE
 		function encasedCallback( e, namespace, triggeredElement ){
@@ -2113,26 +1903,6 @@
 			return result;
 		}
 
-		// This is exclusively for custom events on browsers without addEventListener (IE8)
-		function propChange( originalEvent, boundElement, namespace ) {
-			var lastEventInfo = document.documentElement[ originalEvent.propertyName ],
-				triggeredElement = lastEventInfo.el;
-
-			var boundCheckElement = boundElement;
-
-			if( boundElement === document && triggeredElement !== document ) {
-				boundCheckElement = document.documentElement;
-			}
-
-			if( triggeredElement !== undefined &&
-				shoestring( triggeredElement ).closest( boundCheckElement ).length ) {
-
-				originalEvent._namespace = lastEventInfo._namespace;
-				originalEvent._args = lastEventInfo._args;
-				encasedCallback.call( boundElement, originalEvent, namespace, triggeredElement );
-			}
-		}
-
 		return this.each(function(){
 			var domEventCallback,
 				customEventCallback,
@@ -2158,45 +1928,7 @@
 
 				initEventCache( this, evt );
 
-				if( "addEventListener" in this ){
-					this.addEventListener( evt, domEventCallback, false );
-				} else if( this.attachEvent ){
-					if( this[ "on" + evt ] !== undefined ) {
-						this.attachEvent( "on" + evt, domEventCallback );
-					} else {
-						customEventCallback = (function() {
-							var eventName = evt;
-							return function( e ) {
-								if( e.propertyName === eventName ) {
-									propChange( e, oEl, namespace );
-								}
-							};
-						})();
-
-						// only assign one onpropertychange per element
-						if( this.shoestringData.events[ evt ].length === 0 ) {
-							customEventLoop = (function() {
-								var eventName = evt;
-								return function( e ) {
-									if( !oEl.shoestringData || !oEl.shoestringData.events ) {
-										return;
-									}
-									var events = oEl.shoestringData.events[ eventName ];
-									if( !events ) {
-										return;
-									}
-
-									// TODO stopImmediatePropagation
-									for( var j = 0, k = events.length; j < k; j++ ) {
-										events[ j ].callback( e );
-									}
-								};
-							})();
-
-							docEl.attachEvent( "onpropertychange", customEventLoop );
-						}
-					}
-				}
+				this.addEventListener( evt, domEventCallback, false );
 
 				addToEventCache( this, evt, {
 					callfunc: customEventCallback || domEventCallback,
@@ -2205,24 +1937,12 @@
 					originalCallback: originalCallback,
 					namespace: namespace
 				});
-
-				// Don’t reorder custom events, only DOM Events.
-				if( !customEventCallback ) {
-					reorderEvents( oEl, evt );
-				}
 			}
 		});
 	};
 
 	shoestring.fn.on = shoestring.fn.bind;
 
-		shoestring.fn.live = function(){
-		shoestring.error( 'live-delegate' );
-	};
-
-	shoestring.fn.delegate = function(){
-		shoestring.error( 'live-delegate' );
-	};
 	
 
 
@@ -2236,9 +1956,6 @@
 	 */
 	shoestring.fn.unbind = function( event, callback ){
 
-				if( arguments.length >= 3 || typeof callback === "string" ){
-			shoestring.error( 'off-delegate' );
-		}
 		
 		var evts = event ? event.split( " " ) : [];
 
@@ -2276,17 +1993,7 @@
 		for( j = 0, jl = bound.length; j < jl; j++ ) {
 			if( !namespace || namespace === bound[ j ].namespace ) {
 				if( callback === undefined || callback === bound[ j ].originalCallback ) {
-					if( "removeEventListener" in window ){
-						this.removeEventListener( evt, bound[ j ].callback, false );
-					} else if( this.detachEvent ){
-						// dom event
-						this.detachEvent( "on" + evt, bound[ j ].callback );
-
-						// only unbind custom events if its the last one on the element
-						if( bound.length === 1 && this.shoestringData.loop && this.shoestringData.loop[ evt ] ) {
-							document.documentElement.detachEvent( "onpropertychange", this.shoestringData.loop[ evt ] );
-						}
-					}
+					this.removeEventListener( evt, bound[ j ].callback, false );
 					matched.push( j );
 				}
 			}
@@ -2353,13 +2060,12 @@
 			el = this[ 0 ],
 			ret;
 
-		// TODO needs IE8 support
 		// See this.fireEvent( 'on' + evts[ i ], document.createEventObject() ); instead of click() etc in trigger.
-		if( document.createEvent && el.shoestringData && el.shoestringData.events && el.shoestringData.events[ e ] ){
+		if( doc.createEvent && el.shoestringData && el.shoestringData.events && el.shoestringData.events[ e ] ){
 			var bindings = el.shoestringData.events[ e ];
 			for (var i in bindings ){
 				if( bindings.hasOwnProperty( i ) ){
-					event = document.createEvent( "Event" );
+					event = doc.createEvent( "Event" );
 					event.initEvent( e, true, true );
 					event._args = args;
 					args.unshift( event );
@@ -2399,28 +2105,13 @@
 					}
 				}
 
-				if( document.createEvent ){
-					var event = document.createEvent( "Event" );
+				if( doc.createEvent ){
+					var event = doc.createEvent( "Event" );
 					event.initEvent( evt, true, true );
 					event._args = args;
 					event._namespace = namespace;
 
 					this.dispatchEvent( event );
-				} else if ( document.createEventObject ) {
-					if( ( "" + this[ evt ] ).indexOf( "function" ) > -1 ) {
-						this.ssEventTrigger = {
-							_namespace: namespace,
-							_args: args
-						};
-
-						this[ evt ]();
-					} else {
-						document.documentElement[ evt ] = {
-							"el": this,
-							_namespace: namespace,
-							_args: args
-						};
-					}
 				}
 			}
 		});
@@ -2428,99 +2119,5 @@
 
 
 
-
-		shoestring.fn.hasClass = function(){
-		shoestring.error( 'has-class' );
-	};
-	
-
-
-		shoestring.fn.hide = function(){
-		shoestring.error( 'show-hide' );
-	};
-	
-
-
-		shoestring.fn.outerWidth = function(){
-		shoestring.error( 'outer-width' );
-	};
-	
-
-
-		shoestring.fn.show = function(){
-		shoestring.error( 'show-hide' );
-	};
-	
-
-
-		shoestring.fn.click = function(){
-		shoestring.error( 'click' );
-	};
-	
-
-
-		shoestring.map = function(){
-		shoestring.error( 'map' );
-	};
-	
-
-
-		shoestring.fn.map = function(){
-		shoestring.error( 'map' );
-	};
-	
-
-
-		shoestring.trim = function(){
-		shoestring.error( 'trim' );
-	};
-	
-
-
-	(function() {
-		shoestring.trackedMethodsKey = "shoestringMethods";
-
-		// simple check for localStorage from Modernizr - https://github.com/Modernizr/Modernizr/blob/master/feature-detects/storage/localstorage.js
-		function supportsStorage() {
-			var mod = "modernizr";
-			try {
-				localStorage.setItem(mod, mod);
-				localStorage.removeItem(mod);
-				return true;
-			} catch(e) {
-				return false;
-			}
-		}
-
-		// return a new function closed over the old implementation
-		function recordProxy( old, name ) {
-			return function() {
-				var tracked;
-				try {
-					tracked = JSON.parse(window.localStorage.getItem( shoestring.trackedMethodsKey ) || "{}");
-				} catch (e) {
-					if( e instanceof SyntaxError) {
-						tracked = {};
-					}
-				}
-
-				tracked[ name ] = true;
-				window.localStorage.setItem( shoestring.trackedMethodsKey, JSON.stringify(tracked) );
-
-				return old.apply(this, arguments);
-			};
-		}
-
-		// proxy each of the methods defined on fn
-		if( supportsStorage() ){
-			for( var method in shoestring.fn ){
-				if( shoestring.fn.hasOwnProperty(method) ) {
-					shoestring.fn[ method ] = recordProxy(shoestring.fn[ method ], method);
-				}
-			}
-		}
-	})();
-
-
-
-})( this );
+	return shoestring;
+}));

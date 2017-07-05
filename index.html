@@ -9,104 +9,163 @@
 
 	<link href="demo/demo.css" rel="stylesheet">
 	<link href="src/X-rayHTML.css" rel="stylesheet">
-	<link href="libs/prism.css" rel="stylesheet">
+	<link href="src/lib/prism.css" rel="stylesheet">
+
+	<style>
+	.btn-xrayhtml-flipsource {
+		margin: 0 0 1em;
+	}
+	</style>
 
 </head>
 <body>
-	<div class="header">
-		<a href="http://filamentgroup.com/"><h1 id="fg-logo">Filament Group</h1></a>
-	</div>
-	<section>
-		<h1 class="sub">Basics</h1>
-		<p>By default, functionality is hooked to the <code>data-xrayhtml</code> attribute.</p>
 
-		<h2>Inline</h2>
-		<p>Bolting the <code>data-xrayhtml</code> attribute on without a value will give you inline code snippets, like so:</p>
-		<div data-xrayhtml><aside>
-	<blockquote>
-		<p>It is the unofficial force—the Baker Street irregulars.</p>
-	</blockquote>
-	<address>Sherlock Holmes</address>
-	<cite>Sign of Four</cite>
-</aside></div>
+<div class="header">
+	<a href="http://filamentgroup.com/"><h1 id="fg-logo">Filament Group</h1></a>
+</div>
 
-		<h2>Add a subtitle</h2>
-		<p>Use a heading element with an <code>xraytitle</code> class to add your own subtitle to the example text.</p>
-		<p>Also works with a <code>data-title</code> attribute but that approach is deprecated.</p>
-		<div data-xrayhtml>
-			<h2 class="xraytitle">Parapraph</h2>
-			<p>This is a paragraph with text.</p>
-		</div>
+<section>
 
-		<h2>Anti-patterns and Bad Examples</h2>
-		<p>Add <code>class="antipattern"</code> to show a bad example. Also works with subtitles as documented above.</p>
-		<div data-xrayhtml class="antipattern">
-			<h2 class="xraytitle">Non-standard HTML</h2>
-			<text><code>Text</code> is not a standard HTML element. Do not use this code.</text>
-		</div>
+<h1 class="sub">Basics</h1>
+<p>By default, functionality is hooked to the <code>data-xrayhtml</code> attribute.</p>
 
-		<h2>Flip</h2>
-		<p>Setting “flip” as the value of the <code>data-xrayhtml</code> attribute will give you this snazzy flip-to-reveal animation (browsers without support for 3D tranforms will simply show/hide the code snippet).</p>
-		<div data-xrayhtml="flip"><aside>
-	<blockquote>
-		<p>It is the unofficial force—the Baker Street irregulars.</p>
-	</blockquote>
-	<address>Sherlock Holmes</address>
-	<cite>Sign of Four</cite>
-</aside></div>
-	</section>
+<h2>Inline</h2>
+<p>Bolting the <code>data-xrayhtml</code> attribute on without a value will give you inline code snippets, like so:</p>
 
-	<section>
-		<h1 class="sub">Extras</h1>
-		<p>The plugin fires off a <code>create.xrayhtml</code> event that can be used to attach features like a “copy to clipboard” option (using <a href="https://github.com/jonrohan/ZeroClipboard">ZeroClipboard</a>) or syntax highlighting (using <a href="http://prismjs.com">Prism.js</a>).</p>
+<div data-xrayhtml>
+<aside>
+<blockquote>
+<p>It is the unofficial force—the Baker Street irregulars.</p>
+</blockquote>
+<address>Sherlock Holmes</address>
+<cite>Sign of Four</cite>
+</aside>
+</div>
 
-		<h2>Prism.js</h2>
-		<div data-xrayhtml class="prism"><aside>
-	<blockquote>
-		<p>It is the unofficial force—the Baker Street irregulars.</p>
-	</blockquote>
-	<address>Sherlock Holmes</address>
-	<cite>Sign of Four</cite>
-</aside></div>
+<h2>Add a subtitle</h2>
+<p>Use a heading element with an <code>xraytitle</code> class to add your own subtitle to the example text.</p>
+<p>Also works with a <code>data-title</code> attribute but that approach is deprecated.</p>
 
-    <h2>iframe</h2>
-		<p>
-			It's also possible to use an iframe for situations where styles (like
-			media queries) depend on the viewport. Specify the URL for the iframe
-			with <code>data-xrayhtml-iframe="iframe.html"</code> on
-			the <code>data-xrayhtml</code> element. You can also tell XRay where in
-			the iframe page to place the included markup
-			using <code>data-xrayhtml-iframe-target="#replace"</code>. Otherwise it
-			will default to replacing the <code>body</code> HTML with the code XRay
-			code snippet.
-		</p>
-		<div data-xrayhtml data-xrayhtml-iframe="iframe.html" data-xrayhtml-iframe-target="#replace" class="prism"><aside>
-	<blockquote>
-		<p>It is the unofficial force—the Baker Street irregulars.</p>
-	</blockquote>
-	<address>Sherlock Holmes</address>
-	<cite>Sign of Four</cite>
-</aside></div>
+<div data-xrayhtml>
+<h2 class="xraytitle">Parapraph</h2>
+<p>This is a paragraph with text.</p>
+</div>
 
-	</section>
+<h2>Anti-patterns and Bad Examples</h2>
+<p>Add <code>class="antipattern"</code> to show a bad example. Also works with subtitles as documented above.</p>
 
-	<script src="libs/shoestring-dev.js"></script>
-	<!--<script src="libs/jquery/jquery.js"></script>-->
-	<script src="src/X-rayHTML.js"></script>
+<div data-xrayhtml class="antipattern">
+<h2 class="xraytitle">Non-standard HTML</h2>
+<text><code>Text</code> is not a standard HTML element. Do not use this code.</text>
+</div>
 
-	<!-- Demo Extras! -->
-	<script src="libs/prism.min.js"></script>
+<h2>Flip</h2>
+<p>Setting “flip” as the value of the <code>data-xrayhtml</code> attribute will give you this snazzy flip-to-reveal animation (browsers without support for 3D tranforms will simply show/hide the code snippet).</p>
 
-	<script type="text/javascript">
-		$( window ).bind( "create.xrayhtml", function( e ) {
-			var prism = !!~e.target.getAttribute( "class" ).indexOf( "prism" );
+<div data-xrayhtml="flip">
+<aside>
+<blockquote>
+	<p>It is the unofficial force—the Baker Street irregulars.</p>
+</blockquote>
+<address>Sherlock Holmes</address>
+<cite>Sign of Four</cite>
+</aside>
+</div>
 
-			if( prism && "Prism" in window ) {
-				$( ".prism" ).find( "code" ).addClass( "language-markup" );
-				Prism.highlightAll();
-			}
-		});
+</section>
 
-	</script>
+<section>
+
+<h1 class="sub">Extras</h1>
+<p>The plugin fires off a <code>create.xrayhtml</code> event that can be used to attach features like syntax highlighting (using <a href="http://prismjs.com">Prism.js</a>), or "copy to clipboard" (using <a href="https://clipboardjs.com/">Clipboard</a>).</p>
+
+<h2>Prism.js</h2>
+<p>Add the <code>prism</code> class to the <code>data-xrayhtml</code> container to colorize the code snippet.</p>
+
+<div data-xrayhtml class="prism">
+<aside>
+<blockquote>
+	<p>It is the unofficial force—the Baker Street irregulars.</p>
+</blockquote>
+<address>Sherlock Holmes</address>
+<cite>Sign of Four</cite>
+</aside>
+</div>
+
+<h2>Copy (clipboard.js)</h2>
+<p>Add the <code>xray-copy</code> class to the <code>data-xrayhtml</code> container to append a "Copy" button to the code snippet; when clicked, it'll copy the entire snippet.</p>
+
+<div data-xrayhtml class="xray-copy">
+<aside>
+<blockquote>
+	<p>It is the unofficial force—the Baker Street irregulars.</p>
+</blockquote>
+<address>Sherlock Holmes</address>
+<cite>Sign of Four</cite>
+<p>(Copied from the demo page)</p>
+</aside>
+</div>
+
+<h2>iframe</h2>
+<p>It's also possible to use an iframe for situations where styles (like media queries) depend on the viewport. Specify the URL for the iframe with <code>data-xrayhtml-iframe="iframe.html"</code> on the <code>data-xrayhtml</code> element. You can also tell XRay where in the iframe page to place the included markup using <code>data-xrayhtml-iframe-target="#replace"</code>. Otherwise it will default to replacing the <code>body</code> HTML with the code XRay code snippet.</p>
+
+<div data-xrayhtml data-xrayhtml-iframe="iframe.html" data-xrayhtml-iframe-target="#replace" class="prism">
+<aside>
+<blockquote>
+	<p>It is the unofficial force—the Baker Street irregulars.</p>
+</blockquote>
+<address>Sherlock Holmes</address>
+<cite>Sign of Four</cite>
+</aside>
+</div>
+
+</section>
+
+<script src="src/lib/shoestring.js"></script>
+<!-- Or jquery: <script src="src/lib/jquery.js"></script> -->
+
+<script src="src/X-rayHTML.js"></script>
+
+<!-- Demo Extras! -->
+<script src="src/lib/prism.js"></script>
+<script src="src/lib/clipboard.js"></script>
+
+<script type="text/javascript">
+	$( window ).bind( "create.xrayhtml", function( e ) {
+
+		// Prism
+		var prism = !!~e.target.getAttribute( "class" ).indexOf( "prism" );
+
+		if( prism && "Prism" in window ) {
+			$( ".prism" ).find( "code" ).addClass( "language-markup" );
+			Prism.highlightAll();
+		}
+
+		// Clipboard
+		var copy = !!~e.target.getAttribute( "class" ).indexOf( "xray-copy" );
+
+		if( copy && "Clipboard" in window ) {
+			var $target = $( e.target );
+			var $snippet = $target.find( ".snippet" );
+			var html = $snippet.html();
+			var $link = $( "<a href='#' class='btn btn-xray-copy'>copy</a>" );
+
+			// place the link after the snippet but before the code
+			$snippet.after( $link );
+
+			// set of up the clipboard to use the html
+			new Clipboard($link[0], {
+				text: function(){
+					return html;
+				}
+			});
+
+			// disable the normal link click behavior
+			$link.bind( "click", function( e ){ e.preventDefault() });
+		}		
+	});
+
+</script>
+
 </body>
 </html>
