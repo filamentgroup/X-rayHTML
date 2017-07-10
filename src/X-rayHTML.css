@@ -30,7 +30,7 @@
 	margin-top: 2em;
 	tab-size: 2;
 }
-.xrayhtml .source-panel pre {
+.xrayhtml .source-panel > pre {
 	margin: 0;
 	padding: 16px;
 	border-radius: 0 0 .3em .3em;

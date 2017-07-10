@@ -9,12 +9,27 @@
 
 	<link href="demo/demo.css" rel="stylesheet">
 	<link href="src/X-rayHTML.css" rel="stylesheet">
+
+	<!-- Demo Extras! -->
 	<link href="src/lib/prism.css" rel="stylesheet">
+	<link href="src/lib/codemirror.css" rel="stylesheet">
 
 	<style>
 	.btn-xrayhtml-flipsource {
 		margin: 0 0 1em;
 	}
+
+	.xray-edit .source-panel > pre {
+		display: none;
+	}
+
+	.xray-edit .CodeMirror {
+		background: transparent;
+		height: auto;
+		font-size: 1.2em;
+		padding: 0 1em;
+	}
+	
 	</style>
 
 </head>
@@ -60,7 +75,7 @@
 </div>
 
 <h2>Flip</h2>
-<p>Setting “flip” as the value of the <code>data-xrayhtml</code> attribute will give you this snazzy flip-to-reveal animation (browsers without support for 3D tranforms will simply show/hide the code snippet).</p>
+<p>Setting "flip" as the value of the <code>data-xrayhtml</code> attribute will give you this snazzy flip-to-reveal animation (browsers without support for 3D tranforms will simply show/hide the code snippet).</p>
 
 <div data-xrayhtml="flip">
 <aside>
@@ -121,6 +136,25 @@
 
 </section>
 
+
+<h2>Edit in place</h2><!-- 
+<p><b>NOTE:</b> This feature does not work with Prism's code highlighting; Prism rewrites the source into <code>span</code> tags so it can be color-coded.</p> -->
+
+<div data-xrayhtml="flip" class="xray-edit">
+<aside>
+<blockquote>
+	<p>It is the unofficial force—the Baker Street irregulars.</p>
+</blockquote>
+<address>Sherlock Holmes</address>
+<cite>Sign of Four</cite>
+<p>(Copied from the demo page)</p>
+</aside>
+</div>
+
+
+
+
+
 <script src="src/lib/shoestring.js"></script>
 <!-- Or jquery: <script src="src/lib/jquery.js"></script> -->
 
@@ -129,6 +163,7 @@
 <!-- Demo Extras! -->
 <script src="src/lib/prism.js"></script>
 <script src="src/lib/clipboard.js"></script>
+<script src="src/lib/codemirror.js"></script>
 
 <script type="text/javascript">
 	$( window ).bind( "create.xrayhtml", function( e ) {
@@ -136,17 +171,18 @@
 		// Prism
 		var prism = !!~e.target.getAttribute( "class" ).indexOf( "prism" );
 
-		if( prism && "Prism" in window ) {
+		if ( prism && "Prism" in window ) {
 			$( ".prism" ).find( "code" ).addClass( "language-markup" );
 			Prism.highlightAll();
 		}
 
+
 		// Clipboard
 		var copy = !!~e.target.getAttribute( "class" ).indexOf( "xray-copy" );
 
-		if( copy && "Clipboard" in window ) {
-			var $target = $( e.target );
-			var $snippet = $target.find( ".snippet" );
+		if ( copy && "Clipboard" in window ) {
+			var $copyblock = $( e.target );
+			var $snippet = $copyblock.find( ".snippet" );
 			var html = $snippet.html();
 			var $link = $( "<a href='#' class='btn btn-xray-copy'>copy</a>" );
 
@@ -162,6 +198,32 @@
 
 			// disable the normal link click behavior
 			$link.bind( "click", function( e ){ e.preventDefault() });
+		}
+
+
+		// Edit (codemirror)
+		var edit = !!~e.target.getAttribute( "class" ).indexOf( "xray-edit" );
+
+		if( edit && "CodeMirror" in window ) {
+			var $xray = $( e.target );
+			var $snippet = $xray.find( ".snippet" );
+			var markup = $snippet.html();
+			var $source = $xray.find( ".source-panel" );
+			var edittimer;
+
+			var editor = CodeMirror( $source[0], {
+				value: markup,
+				mode: "text/html"
+			});
+
+			var updateXray = function(){
+				$snippet.html( editor.getValue() );
+			};
+
+			editor.on( "change", function(){
+				clearTimeout( edittimer );
+				edittimer = setTimeout( updateXray, 500 );				
+			});
 		}		
 	});
 

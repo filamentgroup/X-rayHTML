@@ -1,4 +1,4 @@
-/*! X-rayHTML - v2.1.5 - 2017-07-05
+/*! X-rayHTML - v2.1.5 - 2017-07-10
 * https://github.com/filamentgroup/x-rayhtml
 * Copyright (c) 2017 Filament Group; Licensed MIT */
 .xrayhtml {
@@ -33,7 +33,7 @@
 	margin-top: 2em;
 	tab-size: 2;
 }
-.xrayhtml .source-panel pre {
+.xrayhtml .source-panel > pre {
 	margin: 0;
 	padding: 16px;
 	border-radius: 0 0 .3em .3em;

@@ -40,12 +40,14 @@ module.exports = function(grunt) {
 
 		copy: {
 			libs: {
-				files: [
-					{ expand: true, cwd: 'node_modules/prismjs/themes/', src: [ 'prism.css' ], dest: 'src/lib/' },
+				files: [					
 					{ expand: true, cwd: 'node_modules/shoestring/dist/', src: [ 'shoestring.js' ], dest: 'src/lib/' },
 					{ expand: true, cwd: 'node_modules/jquery/dist/', src: [ 'jquery.js' ], dest: 'src/lib/' },
+					{ expand: true, cwd: 'node_modules/prismjs/themes/', src: [ 'prism.css' ], dest: 'src/lib/' },
 					{ expand: true, cwd: 'node_modules/prismjs/', src: [ 'prism.js' ], dest: 'src/lib/' },
-					{ expand: true, cwd: 'node_modules/clipboard/dist/', src: [ 'clipboard.js' ], dest: 'src/lib/' }
+					{ expand: true, cwd: 'node_modules/clipboard/dist/', src: [ 'clipboard.js' ], dest: 'src/lib/' },
+					{ expand: true, cwd: 'node_modules/codemirror/lib/', src: [ 'codemirror.css' ], dest: 'src/lib/' },
+					{ expand: true, cwd: 'node_modules/codemirror/lib/', src: [ 'codemirror.js' ], dest: 'src/lib/' }
 				]
 			}
 		},
