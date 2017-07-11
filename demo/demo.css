@@ -2,7 +2,7 @@
 
 /* Demo
 -------------------------- */
-.sub, h2 {
+.sub, h2, h3 {
 	font-family: sans-serif;
 }
 .sub {
@@ -11,6 +11,9 @@
 }
 h2 {
 	font-size: 1.1em;
+}
+h3 {
+	font-size: .9em;
 }
 
 .btn {

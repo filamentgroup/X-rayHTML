@@ -19,11 +19,11 @@
 		margin: 0 0 1em;
 	}
 
-	.xray-edit .source-panel > pre {
+	[class*="xray-edit"] .source-panel > pre {
 		display: none;
 	}
 
-	.xray-edit .CodeMirror {
+	[class*="xray-edit"] .CodeMirror {
 		background: transparent;
 		height: auto;
 		font-size: 1.2em;
@@ -137,8 +137,10 @@
 </section>
 
 
-<h2>Edit in place</h2><!-- 
-<p><b>NOTE:</b> This feature does not work with Prism's code highlighting; Prism rewrites the source into <code>span</code> tags so it can be color-coded.</p> -->
+<h2>Edit in place</h2>
+
+<h3>With flip (recommended)</h3>
+<p>Keep your code examples tidy while allowing in-browser edits.</p>
 
 <div data-xrayhtml="flip" class="xray-edit">
 <aside>
@@ -151,7 +153,19 @@
 </aside>
 </div>
 
+<h3>Inline</h3>
+<p>When editing inline, click the "preview" button to refresh the rendered example.</p>
 
+<div data-xrayhtml class="xray-edit-inline">
+<aside>
+<blockquote>
+	<p>It is the unofficial force—the Baker Street irregulars.</p>
+</blockquote>
+<address>Sherlock Holmes</address>
+<cite>Sign of Four</cite>
+<p>(Copied from the demo page)</p>
+</aside>
+</div>
 
 
 
@@ -204,7 +218,7 @@
 		// Edit (codemirror)
 		var edit = !!~e.target.getAttribute( "class" ).indexOf( "xray-edit" );
 
-		if( edit && "CodeMirror" in window ) {
+		if ( edit && "CodeMirror" in window ) {
 			var $xray = $( e.target );
 			var $snippet = $xray.find( ".snippet" );
 			var markup = $snippet.html();
@@ -220,10 +234,21 @@
 				$snippet.html( editor.getValue() );
 			};
 
-			editor.on( "change", function(){
-				clearTimeout( edittimer );
-				edittimer = setTimeout( updateXray, 500 );				
-			});
+			if ( $xray.is( ".xray-edit-inline" ) ) {
+				var $previewbtn = $( "<a class='btn btn-small btn-xrayhtml-preview' href='#'>Preview</a>" );
+				$previewbtn.on( "click", function( e ){
+					updateXray();
+					e.preventDefault();
+				});
+				$xray.before( $previewbtn );
+			}
+			else {
+				editor.on( "change", function(){
+					clearTimeout( edittimer );
+					edittimer = setTimeout( updateXray, 500 );				
+				});
+			}
+			
 		}		
 	});
 
