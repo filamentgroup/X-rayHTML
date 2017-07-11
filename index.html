@@ -91,16 +91,30 @@
 </aside>
 </div>
 
+
+<h2>iframe</h2>
+<p>It's also possible to use an iframe for situations where styles (like media queries) depend on the viewport. Specify the URL for the iframe with <code>data-xrayhtml-iframe="iframe.html"</code> on the <code>data-xrayhtml</code> element. You can also tell XRay where in the iframe page to place the included markup using <code>data-xrayhtml-iframe-target="#replace"</code>. Otherwise it will default to replacing the <code>body</code> HTML with the code XRay code snippet.</p>
+
+<div data-xrayhtml data-xrayhtml-iframe="iframe.html" data-xrayhtml-iframe-target="#replace">
+<aside>
+<blockquote>
+	<p>It is the unofficial force—the Baker Street irregulars.</p>
+</blockquote>
+<address>Sherlock Holmes</address>
+<cite>Sign of Four</cite>
+</aside>
+</div>
+
 </section>
 
 <section>
 
 <h1 class="sub">Extras</h1>
-<p>The plugin fires off a <code>create.xrayhtml</code> event that can be used to attach features like syntax highlighting (using <a href="http://prismjs.com">Prism.js</a>), or "copy to clipboard" (using <a href="https://clipboardjs.com/">Clipboard</a>).</p>
+<p>The plugin fires off a <code>create.xrayhtml</code> event that can be used to attach features like syntax highlighting (<a href="http://prismjs.com">Prism.js</a>), single-click copying (<a href="https://clipboardjs.com/">Clipboard</a>), or editing in the browser (<a href="http://codemirror.net/">CodeMirror</a>).</p>
 
 
 
-<h2>Prism.js</h2>
+<h2>Syntax highlighting (prism.js)</h2>
 <p>Add the <code>prism</code> class to the <code>data-xrayhtml</code> container to colorize the code snippet.</p>
 
 <div data-xrayhtml class="prism"><aside>
@@ -114,7 +128,7 @@
 
 
 
-<h2>Copy (clipboard.js)</h2>
+<h2>Copy markup (clipboard.js)</h2>
 <p>Add the <code>xray-copy</code> class to the <code>data-xrayhtml</code> container to append a "Copy" button to the code snippet; when clicked, it'll copy the entire snippet.</p>
 
 <h3>With flip</h3>
@@ -143,22 +157,7 @@
 
 
 
-<h2>iframe</h2>
-<p>It's also possible to use an iframe for situations where styles (like media queries) depend on the viewport. Specify the URL for the iframe with <code>data-xrayhtml-iframe="iframe.html"</code> on the <code>data-xrayhtml</code> element. You can also tell XRay where in the iframe page to place the included markup using <code>data-xrayhtml-iframe-target="#replace"</code>. Otherwise it will default to replacing the <code>body</code> HTML with the code XRay code snippet.</p>
-
-<div data-xrayhtml data-xrayhtml-iframe="iframe.html" data-xrayhtml-iframe-target="#replace" class="prism">
-<aside>
-<blockquote>
-	<p>It is the unofficial force—the Baker Street irregulars.</p>
-</blockquote>
-<address>Sherlock Holmes</address>
-<cite>Sign of Four</cite>
-</aside>
-</div>
-
-
-
-<h2>Edit in place</h2>
+<h2>Edit in browser (codemirror.js)</h2>
 <p>Add the <code>xray-edit</code> or <code>xray-edit-inline</code> class to the <code>data-xrayhtml</code> container to allow in-browser editing of the code snippet.</p>
 <p>Changes are temporary (undone when the page is refreshed), but can be copied easily when you also add the <code>xray-copy</code> class.</p>
 
@@ -178,7 +177,8 @@
 <h3>Inline</h3>
 <p>When editing inline, click the "preview" button to refresh the rendered example.</p>
 
-<div data-xrayhtml class="xray-edit-inline xray-copy"><aside>
+<div data-xrayhtml class="xray-edit-inline xray-copy">
+<aside>
 <blockquote>
 	<p>It is the unofficial force—the Baker Street irregulars.</p>
 </blockquote>
@@ -227,9 +227,8 @@
 			// set up the clipboard to use the saved (edited) or static snippet html
 			new Clipboard( $link[0], {
 				text: function( trigger ) {
-					var $container = $( trigger ).closest( ".xray-copy" );
-					var $savededits = $container.find( ".xray-saved-edits ");
-					return $savededits.length > 0 ? $savededits.val() : $container.find( ".snippet ").html();
+					var $contain = $( trigger ).closest( ".xray-copy" );
+					return $contain[0].getAttribute( "class" ).indexOf( "xray-edit" ) ? $contain.find( ".source-panel pre code" ).html() : $contain.find( ".snippet" ).html();
 				}
 			});			
 
@@ -256,14 +255,8 @@
 			var updateXray = function(){
 				$snippet.html( editor.getValue() );
 
-				// keep updated markup in a textarea for copying
-				if ( $xray.is( ".xray-copy") ) {
-					var $textarea = $( "<textarea class='xray-saved-edits' style='position: absolute; top: 0; left: 0; width: 1px; height: 1px; opacity: 0;'></textarea>" );
-					if ( !$source.find( ".xray-saved-edits" ).length > 0 ) {
-						$source.append( $textarea );
-					}
-					$textarea[0].value = editor.getValue();
-				}				
+				// keep updated markup for copying
+				$source.find( "pre code" ).html( editor.getValue() );
 			};
 
 			if ( $xray.is( ".xray-edit-inline" ) ) {
