@@ -23,6 +23,7 @@
 	}
 	.btn-xray-copy {
 		position: absolute;
+		z-index: 5;
 		width: auto;
 		bottom: 0;
 		right: 0;
@@ -97,11 +98,12 @@
 <h1 class="sub">Extras</h1>
 <p>The plugin fires off a <code>create.xrayhtml</code> event that can be used to attach features like syntax highlighting (using <a href="http://prismjs.com">Prism.js</a>), or "copy to clipboard" (using <a href="https://clipboardjs.com/">Clipboard</a>).</p>
 
+
+
 <h2>Prism.js</h2>
 <p>Add the <code>prism</code> class to the <code>data-xrayhtml</code> container to colorize the code snippet.</p>
 
-<div data-xrayhtml class="prism">
-<aside>
+<div data-xrayhtml class="prism"><aside>
 <blockquote>
 	<p>It is the unofficial force—the Baker Street irregulars.</p>
 </blockquote>
@@ -110,13 +112,14 @@
 </aside>
 </div>
 
+
+
 <h2>Copy (clipboard.js)</h2>
 <p>Add the <code>xray-copy</code> class to the <code>data-xrayhtml</code> container to append a "Copy" button to the code snippet; when clicked, it'll copy the entire snippet.</p>
 
 <h3>With flip</h3>
 
-<div data-xrayhtml="flip" class="xray-copy">
-<aside>
+<div data-xrayhtml="flip" class="xray-copy prism"><aside>
 <blockquote>
 	<p>It is the unofficial force—the Baker Street irregulars.</p>
 </blockquote>
@@ -128,8 +131,7 @@
 
 <h3>Inline</h3>
 
-<div data-xrayhtml class="xray-copy">
-<aside>
+<div data-xrayhtml class="xray-copy prism"><aside>
 <blockquote>
 	<p>It is the unofficial force—the Baker Street irregulars.</p>
 </blockquote>
@@ -154,16 +156,16 @@
 </aside>
 </div>
 
-</section>
 
 
 <h2>Edit in place</h2>
-<p>Add the <code>xray-edit</code> or <code>xray-edit-inline</code> class to the <code>data-xrayhtml</code> container to allow in-browser editing of the code snippet. Changes are temporary (undone when the page is refreshed, not saved), but can be copied easily when you also add the <code>xray-copy</code> class.</p>
+<p>Add the <code>xray-edit</code> or <code>xray-edit-inline</code> class to the <code>data-xrayhtml</code> container to allow in-browser editing of the code snippet.</p>
+<p>Changes are temporary (undone when the page is refreshed), but can be copied easily when you also add the <code>xray-copy</code> class.</p>
 
 <h3>With flip (recommended)</h3>
 <p>Keep your code examples tidy while allowing in-browser edits.</p>
 
-<div data-xrayhtml="flip" class="xray-edit">
+<div data-xrayhtml="flip" class="xray-edit xray-copy">
 <aside>
 <blockquote>
 	<p>It is the unofficial force—the Baker Street irregulars.</p>
@@ -176,8 +178,7 @@
 <h3>Inline</h3>
 <p>When editing inline, click the "preview" button to refresh the rendered example.</p>
 
-<div data-xrayhtml class="xray-edit-inline">
-<aside>
+<div data-xrayhtml class="xray-edit-inline xray-copy"><aside>
 <blockquote>
 	<p>It is the unofficial force—the Baker Street irregulars.</p>
 </blockquote>
@@ -186,6 +187,8 @@
 </aside>
 </div>
 
+
+</section>
 
 
 <script src="src/lib/shoestring.js"></script>
@@ -215,24 +218,24 @@
 
 		if ( copy && "Clipboard" in window ) {
 			var $copyblock = $( e.target );
-			var $snippet = $copyblock.find( ".snippet" );
 			var $source = $copyblock.find( ".source-panel" );
-			var html = $snippet.html();
 			var $link = $( "<a href='#' class='btn btn-xray-copy'>copy</a>" );
 
-			// place the link after the snippet but before the code
+			// place the link in the source block
 			$source.append( $link );
 
-			// set of up the clipboard to use the html
-			new Clipboard($link[0], {
-				text: function(){
-					return html;
+			// set up the clipboard to use the saved (edited) or static snippet html
+			new Clipboard( $link[0], {
+				text: function( trigger ) {
+					var $container = $( trigger ).closest( ".xray-copy" );
+					var $savededits = $container.find( ".xray-saved-edits ");
+					return $savededits.length > 0 ? $savededits.val() : $container.find( ".snippet ").html();
 				}
-			});
+			});			
 
 			// disable the normal link click behavior
 			$link.bind( "click", function( e ){ e.preventDefault() });
-		}
+		};
 
 
 		// Edit (codemirror)
@@ -252,6 +255,15 @@
 
 			var updateXray = function(){
 				$snippet.html( editor.getValue() );
+
+				// keep updated markup in a textarea for copying
+				if ( $xray.is( ".xray-copy") ) {
+					var $textarea = $( "<textarea class='xray-saved-edits' style='position: absolute; top: 0; left: 0; width: 1px; height: 1px; opacity: 0;'></textarea>" );
+					if ( !$source.find( ".xray-saved-edits" ).length > 0 ) {
+						$source.append( $textarea );
+					}
+					$textarea[0].value = editor.getValue();
+				}				
 			};
 
 			if ( $xray.is( ".xray-edit-inline" ) ) {
@@ -267,9 +279,9 @@
 					clearTimeout( edittimer );
 					edittimer = setTimeout( updateXray, 500 );				
 				});
-			}
-			
-		}		
+			}			
+		};
+
 	});
 
 </script>
