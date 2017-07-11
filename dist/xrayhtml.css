@@ -1,4 +1,4 @@
-/*! X-rayHTML - v2.1.5 - 2017-07-10
+/*! X-rayHTML - v2.1.5 - 2017-07-11
 * https://github.com/filamentgroup/x-rayhtml
 * Copyright (c) 2017 Filament Group; Licensed MIT */
 .xrayhtml {
@@ -135,4 +135,15 @@
 iframe.xray-iframe {
 	border: 0;
 	width: 100%
+}
+
+/* Edit code */
+[class*="xray-edit"] .source-panel > pre {
+	display: none;
+}
+
+[class*="xray-edit"] .CodeMirror {
+	background: transparent;
+	height: auto;
+	padding: 0 1em;
 }

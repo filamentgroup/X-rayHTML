@@ -18,18 +18,21 @@
 	.btn-xrayhtml-flipsource {
 		margin: 0 0 1em;
 	}
-
-	[class*="xray-edit"] .source-panel > pre {
-		display: none;
-	}
-
 	[class*="xray-edit"] .CodeMirror {
-		background: transparent;
-		height: auto;
 		font-size: 1.2em;
-		padding: 0 1em;
 	}
-	
+	.btn-xray-copy {
+		position: absolute;
+		width: auto;
+		bottom: 0;
+		right: 0;
+		padding: .5em 1em;
+		border-top-right-radius: 0;
+		border-bottom-right-radius: 0;
+		border-bottom-left-radius: 0;
+		border-right: 0;
+		border-bottom: 0;
+	}	
 	</style>
 
 </head>
@@ -110,6 +113,21 @@
 <h2>Copy (clipboard.js)</h2>
 <p>Add the <code>xray-copy</code> class to the <code>data-xrayhtml</code> container to append a "Copy" button to the code snippet; when clicked, it'll copy the entire snippet.</p>
 
+<h3>With flip</h3>
+
+<div data-xrayhtml="flip" class="xray-copy">
+<aside>
+<blockquote>
+	<p>It is the unofficial force—the Baker Street irregulars.</p>
+</blockquote>
+<address>Sherlock Holmes</address>
+<cite>Sign of Four</cite>
+<p>(Copied from the demo page)</p>
+</aside>
+</div>
+
+<h3>Inline</h3>
+
 <div data-xrayhtml class="xray-copy">
 <aside>
 <blockquote>
@@ -120,6 +138,8 @@
 <p>(Copied from the demo page)</p>
 </aside>
 </div>
+
+
 
 <h2>iframe</h2>
 <p>It's also possible to use an iframe for situations where styles (like media queries) depend on the viewport. Specify the URL for the iframe with <code>data-xrayhtml-iframe="iframe.html"</code> on the <code>data-xrayhtml</code> element. You can also tell XRay where in the iframe page to place the included markup using <code>data-xrayhtml-iframe-target="#replace"</code>. Otherwise it will default to replacing the <code>body</code> HTML with the code XRay code snippet.</p>
@@ -138,6 +158,7 @@
 
 
 <h2>Edit in place</h2>
+<p>Add the <code>xray-edit</code> or <code>xray-edit-inline</code> class to the <code>data-xrayhtml</code> container to allow in-browser editing of the code snippet. Changes are temporary (undone when the page is refreshed, not saved), but can be copied easily when you also add the <code>xray-copy</code> class.</p>
 
 <h3>With flip (recommended)</h3>
 <p>Keep your code examples tidy while allowing in-browser edits.</p>
@@ -149,7 +170,6 @@
 </blockquote>
 <address>Sherlock Holmes</address>
 <cite>Sign of Four</cite>
-<p>(Copied from the demo page)</p>
 </aside>
 </div>
 
@@ -163,7 +183,6 @@
 </blockquote>
 <address>Sherlock Holmes</address>
 <cite>Sign of Four</cite>
-<p>(Copied from the demo page)</p>
 </aside>
 </div>
 
@@ -197,11 +216,12 @@
 		if ( copy && "Clipboard" in window ) {
 			var $copyblock = $( e.target );
 			var $snippet = $copyblock.find( ".snippet" );
+			var $source = $copyblock.find( ".source-panel" );
 			var html = $snippet.html();
 			var $link = $( "<a href='#' class='btn btn-xray-copy'>copy</a>" );
 
 			// place the link after the snippet but before the code
-			$snippet.after( $link );
+			$source.append( $link );
 
 			// set of up the clipboard to use the html
 			new Clipboard($link[0], {
