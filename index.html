@@ -34,6 +34,9 @@
 		border-right: 0;
 		border-bottom: 0;
 	}	
+	.prism code {
+		font-size: .8em;
+	}
 	</style>
 
 </head>
@@ -48,22 +51,35 @@
 <h1 class="sub">Basics</h1>
 <p>By default, functionality is hooked to the <code>data-xrayhtml</code> attribute.</p>
 
+<div class="prism">
+<pre><code>&lt;div data-xrayhtml>
+	... markup goes here ...
+&lt;/div></code></pre>
+</div>
+
+
 <h2>Inline</h2>
 <p>Bolting the <code>data-xrayhtml</code> attribute on without a value will give you inline code snippets, like so:</p>
 
 <div data-xrayhtml>
 <aside>
-<blockquote>
-<p>It is the unofficial force—the Baker Street irregulars.</p>
-</blockquote>
-<address>Sherlock Holmes</address>
-<cite>Sign of Four</cite>
+	<blockquote>
+		<p>It is the unofficial force—the Baker Street irregulars.</p>
+	</blockquote>
+	<address>Sherlock Holmes</address>
+	<cite>Sign of Four</cite>
 </aside>
 </div>
 
 <h2>Add a subtitle</h2>
-<p>Use a heading element with an <code>xraytitle</code> class to add your own subtitle to the example text.</p>
-<p>Also works with a <code>data-title</code> attribute but that approach is deprecated.</p>
+<p>Use a heading element with an <code>xraytitle</code> class to add your own subtitle to the example text. An "Example" label preceeds the title you provide.</p>
+
+<div class="prism">
+<pre><code>&lt;div data-xrayhtml>
+	&lt;h2 class="xraytitle">Parapraph&lt;/h2>
+	&lt;p>This is a paragraph with text.&lt;/p>
+&lt;/div></code></pre>
+</div>
 
 <div data-xrayhtml>
 <h2 class="xraytitle">Parapraph</h2>
@@ -71,7 +87,14 @@
 </div>
 
 <h2>Anti-patterns and Bad Examples</h2>
-<p>Add <code>class="antipattern"</code> to show a bad example. Also works with subtitles as documented above.</p>
+<p>Add <code>class="antipattern"</code> to show a bad example. Also works with subtitles as documented above; instead of "Example", it adds a "Do not use" label.</p>
+
+<div class="prism">
+<pre><code>&lt;div data-xrayhtml class="antipattern">
+	&lt;h2 class="xraytitle">Non-standard HTML&lt;/h2>
+	&lt;text>&lt;code>Text&lt;/code> is not a standard HTML element. Do not use this code.&lt;/text>
+&lt;/div></code></pre>
+</div>
 
 <div data-xrayhtml class="antipattern">
 <h2 class="xraytitle">Non-standard HTML</h2>
@@ -81,13 +104,19 @@
 <h2>Flip</h2>
 <p>Setting "flip" as the value of the <code>data-xrayhtml</code> attribute will give you this snazzy flip-to-reveal animation (browsers without support for 3D tranforms will simply show/hide the code snippet).</p>
 
+<div class="prism">
+<pre><code>&lt;div data-xrayhtml="flip">
+	... markup ...
+&lt;/div></code></pre>
+</div>
+
 <div data-xrayhtml="flip">
 <aside>
-<blockquote>
-	<p>It is the unofficial force—the Baker Street irregulars.</p>
-</blockquote>
-<address>Sherlock Holmes</address>
-<cite>Sign of Four</cite>
+	<blockquote>
+		<p>It is the unofficial force—the Baker Street irregulars.</p>
+	</blockquote>
+	<address>Sherlock Holmes</address>
+	<cite>Sign of Four</cite>
 </aside>
 </div>
 
@@ -95,13 +124,19 @@
 <h2>iframe</h2>
 <p>It's also possible to use an iframe for situations where styles (like media queries) depend on the viewport. Specify the URL for the iframe with <code>data-xrayhtml-iframe="iframe.html"</code> on the <code>data-xrayhtml</code> element. You can also tell XRay where in the iframe page to place the included markup using <code>data-xrayhtml-iframe-target="#replace"</code>. Otherwise it will default to replacing the <code>body</code> HTML with the code XRay code snippet.</p>
 
+<div class="prism">
+<pre><code>&lt;div data-xrayhtml data-xrayhtml-iframe="iframe.html" data-xrayhtml-iframe-target="#replace">
+	... markup ...
+&lt;/div></code></pre>
+</div>
+
 <div data-xrayhtml data-xrayhtml-iframe="iframe.html" data-xrayhtml-iframe-target="#replace">
 <aside>
-<blockquote>
-	<p>It is the unofficial force—the Baker Street irregulars.</p>
-</blockquote>
-<address>Sherlock Holmes</address>
-<cite>Sign of Four</cite>
+	<blockquote>
+		<p>It is the unofficial force—the Baker Street irregulars.</p>
+	</blockquote>
+	<address>Sherlock Holmes</address>
+	<cite>Sign of Four</cite>
 </aside>
 </div>
 
@@ -117,12 +152,18 @@
 <h2>Syntax highlighting (prism.js)</h2>
 <p>Add the <code>prism</code> class to the <code>data-xrayhtml</code> container to colorize the code snippet.</p>
 
+<div class="prism">
+<pre><code>&lt;div data-xrayhtml class="prism">
+	... markup ...
+&lt;/div></code></pre>
+</div>
+
 <div data-xrayhtml class="prism"><aside>
-<blockquote>
-	<p>It is the unofficial force—the Baker Street irregulars.</p>
-</blockquote>
-<address>Sherlock Holmes</address>
-<cite>Sign of Four</cite>
+	<blockquote>
+		<p>It is the unofficial force—the Baker Street irregulars.</p>
+	</blockquote>
+	<address>Sherlock Holmes</address>
+	<cite>Sign of Four</cite>
 </aside>
 </div>
 
@@ -131,27 +172,33 @@
 <h2>Copy markup (clipboard.js)</h2>
 <p>Add the <code>xray-copy</code> class to the <code>data-xrayhtml</code> container to append a "Copy" button to the code snippet; when clicked, it'll copy the entire snippet.</p>
 
+<div class="prism">
+<pre><code>&lt;div data-xrayhtml class="xray-copy">
+	... markup ...
+&lt;/div></code></pre>
+</div>
+
 <h3>With flip</h3>
 
 <div data-xrayhtml="flip" class="xray-copy prism"><aside>
-<blockquote>
-	<p>It is the unofficial force—the Baker Street irregulars.</p>
-</blockquote>
-<address>Sherlock Holmes</address>
-<cite>Sign of Four</cite>
-<p>(Copied from the demo page)</p>
+	<blockquote>
+		<p>It is the unofficial force—the Baker Street irregulars.</p>
+	</blockquote>
+	<address>Sherlock Holmes</address>
+	<cite>Sign of Four</cite>
+	<p>(Copied from the demo page)</p>
 </aside>
 </div>
 
 <h3>Inline</h3>
 
 <div data-xrayhtml class="xray-copy prism"><aside>
-<blockquote>
-	<p>It is the unofficial force—the Baker Street irregulars.</p>
-</blockquote>
-<address>Sherlock Holmes</address>
-<cite>Sign of Four</cite>
-<p>(Copied from the demo page)</p>
+	<blockquote>
+		<p>It is the unofficial force—the Baker Street irregulars.</p>
+	</blockquote>
+	<address>Sherlock Holmes</address>
+	<cite>Sign of Four</cite>
+	<p>(Copied from the demo page)</p>
 </aside>
 </div>
 
@@ -161,16 +208,21 @@
 <p>Add the <code>xray-edit</code> or <code>xray-edit-inline</code> class to the <code>data-xrayhtml</code> container to allow in-browser editing of the code snippet.</p>
 <p>Changes are temporary (undone when the page is refreshed), but can be copied easily when you also add the <code>xray-copy</code> class.</p>
 
-<h3>With flip (recommended)</h3>
-<p>Keep your code examples tidy while allowing in-browser edits.</p>
+<div class="prism">
+<pre><code>&lt;div data-xrayhtml class="xray-edit">
+	... markup ...
+&lt;/div></code></pre>
+</div>
+
+<h3>With flip</h3>
 
 <div data-xrayhtml="flip" class="xray-edit xray-copy">
 <aside>
-<blockquote>
-	<p>It is the unofficial force—the Baker Street irregulars.</p>
-</blockquote>
-<address>Sherlock Holmes</address>
-<cite>Sign of Four</cite>
+	<blockquote>
+		<p>It is the unofficial force—the Baker Street irregulars.</p>
+	</blockquote>
+	<address>Sherlock Holmes</address>
+	<cite>Sign of Four</cite>
 </aside>
 </div>
 
@@ -179,11 +231,11 @@
 
 <div data-xrayhtml class="xray-edit-inline xray-copy">
 <aside>
-<blockquote>
-	<p>It is the unofficial force—the Baker Street irregulars.</p>
-</blockquote>
-<address>Sherlock Holmes</address>
-<cite>Sign of Four</cite>
+	<blockquote>
+		<p>It is the unofficial force—the Baker Street irregulars.</p>
+	</blockquote>
+	<address>Sherlock Holmes</address>
+	<cite>Sign of Four</cite>
 </aside>
 </div>
 
@@ -255,7 +307,7 @@
 			var updateXray = function(){
 				$snippet.html( editor.getValue() );
 
-				// keep updated markup for copying
+				// keep updated markup for copying when `xray-copy` is assigned
 				$source.find( "pre code" ).html( editor.getValue() );
 			};
 

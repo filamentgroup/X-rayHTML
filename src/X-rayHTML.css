@@ -85,6 +85,7 @@
 	z-index: 2;
 	min-height: 100%;
 	background-color: #fff;
+	border-radius: .3em;
 	padding: 1em;
 
 	-webkit-transform: rotateY(0deg);
