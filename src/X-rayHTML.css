@@ -2,9 +2,6 @@
 	border: 1px solid rgba(0,0,0,.1);
 	border-radius: .3em;
 	margin: 1.5em 0 2.5em 0;
-	padding: 1em 1em 2em;
-}
-.xrayhtml.xray-copy {
 	position: relative;
 }
 .xrayhtml .xraytitle {
@@ -15,8 +12,9 @@
 	background-color: #fff;
 	border-radius: 3px;
 	display: inline-block;
-	position: relative;
-	top: -2.166666667em; /* 26px */
+	position: absolute;
+	top: -.6em;
+	left: 1.5em;
 	padding-left: .1em;
 	padding-right: .1em;
 	z-index: 3;
@@ -30,9 +28,12 @@
 	margin-top: 2em;
 	tab-size: 2;
 }
+.xrayhtml .snippet,
+.xrayhtml .source-panel > pre {
+	padding: 16px;
+} 
 .xrayhtml .source-panel > pre {
 	margin: 0;
-	padding: 16px;
 	border-radius: 0 0 .3em .3em;
 }
 .xrayhtml .source-panel code {
@@ -43,7 +44,7 @@
 	border-radius: 0.3em;
 }
 .xrayhtml.method-inline .source-panel {
-	margin: 2em -1em -2em -1em !important; /* Prism override. */
+	margin: 0;
 	border-top: 1px solid rgba(0,0,0,.1);
 	border-radius: 0 0 .3em .3em;
 }
@@ -77,7 +78,7 @@
 	height: 100%;
 	overflow-x: auto;
 }
-.method-flip .snippet {
+.method-flip {
 	margin: 0 0 1px;
 	position: relative;
 	top: 0;
@@ -129,6 +130,18 @@
 		#ffffff 40%,
 		transparent);
 }
+
+.btn-xray-copy {
+	position: absolute;
+	z-index: 21;
+	width: auto;
+	bottom: 0;
+	right: 18px;
+	padding: .5em 1em;
+	border-bottom-right-radius: 0;
+	border-bottom-left-radius: 0;
+	border-bottom: 0;
+}	
 
 iframe.xray-iframe {
 	border: 0;

@@ -17,19 +17,6 @@
 	.btn-xrayhtml-flipsource {
 		margin: 0 0 1em;
 	}
-	.btn-xray-copy {
-		position: absolute;
-		z-index: 5;
-		width: auto;
-		bottom: 0;
-		right: 0;
-		padding: .5em 1em;
-		border-top-right-radius: 0;
-		border-bottom-right-radius: 0;
-		border-bottom-left-radius: 0;
-		border-right: 0;
-		border-bottom: 0;
-	}	
 	.prism code {
 		font-size: .8em;
 	}
@@ -212,28 +199,24 @@
 
 <h3>With flip</h3>
 
-<div data-xrayhtml="flip" class="xray-edit xray-copy prism">
-<aside>
+<div data-xrayhtml="flip" class="xray-edit xray-copy prism"><aside>
 	<blockquote>
 		<p>It is the unofficial force—the Baker Street irregulars.</p>
 	</blockquote>
 	<address>Sherlock Holmes</address>
 	<cite>Sign of Four</cite>
-</aside>
-</div>
+</aside></div>
 
 <h3>Inline</h3>
-<p>When editing inline, click the "preview" button to refresh the rendered example.</p>
+<p>When editing inline, click the "Refresh Preview" button to refresh the rendered example.</p>
 
-<div data-xrayhtml class="xray-edit-inline xray-copy prism">
-<aside>
+<div data-xrayhtml class="xray-edit-inline xray-copy prism"><aside>
 	<blockquote>
 		<p>It is the unofficial force—the Baker Street irregulars.</p>
 	</blockquote>
 	<address>Sherlock Holmes</address>
 	<cite>Sign of Four</cite>
-</aside>
-</div>
+</aside></div>
 
 
 </section>
@@ -303,7 +286,7 @@
 
 			// add 'preview' button for inline (non flip) version
 			if ( $xray.is( ".xray-edit-inline" ) ) {
-				var $previewbtn = $( "<a class='btn btn-small btn-xrayhtml-preview' href='#'>Preview</a>" );
+				var $previewbtn = $( "<a class='btn btn-small btn-xrayhtml-preview' href='#'>Refresh Preview</a>" );
 				$previewbtn.on( "click", function( e ){
 					updateXray();
 					e.preventDefault();
