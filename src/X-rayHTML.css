@@ -134,14 +134,3 @@ iframe.xray-iframe {
 	border: 0;
 	width: 100%
 }
-
-/* Edit code */
-[class*="xray-edit"] .source-panel > pre {
-	display: none;
-}
-
-[class*="xray-edit"] .CodeMirror {
-	background: transparent;
-	height: auto;
-	padding: 0 1em;
-}

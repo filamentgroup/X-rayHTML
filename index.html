@@ -12,14 +12,10 @@
 
 	<!-- Demo Extras! -->
 	<link href="src/lib/prism.css" rel="stylesheet">
-	<link href="src/lib/codemirror.css" rel="stylesheet">
 
 	<style>
 	.btn-xrayhtml-flipsource {
 		margin: 0 0 1em;
-	}
-	[class*="xray-edit"] .CodeMirror {
-		font-size: 1.2em;
 	}
 	.btn-xray-copy {
 		position: absolute;
@@ -145,7 +141,7 @@
 <section>
 
 <h1 class="sub">Extras</h1>
-<p>The plugin fires off a <code>create.xrayhtml</code> event that can be used to attach features like syntax highlighting (<a href="http://prismjs.com">Prism.js</a>), single-click copying (<a href="https://clipboardjs.com/">Clipboard</a>), or editing in the browser (<a href="http://codemirror.net/">CodeMirror</a>).</p>
+<p>The plugin fires off a <code>create.xrayhtml</code> event that can be used to attach features like syntax highlighting (<a href="http://prismjs.com">Prism.js</a>), single-click copying (<a href="https://clipboardjs.com/">Clipboard</a>), or editing in the browser.</p>
 
 
 
@@ -204,7 +200,7 @@
 
 
 
-<h2>Edit in browser (codemirror.js)</h2>
+<h2>Edit in browser</h2>
 <p>Add the <code>xray-edit</code> or <code>xray-edit-inline</code> class to the <code>data-xrayhtml</code> container to allow in-browser editing of the code snippet.</p>
 <p>Changes are temporary (undone when the page is refreshed), but can be copied easily when you also add the <code>xray-copy</code> class.</p>
 
@@ -216,7 +212,7 @@
 
 <h3>With flip</h3>
 
-<div data-xrayhtml="flip" class="xray-edit xray-copy">
+<div data-xrayhtml="flip" class="xray-edit xray-copy prism">
 <aside>
 	<blockquote>
 		<p>It is the unofficial force—the Baker Street irregulars.</p>
@@ -229,7 +225,7 @@
 <h3>Inline</h3>
 <p>When editing inline, click the "preview" button to refresh the rendered example.</p>
 
-<div data-xrayhtml class="xray-edit-inline xray-copy">
+<div data-xrayhtml class="xray-edit-inline xray-copy prism">
 <aside>
 	<blockquote>
 		<p>It is the unofficial force—the Baker Street irregulars.</p>
@@ -251,7 +247,6 @@
 <!-- Demo Extras! -->
 <script src="src/lib/prism.js"></script>
 <script src="src/lib/clipboard.js"></script>
-<script src="src/lib/codemirror.js"></script>
 
 <script type="text/javascript">
 	$( window ).bind( "create.xrayhtml", function( e ) {
@@ -268,49 +263,45 @@
 		// Clipboard
 		var copy = !!~e.target.getAttribute( "class" ).indexOf( "xray-copy" );
 
-		if ( copy && "Clipboard" in window ) {
-			var $copyblock = $( e.target );
-			var $source = $copyblock.find( ".source-panel" );
+		if( copy && "Clipboard" in window ) {
+			var $target = $( e.target );
+			var $source = $target.find( ".source-panel" );
 			var $link = $( "<a href='#' class='btn btn-xray-copy'>copy</a>" );
 
 			// place the link in the source block
 			$source.append( $link );
 
-			// set up the clipboard to use the saved (edited) or static snippet html
-			new Clipboard( $link[0], {
-				text: function( trigger ) {
-					var $contain = $( trigger ).closest( ".xray-copy" );
-					return $contain[0].getAttribute( "class" ).indexOf( "xray-edit" ) ? $contain.find( ".source-panel pre code" ).html() : $contain.find( ".snippet" ).html();
+			// set of up the clipboard to use the html
+			new Clipboard($link[0], {
+				text: function( trigger ){
+					return $( trigger ).prev().text();
 				}
-			});			
+			});
 
 			// disable the normal link click behavior
 			$link.bind( "click", function( e ){ e.preventDefault() });
 		};
 
 
-		// Edit (codemirror)
+		// Edit
 		var edit = !!~e.target.getAttribute( "class" ).indexOf( "xray-edit" );
 
-		if ( edit && "CodeMirror" in window ) {
+		if ( edit ) {
 			var $xray = $( e.target );
-			var $snippet = $xray.find( ".snippet" );
-			var markup = $snippet.html();
 			var $source = $xray.find( ".source-panel" );
-			var edittimer;
 
-			var editor = CodeMirror( $source[0], {
-				value: markup,
-				mode: "text/html"
-			});
+			// for scoping behavior-specific styles
+			$xray.addClass( "xray-edit-enhanced" );
+
+			// make the source block editable
+			$source.attr( "contenteditable", true );
 
 			var updateXray = function(){
-				$snippet.html( editor.getValue() );
-
-				// keep updated markup for copying when `xray-copy` is assigned
-				$source.find( "pre code" ).html( editor.getValue() );
+				var newsnippet = $source.find( "pre" ).text();
+				$xray.find( ".snippet" ).html( newsnippet );
 			};
 
+			// add 'preview' button for inline (non flip) version
 			if ( $xray.is( ".xray-edit-inline" ) ) {
 				var $previewbtn = $( "<a class='btn btn-small btn-xrayhtml-preview' href='#'>Preview</a>" );
 				$previewbtn.on( "click", function( e ){
@@ -319,12 +310,12 @@
 				});
 				$xray.before( $previewbtn );
 			}
+			// otherwise update when you view the demo
 			else {
-				editor.on( "change", function(){
-					clearTimeout( edittimer );
-					edittimer = setTimeout( updateXray, 500 );				
-				});
-			}			
+				if ( $xray.prev().is( ".btn-xrayhtml-flipsource" ) ) {
+					$xray.prev().on( "click", updateXray );
+				}
+			}
 		};
 
 	});
