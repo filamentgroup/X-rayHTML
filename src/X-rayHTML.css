@@ -20,13 +20,17 @@
 	z-index: 3;
 	margin: 0;
 }
-.xrayhtml.method-flip:before {
-	background-color: rgba(255,255,255,.6);
-}
 .xrayhtml .source-panel {
 	background: #f7f7f7;
-	margin-top: 2em;
 	tab-size: 2;
+}
+.xrayhtml.method-flip .source-panel {
+	border-radius: 0.3em;
+}
+.xrayhtml.method-inline .source-panel {
+	margin: 0;
+	border-top: 1px solid rgba(0,0,0,.1);
+	border-radius: 0 0 .3em .3em;
 }
 .xrayhtml .snippet,
 .xrayhtml .source-panel > pre {
@@ -38,15 +42,6 @@
 }
 .xrayhtml .source-panel code {
 	white-space: pre-wrap;
-}
-.xrayhtml.method-flip .source-panel {
-	margin-top: 0;
-	border-radius: 0.3em;
-}
-.xrayhtml.method-inline .source-panel {
-	margin: 0;
-	border-top: 1px solid rgba(0,0,0,.1);
-	border-radius: 0 0 .3em .3em;
 }
 /* Prism override. */
 .xrayhtml .source-panel code.language-markup {
@@ -62,73 +57,41 @@
 }
 
 /* Flip Animation */
-.xrayhtml.method-flip {
-	padding: 0;
-}
 .method-flip {
+	margin: 0 0 1px; /* fixes missing bottom border in FF */
+	background-color: #fff;
+	border-radius: .3em;
 	-webkit-perspective: 2500px;
 	-moz-perspective: 2500px;
 	perspective: 2500px;
 }
+.method-flip .flip-panel {
+	position: relative;
+	transition: all .4s ease-in-out;
+	transform-style: preserve-3d;
+}
+.method-flip.view-source .flip-panel {
+	transform: rotateY( 180deg );
+}
+.method-flip .snippet,
+.method-flip .source-panel {
+	backface-visibility: hidden;
+}
+/* front = snippet, back = source */
+.method-flip.view-source .snippet {
+	position: relative;
+	transform: rotateY( 0deg );
+	z-index: 2;
+}
 .method-flip .source-panel {
 	position: absolute;
+	z-index: 1;
 	top: 0;
 	left: 0;
 	width: 100%;
 	height: 100%;
 	overflow-x: auto;
-}
-.method-flip {
-	margin: 0 0 1px;
-	position: relative;
-	top: 0;
-	left: 0;
-	z-index: 2;
-	min-height: 100%;
-	background-color: #fff;
-	border-radius: .3em;
-	padding: 1em;
-
-	-webkit-transform: rotateY(0deg);
-	-webkit-transform-style: preserve-3d;
-	-webkit-backface-visibility: hidden;
-
-	-moz-transform: rotateY(0deg);
-	-moz-transform-style: preserve-3d;
-	-moz-backface-visibility: hidden;
-
-	-webkit-transition: -webkit-transform .4s ease-in-out;
-	-moz-transition: -moz-transform .4s ease-in-out;
-}
-.method-flip.view-source .snippet {
-	z-index: 1;
-	-webkit-transform: rotateY(180deg);
-	-moz-transform: rotateY(180deg);
-}
-.method-flip .source-panel {
-	-webkit-transform: rotateY(-180deg);
-	-webkit-backface-visibility: hidden;
-
-	-moz-transform: rotateY(-180deg);
-	-moz-backface-visibility: hidden;
-
-	-moz-transition: all .4s ease-in-out;
-	-webkit-transition: all .4s ease-in-out;
-}
-.method-flip.view-source .source-panel {
-	z-index: 2;
-	-webkit-transform: rotateY(0deg);
-	-moz-transform: rotateY(0deg);
-}
-
-.method-flip.view-source .xraytitle {
-	background-color: transparent;
-	background-image: linear-gradient(
-		to bottom,
-		transparent,
-		transparent 40%,
-		#ffffff 40%,
-		transparent);
+	transform: rotateY( 180deg );
 }
 
 .btn-xray-copy {

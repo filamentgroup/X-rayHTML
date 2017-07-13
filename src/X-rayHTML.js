@@ -23,6 +23,7 @@ window.jQuery = window.jQuery || window.shoestring;
 			button: "btn btn-small btn-xrayhtml-flipsource",
 			open: "view-source",
 			sourcepanel: "source-panel",
+			flippanel: "flip-panel",
 			title: "xraytitle",
 			antipattern: "antipattern"
 		},
@@ -144,9 +145,11 @@ window.jQuery = window.jQuery || window.shoestring;
 			var codeel = document.createElement( "code" );
 			var wrap = document.createElement( "div" );
 			var sourcepanel = document.createElement( "div" );
+			var flippanel = document.createElement( "div" );
 			var code;
 			var leadingWhiteSpace;
 			var source;
+			var method = $( this ).attr( "data-" + pluginName ) || o.defaultReveal;
 
 			if( title.length ) {
 				title = title[ 0 ];
@@ -179,7 +182,16 @@ window.jQuery = window.jQuery || window.shoestring;
 			sourcepanel.setAttribute( "class", o.classes.sourcepanel );
 			sourcepanel.appendChild( preel );
 
-			this.appendChild( sourcepanel );
+			if( method === "flip" ) {
+				flippanel.setAttribute( "class", o.classes.flippanel );
+				flippanel.appendChild( wrap );
+				flippanel.appendChild( sourcepanel );
+				this.appendChild( flippanel );
+			}
+			else {
+				this.appendChild( sourcepanel );
+			}
+			
 			this.insertBefore( title, this.firstChild );
 		}
 	};
