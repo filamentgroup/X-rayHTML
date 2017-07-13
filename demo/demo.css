@@ -42,7 +42,8 @@ h3 {
 }
 
 
-.method-inline .btn {
+.method-inline .btn,
+.method-flip .btn {
 	width: auto;
 	display: inline-block;
 	position: absolute;
@@ -54,10 +55,6 @@ h3 {
 	border-width: 1px 0 0 1px;
 }
 
-.method-flip .btn-copy {
-	border-width: 0 0 1px 0;
-	border-radius: 0;
-}
 .btn-small {
 	display: inline-block;
 	font-size: .8em;

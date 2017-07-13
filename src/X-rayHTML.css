@@ -73,17 +73,17 @@
 .method-flip.view-source .flip-panel {
 	transform: rotateY( 180deg );
 }
-.method-flip .snippet,
-.method-flip .source-panel {
+.flip-panel .snippet,
+.flip-panel .source-panel {
 	backface-visibility: hidden;
 }
 /* front = snippet, back = source */
-.method-flip.view-source .snippet {
+.flip-panel .snippet {
 	position: relative;
 	transform: rotateY( 0deg );
 	z-index: 2;
 }
-.method-flip .source-panel {
+.flip-panel .source-panel {
 	position: absolute;
 	z-index: 1;
 	top: 0;
@@ -93,18 +93,6 @@
 	overflow-x: auto;
 	transform: rotateY( 180deg );
 }
-
-.btn-xray-copy {
-	position: absolute;
-	z-index: 21;
-	width: auto;
-	bottom: 0;
-	right: 18px;
-	padding: .5em 1em;
-	border-bottom-right-radius: 0;
-	border-bottom-left-radius: 0;
-	border-bottom: 0;
-}	
 
 iframe.xray-iframe {
 	border: 0;
