@@ -42,19 +42,6 @@ h3 {
 }
 
 
-.method-inline .btn,
-.method-flip .btn {
-	width: auto;
-	display: inline-block;
-	position: absolute;
-	right: 0;
-	bottom: 0;
-	padding-left: 1em;
-	padding-right: 1em;
-	border-radius: 5px 0 0 0;
-	border-width: 1px 0 0 1px;
-}
-
 .btn-small {
 	display: inline-block;
 	font-size: .8em;
