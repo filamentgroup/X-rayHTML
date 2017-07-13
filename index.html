@@ -247,17 +247,16 @@
 		var copy = !!~e.target.getAttribute( "class" ).indexOf( "xray-copy" );
 
 		if( copy && "Clipboard" in window ) {
-			var $target = $( e.target );
-			var $source = $target.find( ".source-panel" );
+			var $xray = $( e.target );
+			var $source = $xray.find( ".source-panel" );
 			var $link = $( "<a href='#' class='btn btn-xray-copy'>copy</a>" );
 
-			// place the link in the source block
-			$target.append( $link );
+			$xray.append( $link );
 
 			// set of up the clipboard to use the html
 			new Clipboard($link[0], {
-				text: function( trigger ){
-					return $( trigger ).prev().text();
+				text: function(){
+					return $source.text();
 				}
 			});
 
