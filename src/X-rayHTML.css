@@ -21,6 +21,7 @@
 	margin: 0;
 }
 .xrayhtml .source-panel {
+	width: 100%;
 	background: #f7f7f7;
 	tab-size: 2;
 }
