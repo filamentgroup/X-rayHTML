@@ -33,13 +33,15 @@
 	border-top: 1px solid rgba(0,0,0,.1);
 	border-radius: 0 0 .3em .3em;
 }
-.xrayhtml .snippet {
-	background-color: #fff;
-}
 .xrayhtml .snippet,
 .xrayhtml .source-panel > pre {
 	padding: 16px;
 } 
+.xrayhtml .snippet {
+	overflow: hidden;
+	background-color: #fff;
+	padding-top: 25px;
+}
 .xrayhtml .source-panel > pre {
 	margin: 0;
 	border-radius: 0 0 .3em .3em;

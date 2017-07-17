@@ -180,18 +180,16 @@ window.jQuery = window.jQuery || window.shoestring;
 			preel.appendChild( codeel );
 
 			sourcepanel.setAttribute( "class", o.classes.sourcepanel );
-			sourcepanel.appendChild( preel );
+			sourcepanel.appendChild( preel );				
+
+			this.appendChild( sourcepanel );
 
 			if( method === "flip" ) {
+				var flippanel = document.createElement( "div" );
 				flippanel.setAttribute( "class", o.classes.flippanel );
-				flippanel.appendChild( wrap );
-				flippanel.appendChild( sourcepanel );
-				this.appendChild( flippanel );
+				$( el ).wrapInner( flippanel );
 			}
-			else {
-				this.appendChild( sourcepanel );
-			}
-			
+
 			this.insertBefore( title, this.firstChild );
 		}
 	};
