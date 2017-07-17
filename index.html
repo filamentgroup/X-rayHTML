@@ -262,7 +262,7 @@
 		if( copy && "Clipboard" in window ) {
 			var $xray = $( e.target );
 			var $source = $xray.find( ".source-panel" );
-			var $link = $( "<a href='#' class='btn btn-xray-copy'>copy</a>" );
+			var $link = $( "<a href='#' class='btn btn-small btn-xrayhtml-copy'>copy</a>" );
 
 			$xray.append( $link );
 
@@ -307,8 +307,9 @@
 			}
 			// otherwise update when you view the demo
 			else {
-				if ( $xray.prev().is( ".btn-xrayhtml-flipsource" ) ) {
-					$xray.prev().on( "click", updateXray );
+				if ( $xray.is( "[data-xrayhtml=flip]" ) ) {
+					var $btn = $xray.find( ".btn-xrayhtml-flipsource" );
+					$btn.on( "click", updateXray );
 				}
 			}
 		};
