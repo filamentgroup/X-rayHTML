@@ -1,15 +1,20 @@
+/*! X-rayHTML - v2.2 - 2017-07-17
+* https://github.com/filamentgroup/x-rayhtml
+* Copyright (c) 2017 Filament Group; Licensed MIT */
 /*! X-rayHTML - v2.1.5 - 2017-07-13
 * https://github.com/filamentgroup/x-rayhtml
 * Copyright (c) 2017 Filament Group; Licensed MIT */
 window.jQuery = window.jQuery || window.shoestring;
 
 (function( $ ) {
-  var xrayiframeid = 0;
-  var pluginName = "xrayhtml",
+	var xrayiframeid = 0;
+	var pluginName = "xrayhtml",
 		o = {
 		text: {
 			open: "View Source",
 			close: "View Demo",
+			edit: "View & Edit HTML",
+			preview: "Preview",
 			titlePrefix: "Example",
 			antipattern: "Do Not Use"
 		},
@@ -19,7 +24,8 @@ window.jQuery = window.jQuery || window.shoestring;
 			sourcepanel: "source-panel",
 			flippanel: "flip-panel",
 			title: "xraytitle",
-			antipattern: "antipattern"
+			antipattern: "antipattern",
+			editable: "xray-edit"
 		},
 		initSelector: "[data-" + pluginName + "]",
 		defaultReveal: "inline"
@@ -41,14 +47,9 @@ window.jQuery = window.jQuery || window.shoestring;
 		},
 		_init: function() {
 			var $self =	 $(this);
-
-			$self.data( "id." + pluginName, xrayiframeid++);
-
 			var method = $( this ).attr( "data-" + pluginName ) || o.defaultReveal;
 
-			if( method === "flip" ) {
-				$( this )[ pluginName ]( "_createButton" );
-			}
+			$self.data( "id." + pluginName, xrayiframeid++);
 
 			$( this )
 				.addClass( pluginName + " " + "method-" + method )
@@ -105,9 +106,12 @@ window.jQuery = window.jQuery || window.shoestring;
 			}
 		},
 		_createButton: function() {
-			var btn = document.createElement( "a" ),
-				txt = document.createTextNode( o.text.open ),
-				el = $( this );
+			var el = $( this ),
+				isEditable = $( el ).is( "." + o.classes.editable ),
+				txtopen = isEditable ? o.text.edit : o.text.open,
+				txtclose = isEditable ? o.text.preview : o.text.close,
+				txt = document.createTextNode( txtopen ),
+				btn = document.createElement( "a" );
 
 			btn.setAttribute( "class", o.classes.button );
 			btn.href = "#";
@@ -118,12 +122,12 @@ window.jQuery = window.jQuery || window.shoestring;
 					var isOpen = el.attr( "class" ).indexOf( o.classes.open ) > -1;
 
 					el[ isOpen ? "removeClass" : "addClass" ]( o.classes.open );
-					btn.innerHTML = ( isOpen ? o.text.open : o.text.close );
+					btn.innerHTML = ( isOpen ? txtopen : txtclose );
 
 					e.preventDefault();
+				});
 
-				})
-				.insertBefore( el );
+			$( el ).append( btn );
 		},
 		_createSource: function() {
 			var el = this;
@@ -139,11 +143,9 @@ window.jQuery = window.jQuery || window.shoestring;
 			var codeel = document.createElement( "code" );
 			var wrap = document.createElement( "div" );
 			var sourcepanel = document.createElement( "div" );
-			var flippanel = document.createElement( "div" );
 			var code;
 			var leadingWhiteSpace;
 			var source;
-			var method = $( this ).attr( "data-" + pluginName ) || o.defaultReveal;
 
 			if( title.length ) {
 				title = title[ 0 ];
@@ -174,18 +176,19 @@ window.jQuery = window.jQuery || window.shoestring;
 			preel.appendChild( codeel );
 
 			sourcepanel.setAttribute( "class", o.classes.sourcepanel );
-			sourcepanel.appendChild( preel );
+			sourcepanel.appendChild( preel );				
 
-			if( method === "flip" ) {
+			this.appendChild( sourcepanel );
+
+			var method = $( this ).attr( "data-" + pluginName ) || o.defaultReveal;
+
+			if ( method === "flip" ) {
+				var flippanel = document.createElement( "div" );
 				flippanel.setAttribute( "class", o.classes.flippanel );
-				flippanel.appendChild( wrap );
-				flippanel.appendChild( sourcepanel );
-				this.appendChild( flippanel );
+				$( el ).wrapInner( flippanel );
+				$( this )[ pluginName ]( "_createButton" );
 			}
-			else {
-				this.appendChild( sourcepanel );
-			}
-			
+
 			this.insertBefore( title, this.firstChild );
 		}
 	};

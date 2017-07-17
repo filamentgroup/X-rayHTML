@@ -1,4 +1,4 @@
-/*! X-rayHTML - v2.1.5 - 2017-07-13
+/*! X-rayHTML - v2.2 - 2017-07-17
 * https://github.com/filamentgroup/x-rayhtml
 * Copyright (c) 2017 Filament Group; Licensed MIT */
 .xrayhtml {
@@ -24,6 +24,7 @@
 	margin: 0;
 }
 .xrayhtml .source-panel {
+	width: 100%;
 	background: #f7f7f7;
 	tab-size: 2;
 }
@@ -35,13 +36,15 @@
 	border-top: 1px solid rgba(0,0,0,.1);
 	border-radius: 0 0 .3em .3em;
 }
-.xrayhtml .snippet {
-	background-color: #fff;
-}
 .xrayhtml .snippet,
 .xrayhtml .source-panel > pre {
 	padding: 16px;
 } 
+.xrayhtml .snippet {
+	overflow: hidden;
+	background-color: #fff;
+	padding-top: 25px;
+}
 .xrayhtml .source-panel > pre {
 	margin: 0;
 	border-radius: 0 0 .3em .3em;

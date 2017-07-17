@@ -104,7 +104,7 @@ window.jQuery = window.jQuery || window.shoestring;
 		},
 		_createButton: function() {
 			var el = $( this ),
-				isEditable = $( el ).is( "." + editable ),
+				isEditable = $( el ).is( "." + o.classes.editable ),
 				txtopen = isEditable ? o.text.edit : o.text.open,
 				txtclose = isEditable ? o.text.preview : o.text.close,
 				txt = document.createTextNode( txtopen ),

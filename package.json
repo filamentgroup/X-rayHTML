@@ -3,13 +3,19 @@
   "title": "X-rayHTML",
   "description": "A plugin to easily show examples of components with the markup to use them.",
   "homepage": "https://github.com/filamentgroup/x-rayhtml",
-  "version": "2.1.5",
+  "version": "2.2",
   "author": "Mat Marquis",
   "contributors": [
     {
       "name": "Zach Leatherman",
       "company": "Filament Group",
       "email": "zach@filamentgroup.com",
+      "url": "http://filamentgroup.com/"
+    },
+    {
+      "name": "Maggie Wachs",
+      "company": "Filament Group",
+      "email": "maggie@filamentgroup.com",
       "url": "http://filamentgroup.com/"
     }
   ],
