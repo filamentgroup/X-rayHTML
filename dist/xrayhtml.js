@@ -1,6 +1,6 @@
-/*! X-rayHTML - v2.1.5 - 2017-07-05
+/*! X-rayHTML - v2.2.0 - 2018-07-11
 * https://github.com/filamentgroup/x-rayhtml
-* Copyright (c) 2017 Filament Group; Licensed MIT */
+* Copyright (c) 2018 Filament Group; Licensed MIT */
 window.jQuery = window.jQuery || window.shoestring;
 
 (function( $ ) {
@@ -132,15 +132,9 @@ window.jQuery = window.jQuery || window.shoestring;
 				}
 				return o.text.titlePrefix;
 			};
+
 			var title = el.getElementsByClassName( o.classes.title );
 			var deprecatedTitle;
-			var preel = document.createElement( "pre" );
-			var codeel = document.createElement( "code" );
-			var wrap = document.createElement( "div" );
-			var sourcepanel = document.createElement( "div" );
-			var code;
-			var leadingWhiteSpace;
-			var source;
 
 			if( title.length ) {
 				title = title[ 0 ];
@@ -153,8 +147,24 @@ window.jQuery = window.jQuery || window.shoestring;
 				title.innerHTML = getPrefixText() + ( deprecatedTitle ? ": " + deprecatedTitle : "" );
 			}
 
+			var suppliedsourcepanel = $( el ).find("." + o.classes.sourcepanel );
+			var sourcepanel = document.createElement( "div" );
+			var preel = document.createElement( "pre" );
+			var codeel = document.createElement( "code" );
+			var wrap = document.createElement( "div" );
+			var code;
+			var leadingWhiteSpace;
+			var source;
+
+			if( suppliedsourcepanel.length ) {
+				code = suppliedsourcepanel[0].innerHTML;
+				suppliedsourcepanel.remove();
+			} else {
+				code = el.innerHTML;
+			}
+
 			// remove empty value attributes
-			code = el.innerHTML.replace( /\=\"\"/g, '' );
+			code = code.replace( /\=\"\"/g, '' );
 			leadingWhiteSpace = code.match( /(^[\s]+)/ );
 
 			if( leadingWhiteSpace ) {
@@ -174,6 +184,7 @@ window.jQuery = window.jQuery || window.shoestring;
 			sourcepanel.appendChild( preel );
 
 			this.appendChild( sourcepanel );
+
 			this.insertBefore( title, this.firstChild );
 		}
 	};

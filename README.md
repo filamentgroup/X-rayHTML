@@ -13,7 +13,7 @@ Instead of dropping in a block of markup to render as a demo, then copying and p
 
 ## Install
 
-This plugin is available on npm as `xrayhtml`.
+This plugin is available on npm as [`xrayhtml`](https://www.npmjs.com/package/xrayhtml).
 
 ```
 npm install xrayhtml
