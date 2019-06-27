@@ -34,22 +34,31 @@
 		};
 	}
 
-	// If DOM is already ready at exec time, depends on the browser.
-	// From: https://github.com/mobify/mobifyjs/blob/526841be5509e28fc949038021799e4223479f8d/src/capture.js#L128
-	if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
-		runReady();
-	} else {
-		if( !document.addEventListener ){
-			document.attachEvent( "DOMContentLoaded", runReady );
-			document.attachEvent( "onreadystatechange", runReady );
-		} else {
-			document.addEventListener( "DOMContentLoaded", runReady, false );
-			document.addEventListener( "readystatechange", runReady, false );
-		}
-		window.addEventListener( "load", runReady, false );
-	}
+	// reset ready state with new content for the iframe
+	// TODO bind to load event for other items, e.g. stylesheets
+	function resetReady(){
+		ready = false;
+		var eventCounter = 0;
+		var images = document.querySelectorAll("img");
 
-	// end domready code
+		if(! images.length ){
+			runReady();
+			return;
+		}
+
+		var eventIncrement = function(e){
+			eventCounter++;
+
+			// all of the images and the load event
+			if(eventCounter === images.length){
+				runReady();
+			}
+		};
+
+		for (var img of images){
+			img.addEventListener("load", eventIncrement, false);
+		}
+	}
 
 	function sendSize( iframeid ){
 		window
@@ -75,6 +84,10 @@
 		// use the passed information to populate the page
 		elem.innerHTML = data.html;
 		id = data.id;
+
+		// the document is now not ready and needs to wait until everything
+		// new has loaded (proxy: when all the images have loaded)
+		resetReady();
 
 		// wait until everything loads to calc the height and communicate it
 		// TODO it would be better to bind to the load of the styles at least
