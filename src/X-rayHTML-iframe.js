@@ -46,7 +46,7 @@
 			return;
 		}
 
-		var eventIncrement = function(e){
+		var eventIncrement = function(){
 			eventCounter++;
 
 			// all of the images and the load event
@@ -55,8 +55,8 @@
 			}
 		};
 
-		for (var img of images){
-			img.addEventListener("load", eventIncrement, false);
+		for(var i = 0; i < images.length; ++i){
+			images[i].addEventListener("load", eventIncrement, false);
 		}
 	}
 
