@@ -46,7 +46,7 @@
 		}
 
 		var eventIncrement = function(event){
-			if( event.target.tagName != 'IMG' ){
+			if( event.target.tagName !== 'IMG' ){
 				return;
 			}
 

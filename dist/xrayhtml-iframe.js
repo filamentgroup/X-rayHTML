@@ -1,4 +1,4 @@
-/*! X-rayHTML - v2.2.0 - 2019-06-27
+/*! X-rayHTML - v2.2.0 - 2019-06-28
 * https://github.com/filamentgroup/x-rayhtml
 * Copyright (c) 2019 Filament Group; Licensed MIT */
 (function(){
@@ -39,28 +39,29 @@
 
 	// reset ready state with new content for the iframe
 	// TODO bind to load event for other items, e.g. stylesheets
-	function resetReady(){
+	function resetReady(imageCount){
 		ready = false;
 		var eventCounter = 0;
-		var images = document.querySelectorAll("img");
 
-		if(! images.length ){
+		if(! imageCount ){
 			runReady();
 			return;
 		}
 
-		var eventIncrement = function(){
+		var eventIncrement = function(event){
+			if( event.target.tagName !== 'IMG' ){
+				return;
+			}
+
 			eventCounter++;
 
 			// all of the images and the load event
-			if(eventCounter === images.length){
+			if(eventCounter === imageCount){
 				runReady();
 			}
 		};
 
-		for(var i = 0; i < images.length; ++i){
-			images[i].addEventListener("load", eventIncrement, false);
-		}
+		document.body.addEventListener("load", eventIncrement, true);
 	}
 
 	function sendSize( iframeid ){
@@ -83,14 +84,19 @@
 
 		var data = event.data || event.originalEvent.data;
 		var elem = document.querySelector(data.selector || "body");
-
-		// use the passed information to populate the page
-		elem.innerHTML = data.html;
-		id = data.id;
+		var fragment = document.createElement("div");
+		fragment.innerHTML = data.html;
 
 		// the document is now not ready and needs to wait until everything
 		// new has loaded (proxy: when all the images have loaded)
-		resetReady();
+		resetReady(fragment.querySelectorAll("img").length);
+
+		// use the passed information to populate the page
+		for(var x = 0; x < fragment.children.length; x++) {
+			elem.append(fragment.children[0]);
+		}
+
+		id = data.id;
 
 		// wait until everything loads to calc the height and communicate it
 		// TODO it would be better to bind to the load of the styles at least
