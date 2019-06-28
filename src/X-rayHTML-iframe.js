@@ -34,22 +34,32 @@
 		};
 	}
 
-	// If DOM is already ready at exec time, depends on the browser.
-	// From: https://github.com/mobify/mobifyjs/blob/526841be5509e28fc949038021799e4223479f8d/src/capture.js#L128
-	if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
-		runReady();
-	} else {
-		if( !document.addEventListener ){
-			document.attachEvent( "DOMContentLoaded", runReady );
-			document.attachEvent( "onreadystatechange", runReady );
-		} else {
-			document.addEventListener( "DOMContentLoaded", runReady, false );
-			document.addEventListener( "readystatechange", runReady, false );
-		}
-		window.addEventListener( "load", runReady, false );
-	}
+	// reset ready state with new content for the iframe
+	// TODO bind to load event for other items, e.g. stylesheets
+	function resetReady(imageCount){
+		ready = false;
+		var eventCounter = 0;
 
-	// end domready code
+		if(! imageCount ){
+			runReady();
+			return;
+		}
+
+		var eventIncrement = function(event){
+			if( event.target.tagName !== 'IMG' ){
+				return;
+			}
+
+			eventCounter++;
+
+			// all of the images and the load event
+			if(eventCounter === imageCount){
+				runReady();
+			}
+		};
+
+		document.body.addEventListener("load", eventIncrement, true);
+	}
 
 	function sendSize( iframeid ){
 		window
@@ -71,9 +81,18 @@
 
 		var data = event.data || event.originalEvent.data;
 		var elem = document.querySelector(data.selector || "body");
+		var fragment = document.createElement("div");
+		fragment.innerHTML = data.html;
+
+		// the document is now not ready and needs to wait until everything
+		// new has loaded (proxy: when all the images have loaded)
+		resetReady(fragment.querySelectorAll("img").length);
 
 		// use the passed information to populate the page
-		elem.innerHTML = data.html;
+		for(var x = 0; x < fragment.children.length; x++) {
+			elem.append(fragment.children[0]);
+		}
+
 		id = data.id;
 
 		// wait until everything loads to calc the height and communicate it
